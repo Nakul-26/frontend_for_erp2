@@ -51,7 +51,7 @@ function ModifyStudentPage() {
       setLoading(true);
 
       try {
-        const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const API_BASE_URL = import.meta.env.VITE_API_URL;
         const response = await axios.get(
           `${API_BASE_URL}/api/v1/admin/student/${s_id}`,
           { withCredentials: true }
@@ -102,7 +102,7 @@ function ModifyStudentPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
 
     try {
       const response = await axios.put(

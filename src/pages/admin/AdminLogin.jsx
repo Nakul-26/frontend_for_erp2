@@ -18,7 +18,7 @@ function AdminLogin() {
     setError('');
     setIsLoading(true);
 
-    const API_BASE_URL = 'https://quantumx-wmbl.onrender.com';
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
 
     if (!API_BASE_URL) {
       setError('Server configuration error');

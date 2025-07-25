@@ -18,7 +18,7 @@ function TeacherLogin() {
     setError(''); // Clear previous errors
 
     // Correctly access environment variable using import.meta.env
-    // Make sure your .env file has VITE_API_URL defined (e.g., VITE_API_URL=http://localhost:5000)
+    // Make sure your .env file has VITE_API_URL defined)
     const API_BASE_URL = import.meta.env.VITE_API_URL;
 
     try {

@@ -6,7 +6,7 @@ import '../styles/Card.css';
 
 function StudentCard({ student, onDelete }) {
   const navigate = useNavigate();
-  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   console.log('StudentCard student:', student); // Debug data
 
