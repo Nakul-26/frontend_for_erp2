@@ -18,8 +18,10 @@ function TeacherChangePassword() {
     setSuccess('');
 
     try {
+      // Use environment variable for backend URL
+      const API_BASE_URL = import.meta.env.VITE_API_URL;
       const response = await axios.post(
-        'https://your-backend-domain.com/teacher/changepassword',
+        `${API_BASE_URL}/teacher/changepassword`,
         { oldpassword: oldPassword, newpassword: newPassword },
         { withCredentials: true }
       );
