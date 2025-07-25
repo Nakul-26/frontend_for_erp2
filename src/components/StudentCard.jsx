@@ -6,9 +6,10 @@ import '../styles/Card.css';
 
 function StudentCard({ student, onDelete }) {
   const navigate = useNavigate();
+  // Sensitive API base URL is now loaded from .env
   const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-  console.log('StudentCard student:', student); // Debug data
+  // console.log('StudentCard student:', student); // Debug data (disabled for production)
 
   const handleDelete = async () => {
     if (!window.confirm(`Are you sure you want to delete student ${student.s_id}?`)) return;
