@@ -1,0 +1,113 @@
+/* src/styles/Login.css (Login2 Specific) */
+.login2-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  padding: var(--spacing-sm);
+}
+
+.login2-container {
+  background: var(--surface);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 400px; /* Limits container width on larger screens */
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.avatar2 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.avatar2 svg {
+  background: var(--primary);
+  padding: var(--spacing-sm);
+  border-radius: 50%;
+}
+
+.login2-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.input2-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input2-group .input2-icon {
+  position: absolute;
+  left: var(--spacing-sm);
+  color: var(--text-muted);
+}
+
+.input2-group input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-base);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input2-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+/* Error and success messages (shared styles) */
+.error-message,
+.success-message {
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+.login2-options {
+  display: flex;
+  justify-content: flex-end;
+  margin: var(--spacing-sm) 0;
+}
+
+.login2-options a {
+  font-size: var(--font-size-sm);
+  color: var(--primary);
+}
+
+.login2-button {
+  background: var(--primary);
+  color: rgb(0, 0, 0);
+  padding: var(--spacing-sm);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+}
+
+.login2-button:hover {
+  background: var(--primary-dark);
+}
+
+.login2-button:disabled {
+  background: var(--secondary);
+  cursor: not-allowed;
+}
+
+/* Responsive Design for Login2 */
+@media (max-width: 480px) {
+  .login2-container {
+    padding: var(--spacing-md);
+    max-width: 90%; /* Adjust max-width for very small screens */
+  }
+
+  .login2-button {
+    font-size: var(--font-size-sm);
+  }
+}

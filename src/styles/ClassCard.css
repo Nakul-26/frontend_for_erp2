@@ -1,0 +1,202 @@
+/* src/styles/Card.css (Class Card Specific) */
+.class-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  max-width: 400px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.class-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.class-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.class-card-header h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--text-dark);
+}
+
+.status-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  text-transform: capitalize;
+  font-weight: var(--font-weight-semibold);
+}
+
+.status-badge.active {
+  background: var(--success);
+  color: var(--text-light);
+}
+
+.status-badge.upcoming {
+  background: var(--warning);
+  color: var(--text-light);
+}
+
+.status-badge.inactive {
+  background: var(--danger);
+  color: var(--text-light);
+}
+
+.status-badge.unknown {
+  background: var(--border-color);
+  color: var(--text);
+}
+
+.class-card-body {
+  margin-bottom: var(--spacing-md);
+}
+
+.class-card-body p {
+  margin: var(--spacing-xs) 0;
+  font-size: var(--font-size-md);
+  color: var(--text);
+}
+
+.class-card-body .class-id,
+.class-card-body .class-info {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.class-card-body .class-id strong,
+.class-card-body .class-info strong {
+  color: var(--text-dark);
+  min-width: 120px;
+}
+
+.class-card-body .class-id span,
+.class-card-body .class-info span {
+  color: var(--text);
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.class-card-footer {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: flex-end;
+}
+
+/* Form styles for ModifyClassPage */
+.modify-class-form {
+  background: var(--surface);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-md);
+  color: var(--input-text);
+  background-color: var(--input-background);
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.form-group input:disabled,
+.form-group select:disabled,
+.form-group textarea:disabled {
+  background: #f0f0f0;
+  cursor: not-allowed;
+  color: #a0a0a0;
+}
+
+/* Button styles */
+.login-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--primary);
+  color: var(--text-light);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  transition: background 0.2s ease, transform 0.1s ease;
+  flex-shrink: 0;
+}
+
+.login-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+.login-button.delete-button {
+  background: var(--danger);
+}
+
+.login-button.delete-button:hover {
+  background: var(--danger-dark);
+}
+
+/* Grid for multiple classes */
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+  padding: 0 var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+  .classes-grid {
+    grid-template-columns: 1fr;
+    padding: 0 var(--spacing-sm);
+  }
+}
+
+/* Global styles for body and main content areas */
+body {
+  font-family: var(--font-family);
+  line-height: 1.6;
+  color: var(--text);
+  background-color: #f8f9fa;
+}
+
+main.main-content {
+    padding: var(--spacing-lg);
+    flex-grow: 1;
+}

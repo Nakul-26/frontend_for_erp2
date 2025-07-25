@@ -1,0 +1,210 @@
+/* src/styles/Login.css */
+.login-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  padding: var(--spacing-sm);
+}
+
+.login-container {
+  background: var(--surface);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  /* min-width: 700px; -- REMOVED for better responsiveness on small screens */
+  max-width: 800px; /* Limits container width on larger screens */
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.avatar svg {
+  background: var(--primary);
+  padding: var(--spacing-sm);
+  border-radius: 50%;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input-group .input-icon {
+  position: absolute;
+  left: var(--spacing-sm);
+  color: var(--text-muted);
+}
+
+.input-group input {
+  width: 100%;
+  height: 40px;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-base);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Container for the checkboxes themselves */
+.checkbox-group {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-sm);
+  background-color: var(--surface);
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* Style for each individual checkbox item (input + label) */
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius-sm);
+  transition: background-color 0.2s ease;
+}
+
+.checkbox-item:last-child {
+  margin-bottom: 0;
+}
+
+.checkbox-item:hover {
+  background-color: rgba(var(--primary), 0.1);
+}
+
+/* Style for the actual checkbox input */
+.checkbox-item input[type="checkbox"] {
+  margin-right: var(--spacing-sm);
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+/* Style for the label text of each checkbox */
+.checkbox-item label {
+  flex-grow: 1;
+  font-size: var(--font-size-md);
+  color: var(--text);
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+/* Styles for the "Selected Items" display */
+.selected-items {
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text);
+  background: var(--surface);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.input-group select {
+    height: 40px;
+    width: 100%;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.error-message,
+.success-message {
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+.login-options {
+  display: flex;
+  justify-content: flex-end;
+  margin: var(--spacing-sm) 0;
+}
+
+.login-options a {
+  font-size: var(--font-size-sm);
+  color: var(--primary);
+}
+
+.login-button {
+  background: var(--primary);
+  color: rgb(0, 0, 0);
+  padding: var(--spacing-sm);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+}
+
+.login-button:hover {
+  background: var(--primary-dark);
+}
+
+.login-button:disabled {
+  background: var(--secondary);
+  cursor: not-allowed;
+}
+
+/* Responsive Design for Login */
+@media (max-width: 480px) {
+  .login-container {
+    padding: var(--spacing-md);
+    max-width: 90%; /* Adjust max-width for very small screens */
+  }
+
+  .login-button {
+    font-size: var(--font-size-sm);
+  }
+}
+
+.input-group textarea {
+  width: 100%;
+  max-width: 652px; /* Limits textarea width on larger screens */
+  min-height: 40px;
+  font-size: 17px;
+}
+
+.status label p{
+  width:100%;
+}
+
+.status2 {
+  max-height:20px;
+  min-width: 20px;
+}

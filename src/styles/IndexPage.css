@@ -1,0 +1,65 @@
+/* src/styles/IndexPage.css */
+.index-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  padding: var(--spacing-sm);
+}
+
+.index-container {
+  text-align: center;
+  background: var(--surface);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  max-width: 500px; /* Limits container width on larger screens */
+  width: 100%;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.index-container h1 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.index-container p {
+  font-size: var(--font-size-base);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-lg);
+}
+
+.index-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.index-button {
+  display: block;
+  background: var(--primary);
+  color: rgb(0, 0, 0);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.index-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design for Index Page */
+@media (max-width: 480px) {
+  .index-container {
+    padding: var(--spacing-md);
+    max-width: 90%; /* Adjust max-width for very small screens */
+  }
+
+  .index-button {
+    font-size: var(--font-size-sm);
+  }
+}

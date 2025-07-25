@@ -1,0 +1,31 @@
+@startuml
+entity "Student" as Student {
+  _id : ObjectId
+  name : String
+  email : String
+  class : ObjectId
+  subjects : [ObjectId]
+}
+entity "Teacher" as Teacher {
+  _id : ObjectId
+  name : String
+  email : String
+  subjects : [ObjectId]
+  classes : [ObjectId]
+}
+entity "Subject" as Subject {
+  _id : ObjectId
+  code : String
+  name : String
+  teacher : ObjectId
+  classes : [ObjectId]
+}
+entity "Class" as Class {
+  _id : ObjectId
+  name : String
+  section : String
+  students : [ObjectId]
+  subjects : [ObjectId]
+  classTeacher : ObjectId
+}
+@enduml

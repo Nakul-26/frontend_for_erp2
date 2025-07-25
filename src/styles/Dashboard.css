@@ -1,0 +1,143 @@
+/* src/styles/Dashboard.css */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.main-content {
+  flex: 1;
+  padding: var(--spacing-lg);
+  margin-left: 250px; /* Match sidebar width */
+  transition: margin-left 0.3s ease;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.stat-card {
+  background: var(--surface);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-icon {
+  font-size: var(--font-size-xl);
+  color: var(--primary);
+}
+
+.stat-info h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.stat-info p {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.schedule-section,
+.quick-actions {
+  background: var(--surface);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.schedule-section h2,
+.quick-actions h2 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-sm);
+  transition: background 0.2s ease;
+}
+
+.schedule-item:hover {
+  background: var(--background);
+}
+
+.time {
+  font-weight: var(--font-weight-bold);
+  width: 100px;
+}
+
+.class-info h4 {
+  margin: 0;
+  font-size: var(--font-size-base);
+}
+
+.class-info p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.action-buttons button {
+  background: var(--primary);
+  color: rgb(0, 0, 0);
+  padding: var(--spacing-sm);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-base);
+}
+
+.action-buttons button:hover {
+  background: var(--primary-dark);
+}
+
+/* Responsive Design for Dashboard */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0; /* Remove sidebar margin on mobile */
+    padding: var(--spacing-md);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr; /* Stack dashboard sections */
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr; /* Stack stat cards */
+  }
+}

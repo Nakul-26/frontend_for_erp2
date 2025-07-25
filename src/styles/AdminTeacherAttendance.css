@@ -1,0 +1,230 @@
+/* src/styles/AdminTeacherAttendance.css */
+.teacher-attendance-container {
+  padding: var(--spacing-lg);
+  background: var(--background);
+  min-height: 100vh;
+}
+
+.teacher-attendance-container h1 {
+  font-size: var(--font-size-xl);
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-lg);
+}
+
+.teacher-filter-controls {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: var(--surface);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.teacher-filter-controls label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-dark);
+}
+
+.teacher-filter-controls select,
+.teacher-filter-controls input[type="date"] {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-md);
+  color: var(--input-text);
+  background-color: var(--input-background);
+  box-sizing: border-box;
+}
+
+.teacher-filter-controls .login-button {
+  margin-left: auto; /* Pushes button to the right */
+}
+
+.login-button, .clear-filters-btn {
+  min-width: 90px;
+  font-size: 0.95em;
+  padding: 8px 10px;
+}
+
+.teacher-attendance-table-container {
+  overflow-x: auto;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  background-color: var(--surface);
+}
+
+/* Reusing .data-table styles for teacher attendance table */
+.teacher-attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-family);
+  color: var(--text);
+}
+
+.teacher-attendance-table th,
+.teacher-attendance-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.teacher-attendance-table th {
+  background-color: #f8f8f8;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+.teacher-attendance-table tbody tr:hover {
+  background-color: var(--background);
+}
+
+.teacher-attendance-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Base styles for the attendance container */
+.table-container {
+  margin-top: 20px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card h3 {
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-lg);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.card-content p {
+  margin: 0;
+  color: var(--text);
+  font-size: var(--font-size-md);
+}
+
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--surface);
+  margin-bottom: 20px;
+}
+
+.filter-select {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--input-background);
+  color: var(--text);
+  font-size: var(--font-size-md);
+  min-width: 200px;
+}
+
+.no-data-message {
+  text-align: center;
+  color: var(--text-muted);
+  padding: var(--spacing-lg);
+  font-size: var(--font-size-lg);
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .main-content {
+    padding: var(--spacing-sm);
+  }
+
+  .filter-controls {
+    flex-direction: column;
+    padding: var(--spacing-sm);
+  }
+
+  .filter-select {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .action-and-filter-bar {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .action-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    padding: var(--spacing-sm);
+  }
+
+  .dashboard-header h1 {
+    font-size: var(--font-size-xl);
+  }
+
+  .card {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: var(--surface-dark);
+  }
+
+  .filter-controls {
+    background-color: var(--surface-dark);
+    border-color: var(--border-color-dark);
+  }
+
+  .filter-select {
+    background-color: var(--input-background-dark);
+    color: var(--text-dark-mode);
+    border-color: var(--border-color-dark);
+  }
+}

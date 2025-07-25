@@ -1,0 +1,134 @@
+
+:root {
+  --background: #f4f7fa;
+  --surface: #ffffff;
+  --surface-dark: #23272f;
+  --text: #333333;
+  --text-dark: #222;
+  --text-light: #fff;
+  --text-muted: #6c757d;
+  --primary: #646cff;
+  --primary-dark: #535bf2;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --warning: #f1c40f;
+  --danger: #e74c3c;
+  --danger-dark: #c0392b;
+  --border-color: #dfe1e5;
+  --border-color-dark: #444;
+  --input-background: #fff;
+  --input-background-dark: #23272f;
+  --input-text: #2c3e50;
+  --input-disabled: #f0f0f0;
+  --input-disabled-dark: #333;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.15);
+  --font-family: 'Inter', system-ui, sans-serif;
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-weight-normal: 400;
+  --font-weight-bold: 600;
+  --font-weight-semibold: 600;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --border-radius: 8px;
+  --border-radius-sm: 4px;
+}
+
+[data-theme="dark"] {
+  --background: #1a1a1a;
+  --surface: #23272f;
+  --surface-dark: #181c23;
+  --text: #e0e0e0;
+  --text-dark: #fff;
+  --text-light: #fff;
+  --text-muted: #a0a0a0;
+  --primary: #747bff;
+  --primary-dark: #646cff;
+  --secondary: #444;
+  --success: #28a745;
+  --warning: #f1c40f;
+  --danger: #e74c3c;
+  --danger-dark: #c0392b;
+  --border-color: #444;
+  --border-color-dark: #222;
+  --input-background: #23272f;
+  --input-background-dark: #181c23;
+  --input-text: #e0e0e0;
+  --input-disabled: #333;
+  --input-disabled-dark: #222;
+}
+
+body, #root {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-family);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2000;
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-color: var(--primary);
+  color: var(--text-light);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.theme-toggle:hover {
+  background-color: var(--primary-dark);
+}
+
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

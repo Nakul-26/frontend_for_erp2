@@ -1,0 +1,255 @@
+/* src/styles/AdminStudentAttendance.css */
+.student-attendance-container {
+  padding: var(--spacing-lg);
+  background: var(--background);
+  min-height: 100vh;
+}
+
+.student-attendance-container h1 {
+  font-size: var(--font-size-xl);
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-lg);
+}
+
+.student-filter-controls {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: var(--surface);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.student-filter-controls label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-dark);
+}
+
+.student-filter-controls select,
+.student-filter-controls input[type="date"] {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-md);
+  color: var(--input-text);
+  background-color: var(--input-background);
+  box-sizing: border-box;
+}
+
+.student-filter-controls .login-button {
+  margin-left: auto; /* Pushes button to the right */
+}
+
+.student-attendance-table-container {
+  overflow-x: auto;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  background-color: var(--surface);
+}
+
+/* Reusing .data-table styles for student attendance table */
+.student-attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-family);
+  color: var(--text);
+}
+
+.student-attendance-table th,
+.student-attendance-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.student-attendance-table th {
+  background-color: #f8f8f8;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+.student-attendance-table tbody tr:hover {
+  background-color: var(--background);
+}
+
+.student-attendance-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Base styles for the attendance container */
+.table-container {
+  margin-top: 20px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card h3 {
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-lg);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.card-content p {
+  margin: 0;
+  color: var(--text);
+  font-size: var(--font-size-md);
+}
+
+.action-and-filter-bar {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--surface);
+}
+
+.filter-select {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--input-background);
+  color: var(--text);
+  font-size: var(--font-size-md);
+  min-width: 200px;
+}
+
+.filter-select:disabled {
+  background-color: var(--input-disabled);
+  cursor: not-allowed;
+}
+
+.no-data-message {
+  text-align: center;
+  color: var(--text-muted);
+  padding: var(--spacing-lg);
+  font-size: var(--font-size-lg);
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .main-content {
+    padding: var(--spacing-sm);
+  }
+
+  .filter-controls {
+    flex-direction: column;
+    padding: var(--spacing-sm);
+  }
+
+  .filter-select {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .action-and-filter-bar {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .action-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    padding: var(--spacing-sm);
+  }
+
+  .dashboard-header h1 {
+    font-size: var(--font-size-xl);
+  }
+
+  .card {
+    padding: var(--spacing-sm);
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-buttons button,
+  .action-buttons .login-button {
+    width: 100%;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: var(--surface-dark);
+  }
+
+  .filter-controls {
+    background-color: var(--surface-dark);
+    border-color: var(--border-color-dark);
+  }
+
+  .filter-select {
+    background-color: var(--input-background-dark);
+    color: var(--text-dark-mode);
+    border-color: var(--border-color-dark);
+  }
+
+  .filter-select:disabled {
+    background-color: var(--input-disabled-dark);
+  }
+}
