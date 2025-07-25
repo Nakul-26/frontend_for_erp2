@@ -7,7 +7,7 @@ import '../../styles/Card.css';
 import '../../styles/Login.css';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
-import TeacherCard from '../../components/teacherCard';
+import TeacherCard from '../../components/TeacherCard';
 import { useAuth } from '../../context/AuthContext';
 
 // Import the Table component
