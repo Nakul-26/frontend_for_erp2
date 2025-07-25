@@ -5,7 +5,7 @@ import '../../styles/Dashboard.css'; // For dashboard layout
 import axios from 'axios';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
-import TeacherCard from '../../components/teacherCard'; // Import the TeacherCard component
+import TeacherCard from '../../components/TeacherCard'; // Import the TeacherCard component
 import { useAuth } from '../../context/AuthContext';
 
 function SearchTeacher() {
