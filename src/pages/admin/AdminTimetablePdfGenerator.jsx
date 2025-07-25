@@ -5,6 +5,10 @@ import axios from 'axios';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
 
+//const jsPDF = (await import('jspdf')).default;
+//const autoTable = (await import('jspdf-autotable')).default;
+
+
 function AdminTimetablePdfGenerator() {
   const [timetables, setTimetables] = useState([]);
   const [editableTimetables, setEditableTimetables] = useState([]);
@@ -71,7 +75,10 @@ function AdminTimetablePdfGenerator() {
     });
   };
 
-  const generatePdf = (timetable, idx) => {
+  const generatePdf = async (timetable, idx) => {
+    const jsPDF = (await import('jspdf')).default;
+    const autoTable = (await import('jspdf-autotable')).default;
+
     const doc = new jsPDF();
     autoTable(doc, {
       head: [['Day', 'Period 1', 'Period 2', 'Period 3', 'Period 4', 'Period 5', 'Period 6']],
