@@ -23,7 +23,11 @@ function Navbar({ role, toggleSidebar }) {
     try {
       // console.log(response.role.data);
       const response = await axios.post(
-        'https://quantumx-wmbl.onrender.com/api/v1/admin/logout',
+        `${import.meta.env.VITE_API_URL}/api/v1/admin/logout`, // Adjust the URL based on role
+        //role === 'admin' ? '/api/v1/admin/logout' :
+        //role === 'teacher' ? '/api/v1/teacher/logout' :
+        //role === 'student' ? '/api/v1/student/logout' :
+        //role === 'parent' ? '/api/v1/parent/logout' :
         {}, // Empty body as per backend requirements
         {
           withCredentials: true,
