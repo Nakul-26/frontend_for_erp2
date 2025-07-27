@@ -33,8 +33,8 @@ function ViewClassMappingsPage() {
     setSuccess('');
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getClassMappings/${classId}`, { withCredentials: true });
-      console.log('Mappings fetched:', res.data.data.data);
-      setMappings(res.data.data.data || []);
+      console.log('Mappings fetched:', res.data.data);
+      setMappings(res.data.data || []);
     } catch (err) {
       setError('Failed to fetch mappings.');
     } finally {
