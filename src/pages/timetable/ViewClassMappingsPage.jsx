@@ -98,8 +98,16 @@ function ViewClassMappingsPage() {
               <tbody>
                 {mappings.map(mapping => (
                   <tr key={mapping._id}>
-                    <td>{mapping.subjectName || mapping.subject?.name || mapping.subjectId}</td>
-                    <td>{mapping.teacherName || mapping.teacher?.name || mapping.teacherId}</td>
+                    <td>{
+                      mapping.subjectName ||
+                      mapping.subject?.name ||
+                      (typeof mapping.subjectId === 'object' ? (mapping.subjectId.name || mapping.subjectId.code || mapping.subjectId.shortName || mapping.subjectId._id) : mapping.subjectId)
+                    }</td>
+                    <td>{
+                      mapping.teacherName ||
+                      mapping.teacher?.name ||
+                      (typeof mapping.teacherId === 'object' ? (mapping.teacherId.name || mapping.teacherId.code || mapping.teacherId.shortName || mapping.teacherId._id) : mapping.teacherId)
+                    }</td>
                     <td>
                       <button onClick={() => handleDelete(mapping._id)} disabled={loading} style={{ color: 'red' }}>
                         Delete
