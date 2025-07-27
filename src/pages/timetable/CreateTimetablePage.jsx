@@ -62,7 +62,7 @@ function CreateTimetablePage() {
 
       setSubjects(subRes.data.data || []);
       setTeachers(uniqueTeachers);
-      setMappedPairs(mappingRes.data.data.data || []);
+      setMappedPairs(mappingRes.data.data || []);
     } catch (err) {
       setError('Failed to fetch subjects, teachers, or mappings.');
       console.error(err);
