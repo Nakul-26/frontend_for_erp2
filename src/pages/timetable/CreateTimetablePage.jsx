@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
+import '../../styles/CreateTimetablePage.css';
 
 function CreateTimetablePage() {
   const [classes, setClasses] = useState([]);
@@ -53,8 +54,12 @@ function CreateTimetablePage() {
       ]);
       console.log('Subjects API response:', subRes.data);
       console.log('Teachers API response:', teacherRes.data);
+      // Deduplicate teachers by _id
+      const uniqueTeachers = (teacherRes.data.data || []).filter((teacher, idx, arr) =>
+        arr.findIndex(t => t._id === teacher._id) === idx
+      );
       setSubjects(subRes.data.data || []);
-      setTeachers(teacherRes.data.data || []);
+      setTeachers(uniqueTeachers);
     } catch (err) {
       setError('Failed to fetch subjects or teachers.');
       console.error('Error fetching subjects or teachers:', err);
@@ -116,44 +121,43 @@ function CreateTimetablePage() {
       <Sidebar />
       <main className="main-content">
         <Navbar />
-        <header className="dashboard-header">
+        <div className="timetable-form-container">
           <h1>Create Timetable</h1>
-        </header>
-        <form onSubmit={handleSubmit} style={{ padding: '30px' }}>
-          {loading && <p>Loading...</p>}
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          {success && <p style={{ color: 'green' }}>{success}</p>}
+          <form onSubmit={handleSubmit}>
+            {loading && <p className="status-message">Loading...</p>}
+            {error && <p className="status-message error">{error}</p>}
+            {success && <p className="status-message success">{success}</p>}
 
-          <div style={{ marginBottom: '20px' }}>
-            <label htmlFor="class-select">Select Class: </label>
-            <select id="class-select" value={selectedClass} onChange={handleClassChange} required>
-              <option value="">-- Select Class --</option>
-              {classes.map(cls => (
-                <option key={cls._id} value={cls._id}>{cls.name || cls.className}</option>
-              ))}
-            </select>
-          </div>
+            <div style={{ marginBottom: '20px' }}>
+              <label htmlFor="class-select">Select Class: </label>
+              <select id="class-select" value={selectedClass} onChange={handleClassChange} required>
+                <option value="">-- Select Class --</option>
+                {classes.map(cls => (
+                  <option key={cls._id} value={cls._id}>{cls.name || cls.className}</option>
+                ))}
+              </select>
+            </div>
 
-          {selectedClass && timeSlots.length > 0 && (
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ borderCollapse: 'collapse', width: '100%' }}>
-                <thead>
-                  <tr>
-                    <th>Day / Time Slot</th>
-                    {timeSlots.map(slot => (
-                      <th key={slot._id}>
-                        {slot.period}<br />
-                        <small>{slot.startTime} - {slot.endTime}</small>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {days.map(day => (
-                    <tr key={day}>
-                      <td>{day}</td>
+            {selectedClass && timeSlots.length > 0 && (
+              <div style={{ overflowX: 'auto' }}>
+                <table className="timetable-table">
+                  <thead>
+                    <tr>
+                      <th>Day / Time Slot</th>
                       {timeSlots.map(slot => (
-                        <td key={slot._id} style={{ minWidth: 180 }}>
+                        <th key={slot._id}>
+                          {slot.period}<br />
+                          <small>{slot.startTime} - {slot.endTime}</small>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {days.map(day => (
+                      <tr key={day}>
+                        <td>{day}</td>
+                        {timeSlots.map(slot => (
+                        <td key={slot._id}>
                           <div>
                             <select
                               value={grid[day]?.[slot._id]?.subject || ''}
@@ -171,24 +175,39 @@ function CreateTimetablePage() {
                               onChange={e => handleGridChange(day, slot._id, 'teacher', e.target.value)}
                             >
                               <option value="">-- Teacher --</option>
-                              {teachers.map(teacher => (
-                                <option key={teacher._id} value={teacher._id}>{teacher.name}</option>
-                              ))}
+                              {(() => {
+                                // Only show teachers mapped to the selected subject for this slot
+                                const selectedSubjectId = grid[day]?.[slot._id]?.subject;
+                                let filteredTeachers = teachers;
+                                if (selectedSubjectId) {
+                                  filteredTeachers = teachers.filter(t => {
+                                    // If teacher.subjects is an array of subject ids or objects
+                                    if (Array.isArray(t.subjects)) {
+                                      return t.subjects.includes(selectedSubjectId) || t.subjects.some(s => (s._id || s) === selectedSubjectId);
+                                    }
+                                    return true;
+                                  });
+                                }
+                                return filteredTeachers.map(teacher => (
+                                  <option key={teacher._id} value={teacher._id}>{teacher.name}</option>
+                                ));
+                              })()}
                             </select>
                           </div>
                         </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
-          <button type="submit" style={{ marginTop: '20px' }} disabled={!selectedClass || loading}>
-            Create Timetable
-          </button>
-        </form>
+            <button type="submit" disabled={!selectedClass || loading}>
+              Create Timetable
+            </button>
+          </form>
+        </div>
       </main>
     </div>
   );
