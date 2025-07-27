@@ -26,7 +26,7 @@ function CreateTimetablePage() {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallclassformapped`, { withCredentials: true });
       console.log('Classes API response:', res.data);
-      setClasses(res.data.data || []);
+      setClasses(res.data || []);
     } catch (err) {
       setError('Failed to fetch classes.');
       console.error('Error fetching classes:', err);
@@ -38,6 +38,7 @@ function CreateTimetablePage() {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallslots`, { withCredentials: true });
       console.log('TimeSlots API response:', res.data);
       setTimeSlots(res.data.data || []);
+      console.log('Time slots fetched:', res.data.data);
     } catch (err) {
       setError('Failed to fetch time slots.');
       console.error('Error fetching time slots:', err);
