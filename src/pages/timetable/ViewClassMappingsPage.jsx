@@ -20,7 +20,8 @@ function ViewClassMappingsPage() {
   const fetchClasses = async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallclassformapped`, { withCredentials: true });
-      setClasses(res.data.data || []);
+      console.log('Classes fetched:', res);
+      setClasses(res.data || []);
     } catch (err) {
       setError('Failed to fetch classes.');
     }
@@ -32,6 +33,7 @@ function ViewClassMappingsPage() {
     setSuccess('');
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getClassMappings/${classId}`, { withCredentials: true });
+      console.log('Mappings fetched:', res);
       setMappings(res.data.data?.data || []);
     } catch (err) {
       setError('Failed to fetch mappings.');
