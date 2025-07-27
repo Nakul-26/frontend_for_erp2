@@ -150,6 +150,8 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
         </div>
         <Link to="/admin/mapped" data-icon="🔗">Mapped</Link>
         <Link to="/admin/timetable-pdf" data-icon="📄">Timetable PDF Generator</Link>
+
+        <Link to="/admin/timetable/create" data-icon="🗓️">Generate Timetable</Link>
         
         {/* <Link to="/admin/parents/add" data-icon="➕">Add Parent</Link>
         <Link to="/admin/parents" data-icon="👪">Parents</Link>
