@@ -37,8 +37,8 @@ function CreateTimetablePage() {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallslots`, { withCredentials: true });
       console.log('TimeSlots API response:', res.data);
-      setTimeSlots(res.data.data || []);
-      console.log('Time slots fetched:', res.data.data);
+      setTimeSlots(res.data || []);
+      console.log('Time slots fetched:', res.data);
     } catch (err) {
       setError('Failed to fetch time slots.');
       console.error('Error fetching time slots:', err);
