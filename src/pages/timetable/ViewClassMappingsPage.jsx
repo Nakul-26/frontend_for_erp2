@@ -21,7 +21,7 @@ function ViewClassMappingsPage() {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallclassformapped`, { withCredentials: true });
       console.log('Classes fetched:', res);
-      setClasses(res.data || []);
+      setClasses(res.data.data || []);
     } catch (err) {
       setError('Failed to fetch classes.');
     }
