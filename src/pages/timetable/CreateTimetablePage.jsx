@@ -55,6 +55,11 @@ function CreateTimetablePage() {
         arr.findIndex(t => t._id === teacher._id) === idx
       );
 
+      console.log('Time slots fetched:', res.data.data);
+      console.log('Subjects fetched:', subRes); 
+      console.log('Teachers fetched:', uniqueTeachers); 
+      console.log('Mapped pairs fetched:', mappingRes);
+
       setSubjects(subRes.data.data || []);
       setTeachers(uniqueTeachers);
       setMappedPairs(mappingRes.data.data || []);
