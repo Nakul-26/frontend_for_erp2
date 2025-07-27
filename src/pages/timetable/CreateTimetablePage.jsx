@@ -26,7 +26,7 @@ function CreateTimetablePage() {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallclassformapped`, { withCredentials: true });
       console.log('Classes API response:', res.data);
-      setClasses(res.data || []);
+      setClasses(res.data.data || []);
     } catch (err) {
       setError('Failed to fetch classes.');
       console.error('Error fetching classes:', err);
@@ -66,6 +66,7 @@ function CreateTimetablePage() {
     console.log('Class selected:', classId);
     setSelectedClass(classId);
     setGrid({});
+    // Do NOT reset timeSlots here!
     if (classId) {
       await fetchSubjectsAndTeachers(classId);
     }
