@@ -48,7 +48,7 @@ function CreateTimetablePage() {
       const [subRes, teacherRes, mappingRes] = await Promise.all([
         axios.get(`${API_BASE_URL}/api/v1/admin/getallsubjectformapped?classId=${classId}`, { withCredentials: true }),
         axios.get(`${API_BASE_URL}/api/v1/admin/getallteacherformapped?classId=${classId}`, { withCredentials: true }),
-        axios.get(`${API_BASE_URL}/api/v1/admin/getClassMappings?classId=${classId}`, { withCredentials: true })
+        axios.get(`${API_BASE_URL}/api/v1/admin/getClassMappings/${classId}`, { withCredentials: true })
       ]);
 
       const uniqueTeachers = (teacherRes.data.data || []).filter((teacher, idx, arr) =>
