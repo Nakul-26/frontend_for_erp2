@@ -54,6 +54,7 @@ import MappedPage from './pages/attendence/Mapped';
 import GenerateTimetablePage from './pages/timetable/GenerateTimetablePage';
 import AdminTimetablePdfGenerator from './pages/admin/AdminTimetablePdfGenerator';
 import CreateTimetablePage from './pages/timetable/CreateTimetablePage';
+import ViewClassMappingsPage from './pages/timetable/ViewClassMappingsPage';
 
 //import { ProtectedRoute } from './components/ProtectedRoute';
 
@@ -133,6 +134,7 @@ function AppContent() {
           <Route path="/admin/generatetimetable" element={<GenerateTimetablePage />} />
           <Route path="/admin/timetable-pdf" element={<AdminTimetablePdfGenerator />} />
           <Route path="/admin/timetable/create" element={<CreateTimetablePage />} />
+          <Route path="/admin/timetable/view-mappings" element={<ViewClassMappingsPage />} />
 
           {/* <Route path="*" element={<Navigate to="/" />} />  */}
         </Routes>
