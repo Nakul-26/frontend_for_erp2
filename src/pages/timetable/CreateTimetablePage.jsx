@@ -8,8 +8,8 @@ function CreateTimetablePage() {
   const [subjects, setSubjects] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [selectedClass, setSelectedClass] = useState('');
-  const [days, setDays] = useState(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
-  const [periods, setPeriods] = useState(['Period 1', 'Period 2', 'Period 3', 'Period 4', 'Period 5', 'Period 6']);
+  const [days] = useState(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
+  const [timeSlots, setTimeSlots] = useState([]);
   const [grid, setGrid] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -17,39 +17,57 @@ function CreateTimetablePage() {
   const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetchInitialData();
+    fetchClasses();
+    fetchTimeSlots();
   }, []);
 
-  const fetchInitialData = async () => {
-    setLoading(true);
+  const fetchClasses = async () => {
     try {
-      const [classRes, subjectRes, teacherRes] = await Promise.all([
-        axios.get(`${API_BASE_URL}/api/v1/admin/classes`, { withCredentials: true }),
-        axios.get(`${API_BASE_URL}/api/v1/admin/subjects`, { withCredentials: true }),
-        axios.get(`${API_BASE_URL}/api/v1/admin/teachers`, { withCredentials: true })
-      ]);
-      setClasses(classRes.data.data || []);
-      setSubjects(subjectRes.data.data || []);
-      setTeachers(teacherRes.data.data || []);
+      const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallclassformapped`, { withCredentials: true });
+      setClasses(res.data.data || []);
     } catch (err) {
-      setError('Failed to fetch initial data.');
-    } finally {
-      setLoading(false);
+      setError('Failed to fetch classes.');
     }
   };
 
-  const handleClassChange = (e) => {
-    setSelectedClass(e.target.value);
-    setGrid({}); // Reset grid when class changes
+  const fetchTimeSlots = async () => {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallslots`, { withCredentials: true });
+      setTimeSlots(res.data.data || []);
+    } catch (err) {
+      setError('Failed to fetch time slots.');
+    }
   };
 
-  const handleGridChange = (day, period, field, value) => {
+  const fetchSubjectsAndTeachers = async (classId) => {
+    try {
+      const [subRes, teacherRes] = await Promise.all([
+        axios.get(`${API_BASE_URL}/api/v1/admin/getallsubjectformapped?classId=${classId}`, { withCredentials: true }),
+        axios.get(`${API_BASE_URL}/api/v1/admin/getallteacherformapped?classId=${classId}`, { withCredentials: true })
+      ]);
+      setSubjects(subRes.data.data || []);
+      setTeachers(teacherRes.data.data || []);
+    } catch (err) {
+      setError('Failed to fetch subjects or teachers.');
+    }
+  };
+
+  const handleClassChange = async (e) => {
+    const classId = e.target.value;
+    setSelectedClass(classId);
+    setGrid({});
+    if (classId) {
+      await fetchSubjectsAndTeachers(classId);
+    }
+  };
+
+  const handleGridChange = (day, slotId, field, value) => {
     setGrid(prev => ({
       ...prev,
       [day]: {
         ...prev[day],
-        [period]: {
-          ...((prev[day] && prev[day][period]) || {}),
+        [slotId]: {
+          ...((prev[day] && prev[day][slotId]) || {}),
           [field]: value
         }
       }
@@ -86,23 +104,28 @@ function CreateTimetablePage() {
           {loading && <p>Loading...</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
           {success && <p style={{ color: 'green' }}>{success}</p>}
+
           <div style={{ marginBottom: '20px' }}>
             <label htmlFor="class-select">Select Class: </label>
             <select id="class-select" value={selectedClass} onChange={handleClassChange} required>
               <option value="">-- Select Class --</option>
               {classes.map(cls => (
-                <option key={cls._id || cls.id} value={cls._id || cls.id}>{cls.name || cls.className}</option>
+                <option key={cls._id} value={cls._id}>{cls.name || cls.className}</option>
               ))}
             </select>
           </div>
-          {selectedClass && (
+
+          {selectedClass && timeSlots.length > 0 && (
             <div style={{ overflowX: 'auto' }}>
               <table style={{ borderCollapse: 'collapse', width: '100%' }}>
                 <thead>
                   <tr>
-                    <th>Day / Period</th>
-                    {periods.map(period => (
-                      <th key={period}>{period}</th>
+                    <th>Day / Time Slot</th>
+                    {timeSlots.map(slot => (
+                      <th key={slot._id}>
+                        {slot.period}<br />
+                        <small>{slot.startTime} - {slot.endTime}</small>
+                      </th>
                     ))}
                   </tr>
                 </thead>
@@ -110,29 +133,27 @@ function CreateTimetablePage() {
                   {days.map(day => (
                     <tr key={day}>
                       <td>{day}</td>
-                      {periods.map(period => (
-                        <td key={period} style={{ minWidth: 180 }}>
+                      {timeSlots.map(slot => (
+                        <td key={slot._id} style={{ minWidth: 180 }}>
                           <div>
                             <select
-                              value={grid[day]?.[period]?.subject || ''}
-                              onChange={e => handleGridChange(day, period, 'subject', e.target.value)}
-                              required
+                              value={grid[day]?.[slot._id]?.subject || ''}
+                              onChange={e => handleGridChange(day, slot._id, 'subject', e.target.value)}
                             >
                               <option value="">-- Subject --</option>
                               {subjects.map(sub => (
-                                <option key={sub._id || sub.id} value={sub._id || sub.id}>{sub.name}</option>
+                                <option key={sub._id} value={sub._id}>{sub.name}</option>
                               ))}
                             </select>
                           </div>
                           <div style={{ marginTop: 4 }}>
                             <select
-                              value={grid[day]?.[period]?.teacher || ''}
-                              onChange={e => handleGridChange(day, period, 'teacher', e.target.value)}
-                              required
+                              value={grid[day]?.[slot._id]?.teacher || ''}
+                              onChange={e => handleGridChange(day, slot._id, 'teacher', e.target.value)}
                             >
                               <option value="">-- Teacher --</option>
                               {teachers.map(teacher => (
-                                <option key={teacher._id || teacher.id} value={teacher._id || teacher.id}>{teacher.name}</option>
+                                <option key={teacher._id} value={teacher._id}>{teacher.name}</option>
                               ))}
                             </select>
                           </div>
@@ -144,7 +165,10 @@ function CreateTimetablePage() {
               </table>
             </div>
           )}
-          <button type="submit" style={{ marginTop: '20px' }} disabled={!selectedClass || loading}>Create Timetable</button>
+
+          <button type="submit" style={{ marginTop: '20px' }} disabled={!selectedClass || loading}>
+            Create Timetable
+          </button>
         </form>
       </main>
     </div>
