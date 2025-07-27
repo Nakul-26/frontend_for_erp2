@@ -17,6 +17,7 @@ function CreateTimetablePage() {
   const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
+    console.log('useEffect: fetching classes and time slots');
     fetchClasses();
     fetchTimeSlots();
   }, []);
@@ -24,18 +25,22 @@ function CreateTimetablePage() {
   const fetchClasses = async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallclassformapped`, { withCredentials: true });
+      console.log('Classes API response:', res.data);
       setClasses(res.data.data || []);
     } catch (err) {
       setError('Failed to fetch classes.');
+      console.error('Error fetching classes:', err);
     }
   };
 
   const fetchTimeSlots = async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallslots`, { withCredentials: true });
+      console.log('TimeSlots API response:', res.data);
       setTimeSlots(res.data.data || []);
     } catch (err) {
       setError('Failed to fetch time slots.');
+      console.error('Error fetching time slots:', err);
     }
   };
 
@@ -45,15 +50,19 @@ function CreateTimetablePage() {
         axios.get(`${API_BASE_URL}/api/v1/admin/getallsubjectformapped?classId=${classId}`, { withCredentials: true }),
         axios.get(`${API_BASE_URL}/api/v1/admin/getallteacherformapped?classId=${classId}`, { withCredentials: true })
       ]);
+      console.log('Subjects API response:', subRes.data);
+      console.log('Teachers API response:', teacherRes.data);
       setSubjects(subRes.data.data || []);
       setTeachers(teacherRes.data.data || []);
     } catch (err) {
       setError('Failed to fetch subjects or teachers.');
+      console.error('Error fetching subjects or teachers:', err);
     }
   };
 
   const handleClassChange = async (e) => {
     const classId = e.target.value;
+    console.log('Class selected:', classId);
     setSelectedClass(classId);
     setGrid({});
     if (classId) {
@@ -62,16 +71,20 @@ function CreateTimetablePage() {
   };
 
   const handleGridChange = (day, slotId, field, value) => {
-    setGrid(prev => ({
-      ...prev,
-      [day]: {
-        ...prev[day],
-        [slotId]: {
-          ...((prev[day] && prev[day][slotId]) || {}),
-          [field]: value
+    setGrid(prev => {
+      const updated = {
+        ...prev,
+        [day]: {
+          ...prev[day],
+          [slotId]: {
+            ...((prev[day] && prev[day][slotId]) || {}),
+            [field]: value
+          }
         }
-      }
-    }));
+      };
+      console.log('Grid updated:', updated);
+      return updated;
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -79,6 +92,7 @@ function CreateTimetablePage() {
     setLoading(true);
     setError('');
     setSuccess('');
+    console.log('Submitting timetable:', { classId: selectedClass, timetable: grid });
     try {
       await axios.post(`${API_BASE_URL}/api/v1/admin/timetable`, {
         classId: selectedClass,
@@ -87,11 +101,14 @@ function CreateTimetablePage() {
       setSuccess('Timetable created successfully!');
     } catch (err) {
       setError('Failed to create timetable.');
+      console.error('Error submitting timetable:', err);
     } finally {
       setLoading(false);
     }
   };
 
+  // Debug rendering
+  console.log('Rendering: selectedClass', selectedClass, 'timeSlots', timeSlots, 'subjects', subjects, 'teachers', teachers, 'grid', grid);
   return (
     <div className="dashboard-container">
       <Sidebar />
