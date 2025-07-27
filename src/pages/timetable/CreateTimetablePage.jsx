@@ -63,6 +63,7 @@ function CreateTimetablePage() {
       setSubjects(subRes.data.data || []);
       setTeachers(uniqueTeachers);
       setMappedPairs(mappingRes.data.data || []);
+      setError('');
     } catch (err) {
       setError('Failed to fetch subjects, teachers, or mappings.');
       console.error(err);
@@ -185,9 +186,11 @@ function CreateTimetablePage() {
                                       let filteredSubjects = subjects;
                                       if (selectedTeacherId && mappedPairs.length > 0) {
                                         filteredSubjects = subjects.filter(s =>
-                                          mappedPairs.some(m =>
-                                            m.teacherId === selectedTeacherId && m.subjectId === s._id
-                                          )
+                                          mappedPairs.some(m => {
+                                            const mTeacherId = typeof m.teacherId === 'object' ? m.teacherId._id : m.teacherId;
+                                            const mSubjectId = typeof m.subjectId === 'object' ? m.subjectId._id : m.subjectId;
+                                            return mTeacherId === selectedTeacherId && mSubjectId === s._id;
+                                          })
                                         );
                                       }
                                       return filteredSubjects.map(sub => (
@@ -207,9 +210,11 @@ function CreateTimetablePage() {
                                       let filteredTeachers = teachers;
                                       if (selectedSubjectId && mappedPairs.length > 0) {
                                         filteredTeachers = teachers.filter(t =>
-                                          mappedPairs.some(m =>
-                                            m.subjectId === selectedSubjectId && m.teacherId === t._id
-                                          )
+                                          mappedPairs.some(m => {
+                                            const mTeacherId = typeof m.teacherId === 'object' ? m.teacherId._id : m.teacherId;
+                                            const mSubjectId = typeof m.subjectId === 'object' ? m.subjectId._id : m.subjectId;
+                                            return mSubjectId === selectedSubjectId && mTeacherId === t._id;
+                                          })
                                         );
                                       }
                                       return filteredTeachers.map(teacher => (
