@@ -45,24 +45,25 @@ function CreateTimetablePage() {
 
   const fetchSubjectsAndTeachers = async (classId) => {
     try {
-      const [subRes, teacherRes, mappingRes] = await Promise.all([
-        axios.get(`${API_BASE_URL}/api/v1/admin/getallsubjectformapped?classId=${classId}`, { withCredentials: true }),
-        axios.get(`${API_BASE_URL}/api/v1/admin/getallteacherformapped?classId=${classId}`, { withCredentials: true }),
-        axios.get(`${API_BASE_URL}/api/v1/admin/getClassMappings/${classId}`, { withCredentials: true })
-      ]);
-
-      const uniqueTeachers = (teacherRes.data.data || []).filter((teacher, idx, arr) =>
-        arr.findIndex(t => t._id === teacher._id) === idx
-      );
-
-      //console.log('Time slots fetched:', res.data.data);
-      console.log('Subjects fetched:', subRes); 
-      console.log('Teachers fetched:', uniqueTeachers); 
-      console.log('Mapped pairs fetched:', mappingRes);
-
-      setSubjects(subRes.data.data || []);
+      const mappingRes = await axios.get(`${API_BASE_URL}/api/v1/admin/getClassMappings/${classId}`, { withCredentials: true });
+      const pairs = mappingRes.data.data || [];
+      // Extract unique subjects and teachers from pairs
+      const subjectsMap = {};
+      const teachersMap = {};
+      pairs.forEach(m => {
+        const subj = typeof m.subjectId === 'object' ? m.subjectId : null;
+        const teach = typeof m.teacherId === 'object' ? m.teacherId : null;
+        if (subj && subj._id) subjectsMap[subj._id] = subj;
+        if (teach && teach._id) teachersMap[teach._id] = teach;
+      });
+      const uniqueSubjects = Object.values(subjectsMap);
+      const uniqueTeachers = Object.values(teachersMap);
+      console.log('Subjects fetched:', uniqueSubjects);
+      console.log('Teachers fetched:', uniqueTeachers);
+      console.log('Mapped pairs fetched:', pairs);
+      setSubjects(uniqueSubjects);
       setTeachers(uniqueTeachers);
-      setMappedPairs(mappingRes.data.data || []);
+      setMappedPairs(pairs);
       setError('');
     } catch (err) {
       setError('Failed to fetch subjects, teachers, or mappings.');
@@ -98,14 +99,25 @@ function CreateTimetablePage() {
     setError('');
     setSuccess('');
 
-    // Validation: ensure both subject and teacher are selected for each non-break slot
+    // Strict validation: ensure every non-break period has a valid mappedId
     for (const day of days) {
       for (const slot of timeSlots) {
         if (!isBreakPeriod(slot.period)) {
           const cell = grid[day]?.[slot._id] || {};
-          if (!cell.subject || !cell.teacher) {
+          if (!cell.combo) {
             setLoading(false);
-            setError(`Please select both subject and teacher for ${day}, ${slot.period}`);
+            setError(`Please select a subject-teacher pair for ${day}, ${slot.period}`);
+            return;
+          }
+          const [subjectId, teacherId] = cell.combo.split('___');
+          const found = mappedPairs.find(m => {
+            const mSubjectId = typeof m.subjectId === 'object' ? m.subjectId._id : m.subjectId;
+            const mTeacherId = typeof m.teacherId === 'object' ? m.teacherId._id : m.teacherId;
+            return mSubjectId === subjectId && mTeacherId === teacherId;
+          });
+          if (!found || !found._id) {
+            setLoading(false);
+            setError(`Invalid mapping for ${day}, ${slot.period}. Please select a valid subject-teacher pair.`);
             return;
           }
         }
@@ -113,14 +125,39 @@ function CreateTimetablePage() {
     }
 
     try {
-      await axios.post(`${API_BASE_URL}/api/v1/admin/timetable`, {
-        classId: selectedClass,
-        timetable: grid
-      }, { withCredentials: true });
-
+      // Send a separate request for each day
+      for (const day of days) {
+        const periods = timeSlots
+          .filter(slot => !isBreakPeriod(slot.period))
+          .map(slot => {
+            const cell = grid[day]?.[slot._id] || {};
+            let mappedId = '';
+            if (cell.combo) {
+              const [subjectId, teacherId] = cell.combo.split('___');
+              // Find the mapping _id from mappedPairs
+              const found = mappedPairs.find(m => {
+                const mSubjectId = typeof m.subjectId === 'object' ? m.subjectId._id : m.subjectId;
+                const mTeacherId = typeof m.teacherId === 'object' ? m.teacherId._id : m.teacherId;
+                return mSubjectId === subjectId && mTeacherId === teacherId;
+              });
+              if (found) mappedId = found._id;
+            }
+            return {
+              period: slot._id,
+              mapped: mappedId
+            };
+          });
+        const payload = {
+          day,
+          periods
+        };
+        console.log('Submitting payload for', day, JSON.stringify(payload, null, 2));
+        await axios.post(`${API_BASE_URL}/api/v1/admin/createdailyschedule/${selectedClass}`, payload, { withCredentials: true });
+      }
       setSuccess('Timetable created successfully!');
     } catch (err) {
-      setError('Failed to create timetable.');
+      const backendMsg = err?.response?.data?.message;
+      setError(backendMsg ? `Backend: ${backendMsg}` : 'Failed to create timetable.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -177,50 +214,35 @@ function CreateTimetablePage() {
                               <>
                                 <div>
                                   <select
-                                    value={grid[day]?.[slot._id]?.subject || ''}
-                                    onChange={e => handleGridChange(day, slot._id, 'subject', e.target.value)}
-                                  >
-                                    <option value="">-- Subject --</option>
-                                    {(() => {
-                                      const selectedTeacherId = grid[day]?.[slot._id]?.teacher;
-                                      let filteredSubjects = subjects;
-                                      if (selectedTeacherId && mappedPairs.length > 0) {
-                                        filteredSubjects = subjects.filter(s =>
-                                          mappedPairs.some(m => {
-                                            const mTeacherId = typeof m.teacherId === 'object' ? m.teacherId._id : m.teacherId;
-                                            const mSubjectId = typeof m.subjectId === 'object' ? m.subjectId._id : m.subjectId;
-                                            return mTeacherId === selectedTeacherId && mSubjectId === s._id;
-                                          })
-                                        );
+                                    value={grid[day]?.[slot._id]?.combo || ''}
+                                    onChange={e => {
+                                      const comboValue = e.target.value;
+                                      if (!comboValue) {
+                                        handleGridChange(day, slot._id, 'combo', '');
+                                        handleGridChange(day, slot._id, 'subject', '');
+                                        handleGridChange(day, slot._id, 'teacher', '');
+                                        return;
                                       }
-                                      return filteredSubjects.map(sub => (
-                                        <option key={sub._id} value={sub._id}>{sub.name}</option>
-                                      ));
-                                    })()}
-                                  </select>
-                                </div>
-                                <div style={{ marginTop: 4 }}>
-                                  <select
-                                    value={grid[day]?.[slot._id]?.teacher || ''}
-                                    onChange={e => handleGridChange(day, slot._id, 'teacher', e.target.value)}
+                                      const [subjectId, teacherId] = comboValue.split('___');
+                                      handleGridChange(day, slot._id, 'combo', comboValue);
+                                      handleGridChange(day, slot._id, 'subject', subjectId);
+                                      handleGridChange(day, slot._id, 'teacher', teacherId);
+                                    }}
                                   >
-                                    <option value="">-- Teacher --</option>
-                                    {(() => {
-                                      const selectedSubjectId = grid[day]?.[slot._id]?.subject;
-                                      let filteredTeachers = teachers;
-                                      if (selectedSubjectId && mappedPairs.length > 0) {
-                                        filteredTeachers = teachers.filter(t =>
-                                          mappedPairs.some(m => {
-                                            const mTeacherId = typeof m.teacherId === 'object' ? m.teacherId._id : m.teacherId;
-                                            const mSubjectId = typeof m.subjectId === 'object' ? m.subjectId._id : m.subjectId;
-                                            return mSubjectId === selectedSubjectId && mTeacherId === t._id;
-                                          })
-                                        );
-                                      }
-                                      return filteredTeachers.map(teacher => (
-                                        <option key={teacher._id} value={teacher._id}>{teacher.name}</option>
-                                      ));
-                                    })()}
+                                    <option value="">-- Subject & Teacher --</option>
+                                    {mappedPairs.map(m => {
+                                      const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
+                                      const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
+                                      const subjectId = mSubject ? mSubject._id : m.subjectId;
+                                      const teacherId = mTeacher ? mTeacher._id : m.teacherId;
+                                      const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || subjectId) : subjectId;
+                                      const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || teacherId) : teacherId;
+                                      return (
+                                        <option key={subjectId + '___' + teacherId} value={subjectId + '___' + teacherId}>
+                                          {subjectName} - {teacherName}
+                                        </option>
+                                      );
+                                    })}
                                   </select>
                                 </div>
                               </>
