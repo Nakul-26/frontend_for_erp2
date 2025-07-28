@@ -109,12 +109,7 @@ function CreateTimetablePage() {
             setError(`Please select a subject-teacher pair for ${day}, ${slot.period}`);
             return;
           }
-          const [subjectId, teacherId] = cell.combo.split('___');
-          const found = mappedPairs.find(m => {
-            const mSubjectId = typeof m.subjectId === 'object' ? m.subjectId._id : m.subjectId;
-            const mTeacherId = typeof m.teacherId === 'object' ? m.teacherId._id : m.teacherId;
-            return mSubjectId === subjectId && mTeacherId === teacherId;
-          });
+          const found = mappedPairs.find(m => m._id === cell.combo);
           if (!found || !found._id) {
             setLoading(false);
             setError(`Invalid mapping for ${day}, ${slot.period}. Please select a valid subject-teacher pair.`);
@@ -133,31 +128,23 @@ function CreateTimetablePage() {
             const cell = grid[day]?.[slot._id] || {};
             let mappedId = '';
             if (cell.combo) {
-              const [subjectId, teacherId] = cell.combo.split('___');
-              // Find the mapping _id from mappedPairs
-              const found = mappedPairs.find(m => {
-                const mSubjectId = typeof m.subjectId === 'object' ? m.subjectId._id : m.subjectId;
-                const mTeacherId = typeof m.teacherId === 'object' ? m.teacherId._id : m.teacherId;
-                return mSubjectId === subjectId && mTeacherId === teacherId;
-              });
-              if (found) mappedId = found._id;
+              mappedId = cell.combo;
             }
             return {
               period: slot._id,
               mapped: mappedId
             };
           });
+        console.log('Final periods payload:', JSON.stringify(periods, null, 2));
         const payload = {
           day,
           periods
         };
-        console.log('Submitting payload for', day, JSON.stringify(payload, null, 2));
         await axios.post(`${API_BASE_URL}/api/v1/admin/createdailyschedule/${selectedClass}`, payload, { withCredentials: true });
       }
       setSuccess('Timetable created successfully!');
     } catch (err) {
-      const backendMsg = err?.response?.data?.message;
-      setError(backendMsg ? `Backend: ${backendMsg}` : 'Failed to create timetable.');
+      setError('Failed to create timetable.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -216,17 +203,23 @@ function CreateTimetablePage() {
                                   <select
                                     value={grid[day]?.[slot._id]?.combo || ''}
                                     onChange={e => {
-                                      const comboValue = e.target.value;
-                                      if (!comboValue) {
+                                      const mappedId = e.target.value;
+                                      if (!mappedId) {
                                         handleGridChange(day, slot._id, 'combo', '');
                                         handleGridChange(day, slot._id, 'subject', '');
                                         handleGridChange(day, slot._id, 'teacher', '');
                                         return;
                                       }
-                                      const [subjectId, teacherId] = comboValue.split('___');
-                                      handleGridChange(day, slot._id, 'combo', comboValue);
-                                      handleGridChange(day, slot._id, 'subject', subjectId);
-                                      handleGridChange(day, slot._id, 'teacher', teacherId);
+                                      const found = mappedPairs.find(m => m._id === mappedId);
+                                      if (found) {
+                                        const mSubject = typeof found.subjectId === 'object' ? found.subjectId : null;
+                                        const mTeacher = typeof found.teacherId === 'object' ? found.teacherId : null;
+                                        const subjectId = mSubject ? mSubject._id : found.subjectId;
+                                        const teacherId = mTeacher ? mTeacher._id : found.teacherId;
+                                        handleGridChange(day, slot._id, 'combo', mappedId);
+                                        handleGridChange(day, slot._id, 'subject', subjectId);
+                                        handleGridChange(day, slot._id, 'teacher', teacherId);
+                                      }
                                     }}
                                   >
                                     <option value="">-- Subject & Teacher --</option>
@@ -238,7 +231,7 @@ function CreateTimetablePage() {
                                       const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || subjectId) : subjectId;
                                       const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || teacherId) : teacherId;
                                       return (
-                                        <option key={subjectId + '___' + teacherId} value={subjectId + '___' + teacherId}>
+                                        <option key={m._id} value={m._id}>
                                           {subjectName} - {teacherName}
                                         </option>
                                       );
