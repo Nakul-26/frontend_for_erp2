@@ -148,12 +148,51 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
             <Link to="/admin/adminteacherattendance" data-icon="👨‍🏫">Teacher Attendance</Link>
           </div>
         </div>
-        <Link to="/admin/mapped" data-icon="🔗">Mapped</Link>
-        <Link to="/admin/timetable-pdf" data-icon="📄">Timetable PDF Generator</Link>
+        <div className="nav-group">
+          <span
+            className="nav-group-title"
+            data-icon="📅"
+            onClick={() => toggleSection('timetable')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && toggleSection('t imetable')}
+          >
+            Timetable
+          </span>
+          <div className={`nav-subgroup ${openSections.timetable ? 'open' : ''}`}>
+            {/* <Link to="/admin/timetable/create" data-icon="➕">Create Timetable</Link> */}
+            {/* <Link to="/admin/timetable/view" data-icon="👀" >View Timetable</Link>   */}
+            {/* <Link to="/admin/timetable/viewclassmappings" data-icon="🔍">View Class Mappings</Link> */}
+            {/* <Link to="/admin/timetable/viewteacher" data-icon="👨‍🏫"> teacher timetable </Link> */}
+            {/* <Link to="/admin/timetable/viewstudent" data-icon="👩‍🎓"> Student timetable </Link> */}
 
-        <Link to="/admin/timetable/create" data-icon="🗓️">Generate Timetable</Link>
+            <Link to="/admin/mapped" data-icon="🔗">Mapped</Link>
+            <Link to="/admin/timetable-pdf" data-icon="📄">Timetable PDF Generator</Link>
+            <Link to="/admin/timetable/create" data-icon="🗓️">Generate Timetable</Link>
+            <Link to="/admin/timetable/view-mappings" data-icon="🔍">View Class Mappings</Link> 
+          </div>
+        </div>
 
-        <Link to="/admin/timetable/view-mappings" data-icon="🔍">View Class Mappings</Link>
+
+        <div className="nav-group">
+          <span
+            className="nav-group-title"
+            data-icon="📝"
+            onClick={() => toggleSection('exams')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && toggleSection('exams')}
+          >
+            Exams
+          </span>
+          <div className={`nav-subgroup ${openSections.exams ? 'open' : ''}`}>
+            <Link to="/admin/exams/create" data-icon="➕">Create Exam</Link>
+            <Link to="/admin/exams/delete" data-icon="🗑️">Delete Exam</Link>
+            <Link to="/admin/exams/getall" data-icon="📋">Get All Exams</Link>
+            <Link to="/admin/exams/update/:examId" data-icon="✏️">Update Exam</Link>
+            <Link to="/admin/exams/getsingle/:examId" data-icon="🔍">Get Single Exam</Link>
+          </div>
+        </div>
         
         {/* <Link to="/admin/parents/add" data-icon="➕">Add Parent</Link>
         <Link to="/admin/parents" data-icon="👪">Parents</Link>

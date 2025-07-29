@@ -56,6 +56,12 @@ import AdminTimetablePdfGenerator from './pages/admin/AdminTimetablePdfGenerator
 import CreateTimetablePage from './pages/timetable/CreateTimetablePage';
 import ViewClassMappingsPage from './pages/timetable/ViewClassMappingsPage';
 
+import CreateExam from './pages/exam/createExam';
+import GetAllExams from './pages/exam/GetAllExams';
+import UpdateExam from './pages/exam/UpdateExam';
+import DeleteExam from './pages/exam/DeleteExam';
+import GetSingleExam from './pages/exam/GetSingleExam';
+
 //import { ProtectedRoute } from './components/ProtectedRoute';
 
 
@@ -135,6 +141,13 @@ function AppContent() {
           <Route path="/admin/timetable-pdf" element={<AdminTimetablePdfGenerator />} />
           <Route path="/admin/timetable/create" element={<CreateTimetablePage />} />
           <Route path="/admin/timetable/view-mappings" element={<ViewClassMappingsPage />} />
+
+          <Route path="/admin/exams/create" element={<CreateExam />} />
+          <Route path="/admin/exams/delete" element={<DeleteExam />} />
+          <Route path="/admin/exams/getall" element={<GetAllExams />} />
+          <Route path="/admin/exams/update/:examId" element={<UpdateExam />} />
+          <Route path="/admin/exams/getsingle/:examId" element={<GetSingleExam />} />
+
 
           {/* <Route path="*" element={<Navigate to="/" />} />  */}
         </Routes>
