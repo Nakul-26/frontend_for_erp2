@@ -187,10 +187,28 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
           </span>
           <div className={`nav-subgroup ${openSections.exams ? 'open' : ''}`}>
             <Link to="/admin/exams/create" data-icon="➕">Create Exam</Link>
-            <Link to="/admin/exams/delete" data-icon="🗑️">Delete Exam</Link>
+            {/* <Link to="/admin/exams/delete" data-icon="🗑️">Delete Exam</Link> */}
             <Link to="/admin/exams/getall" data-icon="📋">Get All Exams</Link>
-            <Link to="/admin/exams/update/:examId" data-icon="✏️">Update Exam</Link>
-            <Link to="/admin/exams/getsingle/:examId" data-icon="🔍">Get Single Exam</Link>
+            {/* <Link to="/admin/exams/update/:examId" data-icon="✏️">Update Exam</Link> */}
+            {/* <Link to="/admin/exams/getsingle/:examId" data-icon="🔍">Get Single Exam</Link> */}
+          </div>
+        </div>
+
+        <div className="nav-group">
+          <span
+            className="nav-group-title"
+            data-icon="📊"
+            onClick={() => toggleSection('examresults')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && toggleSection('examresults')}
+          >
+            Exam Results
+          </span>
+          <div className={`nav-subgroup ${openSections.examresults ? 'open' : ''}`}>
+            <Link to="/admin/examresult/create" data-icon="➕">Create Exam Result</Link>
+            <Link to="/admin/examresult/getbyexam/:examId" data-icon="📋">Get Results by Exam</Link>
+            <Link to="/admin/examresult/update/:resultId" data-icon="✏️">Update Exam Result</Link>
           </div>
         </div>
         

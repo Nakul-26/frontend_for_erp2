@@ -62,6 +62,10 @@ import UpdateExam from './pages/exam/UpdateExam';
 import DeleteExam from './pages/exam/DeleteExam';
 import GetSingleExam from './pages/exam/GetSingleExam';
 
+import CreateExamResult from './pages/exam-result/CreateExamResult';
+import ExamResultsByExam from './pages/exam-result/ExamResultsByExam';
+import UpdateExamResult from './pages/exam-result/UpdateExamResult';
+
 //import { ProtectedRoute } from './components/ProtectedRoute';
 
 
@@ -148,6 +152,9 @@ function AppContent() {
           <Route path="/admin/exams/update/:examId" element={<UpdateExam />} />
           <Route path="/admin/exams/getsingle/:examId" element={<GetSingleExam />} />
 
+          <Route path="/admin/examresult/create" element={<CreateExamResult />} />
+          <Route path="/admin/examresult/getbyexam/:examId" element={<ExamResultsByExam />} />
+          <Route path="/admin/examresult/update/:resultId" element={<UpdateExamResult />} />
 
           {/* <Route path="*" element={<Navigate to="/" />} />  */}
         </Routes>
