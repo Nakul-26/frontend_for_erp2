@@ -92,6 +92,7 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
             {/* <Link to="/admin/teachers/modify" data-icon="✏️">Modify Teacher</Link> */}
             {/* <Link to="/admin/teachers/delete" data-icon="🗑️">Delete Teacher</Link> */}
             <Link to="/admin/teachers/attendance" data-icon="📝">Teacher Attendance</Link>
+            
           </div>
         </div>
         <div className="nav-group">
@@ -146,6 +147,8 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
           <div className={`nav-subgroup ${openSections.attendance ? 'open' : ''}`}>
             <Link to="/admin/adminstudentattendance" data-icon="👩‍🎓">Student Attendance</Link>
             <Link to="/admin/adminteacherattendance" data-icon="👨‍🏫">Teacher Attendance</Link>
+            <Link to="/admin/teacher-attendance" data-icon="📅">View Teacher Attendance</Link>
+            <Link to="/admin/teacher-attendance/update/:attendanceId" data-icon="✏️">Update Teacher Attendance</Link>
           </div>
         </div>
         <div className="nav-group">

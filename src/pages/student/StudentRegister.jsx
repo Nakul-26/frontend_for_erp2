@@ -9,24 +9,24 @@ import { useAuth } from '../../context/AuthContext';
 
 function StudentRegister() {
   const [formData, setFormData] = useState({
-    s_id: '',
+    rollno: '',
     name: '',
     email: '',
     password: '',
-    Age: '',
-    dateOfBirth: '',
+    age: '',
+    dateofbirth: '',
     address: '',
     phone: '',
-    dateOfAdmission: '',
-    class: '',
+    dateofadmission: '',
+    Class: '',
     fatherName: '',
     fatherPhoneNumber: '',
     fatherOccupation: '',
     motherName: '',
     motherPhoneNumber: '',
     motherOccupation: '',
-    Qualification: '',
   });
+  const [classes, setClasses] = useState([]);
   const [photo, setPhoto] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -37,6 +37,25 @@ function StudentRegister() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  // Fetch all classes on mount
+  React.useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const API_BASE_URL = import.meta.env.VITE_API_URL;
+        const response = await axios.get(`${API_BASE_URL}/api/v1/admin/getallclass`,
+          { withCredentials: true }
+        );
+        console.log('Classes fetched:', response.data);
+        if (response.data.success && Array.isArray(response.data.data)) {
+          setClasses(response.data.data);
+        }
+      } catch (err) {
+        // Optionally handle error
+      }
+    };
+    fetchClasses();
+  }, []);
 
   const handleFileChange = (e) => {
     setPhoto(e.target.files[0]);
@@ -63,25 +82,26 @@ function StudentRegister() {
 
     // Prepare student data
     const studentData = new FormData();
-    studentData.append('s_id', formData.s_id);
+    studentData.append('rollno', formData.rollno);
     studentData.append('name', formData.name);
+    studentData.append('age', formData.age);
     studentData.append('email', formData.email);
-    studentData.append('password', formData.password);
-    studentData.append('Age', formData.Age);
-    studentData.append('dateOfBirth', formData.dateOfBirth);
     studentData.append('address', formData.address || undefined);
+    studentData.append('password', formData.password);
+    
+    studentData.append('dateofbirth', formData.dateofbirth);
+    
     studentData.append('phone', formData.phone);
-    studentData.append('dateOfAdmission', formData.dateOfAdmission);
-    studentData.append('class', formData.class);
+    studentData.append('dateofadmission', formData.dateofadmission);
+    studentData.append('class', formData.Classs);
     studentData.append('fatherName', formData.fatherName);
     studentData.append('fatherPhoneNumber', formData.fatherPhoneNumber);
     studentData.append('fatherOccupation', formData.fatherOccupation || undefined);
     studentData.append('motherName', formData.motherName);
     studentData.append('motherPhoneNumber', formData.motherPhoneNumber);
     studentData.append('motherOccupation', formData.motherOccupation || undefined);
-    studentData.append('Qualification', formData.Qualification);
     if (photo) {
-      studentData.append('photo', photo);
+      studentData.append('Studentphoto', photo);
     }
 
     const API_BASE_URL = import.meta.env.VITE_API_URL;
@@ -121,9 +141,9 @@ function StudentRegister() {
             <div className="input-group">
               <input
                 type="text"
-                name="s_id"
-                placeholder="Student ID (e.g., S001)"
-                value={formData.s_id}
+                name="rollno"
+                placeholder="Roll No (e.g., S001)"
+                value={formData.rollno}
                 onChange={handleChange}
                 required
               />
@@ -161,20 +181,20 @@ function StudentRegister() {
             <div className="input-group">
               <input
                 type="number"
-                name="Age"
+                name="age"
                 placeholder="Age"
-                value={formData.Age}
+                value={formData.age}
                 onChange={handleChange}
                 required
-                min="5"
+                min="1"
               />
             </div>
             <div className="input-group">
               <input
                 type="date"
-                name="dateOfBirth"
+                name="dateofbirth"
                 placeholder="Date of Birth"
-                value={formData.dateOfBirth}
+                value={formData.dateofbirth}
                 onChange={handleChange}
                 required
               />
@@ -201,22 +221,25 @@ function StudentRegister() {
             <div className="input-group">
               <input
                 type="date"
-                name="dateOfAdmission"
+                name="dateofadmission"
                 placeholder="Date of Admission"
-                value={formData.dateOfAdmission}
+                value={formData.dateofadmission}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="input-group">
-              <input
-                type="text"
-                name="class"
-                placeholder="Class ID (e.g., CS101)"
-                value={formData.class}
+              <select
+                name="Classs"
+                value={formData.Classs}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="">Select Class</option>
+                {classes.map((cls) => (
+                  <option key={cls._id || cls.classId} value={cls.classId}>{cls.className || cls.classId}</option>
+                ))}
+              </select>
             </div>
             <div className="input-group">
               <input
@@ -278,18 +301,8 @@ function StudentRegister() {
             </div>
             <div className="input-group">
               <input
-                type="text"
-                name="Qualification"
-                placeholder="Qualification (e.g., High School Diploma)"
-                value={formData.Qualification}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-group">
-              <input
                 type="file"
-                name="photo"
+                name="Studentphoto"
                 accept="image/*"
                 onChange={handleFileChange}
               />

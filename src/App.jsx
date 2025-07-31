@@ -18,14 +18,14 @@ import TeacherChangePassword from './pages/teacher/TeacherChangePassword';
 import TeacherSchedulePage from './pages/teacher/TeacherSchedulePage'; 
 import TeacherGradesPage from './pages/teacher/TeacherGradesPage'; 
 import TeacherTimetable from './pages/teacher/TeacherTimetable'; 
-import TeacherAttendanceHistory from './pages/teacher/TeacherAttendanceHistory'; 
+// import TeacherAttendanceHistory from './pages/teacher/TeacherAttendanceHistory'; 
 import TeacherSettings from './pages/teacher/TeacherSettings'; 
 
 import TeacherRegister from './pages/teacher/TeacherRegister'; 
 import TeachersPage from './pages/teacher/TeachersPage'; 
-import TeacherAttendancePage from './pages/teacher/TeacherAttendancePage'; 
+// import TeacherAttendancePage from './pages/teacher/TeacherAttendancePage'; 
 import ModifyTeacherPage from './pages/teacher/ModifyTeacherPage'; 
-import MarkTeacherAttendance from './pages/teacher/MarkTeacherAttendance'; 
+// import MarkTeacherAttendance from './pages/teacher/MarkTeacherAttendance'; 
 import SearchTeacher from './pages/teacher/SearchTeacher';
 
 import StudentLogin from './pages/student/StudentLogin'; 
@@ -34,10 +34,10 @@ import StudentRegister from './pages/student/StudentRegister';
 import StudentsPage from './pages/student/StudentsPage'; 
 import ModifyStudentPage from './pages/student/ModifyStudentPage'; 
 import StudentTimetable from './pages/student/StudentTimetable'; 
-import MarkStudentAttendance from './pages/student/MarkStudentAttendance'; 
-import StudentAttendanceHistory from './pages/student/StudentAttendanceHistory'; 
+// import MarkStudentAttendance from './pages/student/MarkStudentAttendance'; 
+// import StudentAttendanceHistory from './pages/student/StudentAttendanceHistory'; 
 import StudentSettings from './pages/student/StudentSettings';
-import TakeStudentAttendancePage from './pages/student/TakeStudentAttendancePage';
+// import TakeStudentAttendancePage from './pages/student/TakeStudentAttendancePage';
 
 import SubjectsPage from './pages/subject/SubjectsPage'; 
 import AddSubjectPage from './pages/subject/AddSubjectPage'; 
@@ -66,6 +66,17 @@ import GetSingleExam from './pages/exam/GetSingleExam';
 import CreateExamResult from './pages/exam-result/CreateExamResult';
 import ExamResultsByExam from './pages/exam-result/ExamResultsByExam';
 import UpdateExamResult from './pages/exam-result/UpdateExamResult';
+
+import TeacherAttendancePage from './pages/attendence/TeacherAttendancePage';
+// import StudentAttendancePage from './pages/attendence/StudentAttendancePage';
+import MarkStudentAttendance from './pages/attendence/MarkStudentAttendance';
+import MarkTeacherAttendance from './pages/attendence/MarkTeacherAttendance';
+import StudentAttendanceHistory from './pages/attendence/StudentAttendanceHistory';
+import TeacherAttendanceHistory from './pages/attendence/TeacherAttendanceHistory';
+import TakeStudentAttendancePage from './pages/attendence/TakeStudentAttendancePage';
+
+import GetTeacherAttendance from './pages/attendence/GetTeacherAttendance';
+import UpdateTeacherAttendance from './pages/attendence/UpdateTeacherAttendance';
 
 //import { ProtectedRoute } from './components/ProtectedRoute';
 
@@ -157,6 +168,9 @@ function AppContent() {
           <Route path="/admin/examresult/create" element={<CreateExamResult />} />
           <Route path="/admin/examresult/getbyexam/:examId" element={<ExamResultsByExam />} />
           <Route path="/admin/examresult/update/:resultId" element={<UpdateExamResult />} />
+
+          <Route path="/admin/teacher-attendance" element={<GetTeacherAttendance />} />
+          <Route path="/admin/teacher-attendance/update/:attendanceId" element={<UpdateTeacherAttendance />} />
 
           {/* <Route path="*" element={<Navigate to="/" />} />  */}
         </Routes>
