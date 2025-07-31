@@ -168,8 +168,10 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
 
             <Link to="/admin/mapped" data-icon="🔗">Mapped</Link>
             <Link to="/admin/timetable-pdf" data-icon="📄">Timetable PDF Generator</Link>
-            <Link to="/admin/timetable/create" data-icon="🗓️">Generate Timetable</Link>
+            <Link to="/admin/timetable/create" data-icon="🗓️">Create Timetable</Link>
+            {/* <Link to="/"></Link> */}
             <Link to="/admin/timetable/view-mappings" data-icon="🔍">View Class Mappings</Link> 
+            <Link to="/admin/timetable/getall" data-icon="📋">Get All Timetables</Link>
           </div>
         </div>
 

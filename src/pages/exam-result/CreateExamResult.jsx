@@ -6,6 +6,8 @@ import Navbar from '../../components/Navbar';
 
 function CreateExamResult() {
   const [exams, setExams] = useState([]);
+  const [classes, setClasses] = useState([]);
+  const [selectedClass, setSelectedClass] = useState('');
   const [students, setStudents] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [selectedExam, setSelectedExam] = useState('');
@@ -17,8 +19,8 @@ function CreateExamResult() {
     axios.get(`${API}/api/v1/admin/exam/getall`, { withCredentials: true })
       .then(res => setExams(res.data.data || []));
 
-    axios.get(`${API}/api/v1/admin/student/all`, { withCredentials: true })
-      .then(res => setStudents(res.data.data || []));
+    axios.get(`${API}/api/v1/admin/getallclassformapped`, { withCredentials: true })
+      .then(res => setClasses(res.data.data || []));
 
     axios.get(`${API}/api/v1/admin/getall`, { withCredentials: true })
       .then(res => {
@@ -26,6 +28,15 @@ function CreateExamResult() {
         console.log('Subjects fetched:', res.data.subjects);
       });
   }, []);
+
+  useEffect(() => {
+    if (!selectedClass) {
+      setStudents([]);
+      return;
+    }
+    axios.get(`${API}/api/v1/admin/getallstudents/${selectedClass}`, { withCredentials: true })
+      .then(res => setStudents(res.data.data || []));
+  }, [selectedClass]);
 
   useEffect(() => {
     if (!selectedExam) return;
@@ -62,6 +73,11 @@ function CreateExamResult() {
         <div className="form-container">
           <h2>Create Exam Result</h2>
           <form onSubmit={handleSubmit}>
+            <select required value={selectedClass} onChange={e => setSelectedClass(e.target.value)}>
+              <option value="">Select Class</option>
+              {classes.map(c => <option key={c._id} value={c._id}>{c.name || c.className}</option>)}
+            </select>
+
             <select required value={selectedExam} onChange={e => setSelectedExam(e.target.value)}>
               <option value="">Select Exam</option>
               {exams.map(e => <option key={e._id} value={e._id}>{e.examName}</option>)}

@@ -93,6 +93,51 @@ function CreateTimetablePage() {
     }));
   };
 
+  // Fill all for a day
+  const handleFillAllDay = (day, mappedId) => {
+    const found = mappedPairs.find(m => m._id === mappedId);
+    if (!found) return;
+    setGrid(prev => {
+      const newDay = {};
+      timeSlots.forEach(slot => {
+        if (!isBreakPeriod(slot.period)) {
+          const mSubject = typeof found.subjectId === 'object' ? found.subjectId : null;
+          const mTeacher = typeof found.teacherId === 'object' ? found.teacherId : null;
+          const subjectId = mSubject ? mSubject._id : found.subjectId;
+          const teacherId = mTeacher ? mTeacher._id : found.teacherId;
+          newDay[slot._id] = {
+            combo: mappedId,
+            subject: subjectId,
+            teacher: teacherId
+          };
+        }
+      });
+      return {
+        ...prev,
+        [day]: newDay
+      };
+    });
+  };
+
+  // Drag and drop handlers
+  const [draggedPair, setDraggedPair] = useState(null);
+  const handleDragStart = (pairId) => setDraggedPair(pairId);
+  const handleDrop = (day, slotId) => {
+    if (draggedPair) {
+      const found = mappedPairs.find(m => m._id === draggedPair);
+      if (found) {
+        const mSubject = typeof found.subjectId === 'object' ? found.subjectId : null;
+        const mTeacher = typeof found.teacherId === 'object' ? found.teacherId : null;
+        const subjectId = mSubject ? mSubject._id : found.subjectId;
+        const teacherId = mTeacher ? mTeacher._id : found.teacherId;
+        handleGridChange(day, slotId, 'combo', draggedPair);
+        handleGridChange(day, slotId, 'subject', subjectId);
+        handleGridChange(day, slotId, 'teacher', teacherId);
+      }
+    }
+    setDraggedPair(null);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -177,6 +222,28 @@ function CreateTimetablePage() {
 
             {selectedClass && timeSlots.length > 0 && (
               <div style={{ overflowX: 'auto' }}>
+                {/* Drag-and-drop source list */}
+                <div style={{ marginBottom: 16 }}>
+                  <label>Drag Subject-Teacher Pair:</label>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    {mappedPairs.map(m => {
+                      const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
+                      const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
+                      const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || mSubject._id) : m.subjectId;
+                      const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || mTeacher._id) : m.teacherId;
+                      return (
+                        <div
+                          key={m._id}
+                          draggable
+                          onDragStart={() => handleDragStart(m._id)}
+                          style={{ padding: '6px 12px', background: '#e0e7ef', borderRadius: 6, cursor: 'grab', border: '1px solid #cbd5e1' }}
+                        >
+                          {subjectName} - {teacherName}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
                 <table className="timetable-table">
                   <thead>
                     <tr>
@@ -187,6 +254,7 @@ function CreateTimetablePage() {
                           <small>{slot.startTime} - {slot.endTime}</small>
                         </th>
                       ))}
+                      <th>Fill All</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -194,7 +262,11 @@ function CreateTimetablePage() {
                       <tr key={day}>
                         <td>{day}</td>
                         {timeSlots.map(slot => (
-                          <td key={slot._id}>
+                          <td
+                            key={slot._id}
+                            onDragOver={e => e.preventDefault()}
+                            onDrop={() => handleDrop(day, slot._id)}
+                          >
                             {isBreakPeriod(slot.period) ? (
                               <em>{slot.period}</em>
                             ) : (
@@ -242,6 +314,26 @@ function CreateTimetablePage() {
                             )}
                           </td>
                         ))}
+                        {/* Fill All for this day */}
+                        <td>
+                          <select
+                            onChange={e => handleFillAllDay(day, e.target.value)}
+                            defaultValue=""
+                          >
+                            <option value="">Fill All</option>
+                            {mappedPairs.map(m => {
+                              const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
+                              const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
+                              const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || mSubject._id) : m.subjectId;
+                              const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || mTeacher._id) : m.teacherId;
+                              return (
+                                <option key={m._id} value={m._id}>
+                                  {subjectName} - {teacherName}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
