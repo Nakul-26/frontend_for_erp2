@@ -70,32 +70,36 @@ function ViewClassMappingsPage() {
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
-        <div className="timetable-form-container">
-          <h1>View Class Mappings</h1>
-          {loading && <p className="status-message">Loading...</p>}
-          {error && <p className="status-message error">{error}</p>}
-          {success && <p className="status-message success">{success}</p>}
-          <div style={{ marginBottom: '1rem', display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-            <label htmlFor="class-select" style={{ fontSize: '1rem', marginRight: '8px' }}>Select Class: </label>
-            <select id="class-select" value={selectedClass} onChange={handleClassChange} required style={{ fontSize: '1rem', padding: '6px 8px', minWidth: '120px', maxWidth: '100%' }}>
+        <div className="timetable-form-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+          <h1 style={{ textAlign: 'center', width: '100%' }}>View Class Mappings</h1>
+          {loading && <p className="status-message" style={{ textAlign: 'center' }}>Loading...</p>}
+          {error && <p className="status-message error" style={{ textAlign: 'center' }}>{error}</p>}
+          {success && <p className="status-message success" style={{ textAlign: 'center' }}>{success}</p>}
+          <div style={{ marginBottom: '1rem', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+            <label htmlFor="class-select" style={{ fontSize: '1rem', marginRight: '8px', textAlign: 'center' }}>Select Class: </label>
+            <select id="class-select" value={selectedClass} onChange={handleClassChange} required style={{ fontSize: '1rem', padding: '6px 8px', minWidth: '120px', maxWidth: '100%', textAlign: 'center' }}>
               <option value="">-- Select Class --</option>
               {classes.map(cls => (
                 <option key={cls._id} value={cls._id}>{cls.name || cls.className}</option>
               ))}
             </select>
           </div>
-          <div style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '1rem 0', overflowX: 'auto' }}>
+          <div style={{ width: '100%', margin: 0, overflowX: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             {selectedClass && mappings.length > 0 && (
-              <table className="timetable-table" style={{
-                width: '100%',
-                minWidth: '480px',
-                background: 'var(--surface)',
-                color: 'var(--text)',
-                borderRadius: '8px',
-                overflow: 'hidden',
-                borderCollapse: 'collapse',
-                boxShadow: '0 2px 8px var(--border-color)'
-              }}>
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <table className="timetable-table" style={{
+                  width: '90vw',
+                  maxWidth: '1200px',
+                  minWidth: '480px',
+                  background: 'var(--surface)',
+                  color: 'var(--text)',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  borderCollapse: 'collapse',
+                  boxShadow: '0 2px 8px var(--border-color)',
+                  margin: '0 auto',
+                  textAlign: 'center'
+                }}>
                 <thead>
                   <tr style={{ background: 'var(--primary)', color: 'var(--text-light)' }}>
                     <th>Subject</th>
@@ -124,7 +128,8 @@ function ViewClassMappingsPage() {
                     </tr>
                   ))}
                 </tbody>
-              </table>
+                </table>
+              </div>
             )}
             {selectedClass && mappings.length === 0 && !loading && (
               <p>No mappings found for this class.</p>

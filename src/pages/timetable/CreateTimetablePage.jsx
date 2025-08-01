@@ -259,7 +259,7 @@ function CreateTimetablePage() {
                     </div>
                   </div>
                   <div style={{ overflowX: 'auto', width: '100%' }}>
-                    <table className="timetable-table" style={{ tableLayout: 'fixed', minWidth: '1200px', width: '100%' }}>
+                    <table className="timetable-table" style={{ tableLayout: 'fixed', minWidth: '2200px', width: '100%', margin: '0 auto' }}>
                       <colgroup>
                         <col style={{ width: '160px' }} />
                         {timeSlots.map((slot, idx) => (

@@ -161,9 +161,9 @@ function UpdateTeacherAttendance() {
                   transition: 'background 0.3s, color 0.3s',
                 }}
               >
-                <option value="" style={{ color: 'var(--text-primary)', background: 'var(--input-bg)' }}>Select Teacher</option>
+                <option value="" style={{ color: 'var(--text-primary)', background: 'var(--input-background)' }}>Select Teacher</option>
                 {teachers.map((teacher) => (
-                  <option key={teacher._id} value={teacher._id} style={{ color: 'var(--text-primary)', background: 'var(--input-bg)' }}>
+                  <option key={teacher._id} value={teacher._id} style={{ color: 'var(--text-primary)', background: 'var(--input-background)' }}>
                     {teacher.name} ({teacher.s_id})
                   </option>
                 ))}

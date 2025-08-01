@@ -185,3 +185,9 @@ select:disabled, select option:disabled {
     grid-template-columns: 1fr; /* Stack stat cards */
   }
 }
+
+[data-theme="dark"] .form-container div select option {
+  background: 'var(--input-background)' !important;
+  color: #f3f4f6 !important;
+}
+

@@ -98,7 +98,7 @@ function MarkTeacherAttendance() {
           <h2 style={{ marginBottom: 24, color: 'var(--primary)', fontWeight: 700 }}>Mark Teacher Attendance</h2>
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: '20px' }}>
-              <label style={{ marginRight: '10px', fontWeight: 500, color: 'var(--text)' }}>Date:</label>
+              <label style={{ marginRight: '10px', fontWeight: 500 }}>Date:</label>
               <input
                 type="date"
                 value={date}
@@ -124,9 +124,9 @@ function MarkTeacherAttendance() {
                   required
                   style={{ padding: '8px', borderRadius: 6, border: '1px solid var(--border-color)', marginRight: '20px', minWidth: 180, background: 'var(--input-background)', color: 'var(--input-text)' }}
                 >
-                  <option value="">Select Teacher</option>
+                  <option value="" style={{ background: 'var(--input-background)'}}>Select Teacher</option>
                   {teachers.map((teacher) => (
-                    <option key={teacher._id} value={teacher._id}>
+                    <option key={teacher._id} value={teacher._id} style={{ background: 'var(--input-background)'}}>
                       {teacher.name} ({teacher.s_id})
                     </option>
                   ))}
@@ -137,9 +137,9 @@ function MarkTeacherAttendance() {
                   onChange={(e) => handleAttendanceChange(0, 'status', e.target.value)}
                   style={{ padding: '8px', borderRadius: 6, border: '1px solid var(--border-color)', marginRight: '20px', minWidth: 120, background: 'var(--input-background)', color: 'var(--input-text)' }}
                 >
-                  <option value="present">Present</option>
-                  <option value="absent">Absent</option>
-                  <option value="leave">Leave</option>
+                  <option value="present" style={{ background: 'var(--input-background)'}}>Present</option>
+                  <option value="absent" style={{ background: 'var(--input-background)'}}>Absent</option>
+                  <option value="leave" style={{ background: 'var(--input-background)'}}>Leave</option>
                 </select>
                 <label style={{ marginRight: '10px', fontWeight: 500, color: 'var(--text)' }}>Remarks:</label>
                 <input

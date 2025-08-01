@@ -137,8 +137,8 @@ function MappedPage() {
           <p className="dashboard-subtitle">Link a specific class, subject, and teacher</p>
         </header>
 
-        <div className="login-container" style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '30px 0' }}>
-          <form className="login-form" onSubmit={handleSubmit} style={{ width: '100%', background: 'var(--surface)', color: 'var(--text)', borderRadius: '12px', boxShadow: '0 2px 8px var(--border-color)', padding: '2rem 1rem', margin: '0 auto', border: 'none', maxWidth: '600px' }}>
+        <div className="form-container" style={{ width: '100%', maxWidth: '100%' }}>
+          <form className="login-form" onSubmit={handleSubmit} style={{ width: '100%', background: 'var(--surface)', color: 'var(--text)', borderRadius: '12px', padding: '2rem 1rem', margin: '0 auto' }}>
             <h2 style={{ marginBottom: '24px', textAlign: 'center', color: 'var(--primary)', fontWeight: 600, fontSize: '1.5rem' }}>Create Class-Subject-Teacher Mapping</h2>
 
             {loading ? (
@@ -147,11 +147,11 @@ function MappedPage() {
               <>
                 {/* Select Subjects */}
                 <div className="radio-group-section" style={{ background: 'var(--surface)', color: 'var(--text)', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '16px', padding: '12px' }}>
-                  <h3 style={{ color: 'var(--primary)', fontWeight: 500, marginBottom: '8px', fontSize: '1rem' }}>Select Subject:</h3>
+                  <h3 style={{ color: 'var(--primary)', fontWeight: 500, marginBottom: '8px', fontSize: '1rem', borderBottom: 'none' }}>Select Subject:</h3>
                   {subjects.length > 0 ? (
-                    <div className="radio-grid" style={{ background: 'var(--surface)', color: 'var(--text)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px' }}>
+                    <div className="radio-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px' }}>
                       {subjects.map(subject => (
-                        <label key={subject._id} className="radio-label" style={{ color: 'var(--text)', background: 'var(--surface)', border: 'none', borderRadius: '6px', padding: '8px', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 400 }}>
+                        <label key={subject._id} className="radio-label" style={{wordBreak: 'break-word', whiteSpace: 'pre-wrap', background: 'var(--input-background, #ffffff)', color: 'var(--input-text)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '6px', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 400 }}>
                           <input
                             type="radio"
                             name="subject"
@@ -159,9 +159,12 @@ function MappedPage() {
                             checked={selectedSubject === subject._id}
                             onChange={(e) => handleRadioChange(e, 'subject')}
                             required
-                            style={{ accentColor: 'var(--primary)', width: '16px', height: '16px' }}
+                            style={{ accentColor: 'var(--primary)', width: '16px', height: '16px', flexShrink: 0 }}
                           />
-                          {subject.name} <span style={{ color: 'var(--text-muted)', fontSize: '0.9em' }}>({subject.code})</span>
+                          <span style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', wordBreak: 'break-word', minWidth: 0 }}>
+                            <span style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{subject.name}</span>
+                            <span style={{ color: 'var(--text-muted)', fontSize: '0.9em', wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>({subject.code})</span>
+                          </span>
                         </label>
                       ))}
                     </div>
@@ -172,11 +175,11 @@ function MappedPage() {
 
                 {/* Select Classes */}
                 <div className="radio-group-section" style={{ background: 'var(--surface)', color: 'var(--text)', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '16px', padding: '12px' }}>
-                  <h3 style={{ color: 'var(--primary)', fontWeight: 500, marginBottom: '8px', fontSize: '1rem' }}>Select Class:</h3>
+                  <h3 style={{ color: 'var(--primary)', fontWeight: 500, marginBottom: '8px', fontSize: '1rem', borderBottom: 'none' }}>Select Class:</h3>
                   {classes.length > 0 ? (
-                    <div className="radio-grid" style={{ background: 'var(--surface)', color: 'var(--text)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px' }}>
+                    <div className="radio-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px' }}>
                       {classes.map(cls => (
-                        <label key={cls.classId} className="radio-label" style={{ color: 'var(--text)', background: 'var(--surface)', border: 'none', borderRadius: '6px', padding: '8px', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 400 }}>
+                        <label key={cls.classId} className="radio-label" style={{wordBreak: 'break-word', whiteSpace: 'pre-wrap', background: 'var(--input-background, #ffffff)', color: 'var(--input-text)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '6px', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 400 }}>
                           <input
                             type="radio"
                             name="class"
@@ -184,9 +187,12 @@ function MappedPage() {
                             checked={selectedClass === cls._id}
                             onChange={(e) => handleRadioChange(e, 'class')}
                             required
-                            style={{ accentColor: 'var(--primary)', width: '16px', height: '16px' }}
+                            style={{ accentColor: 'var(--primary)', width: '16px', height: '16px', flexShrink: 0 }}
                           />
-                          {cls.name} <span style={{ color: 'var(--text-muted)', fontSize: '0.9em' }}>(ID: {cls.classId})</span>
+                          <span style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', wordBreak: 'break-word', minWidth: 0 }}>
+                            <span style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{cls.name}</span>
+                            <span style={{ color: 'var(--text-muted)', fontSize: '0.9em', wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>(ID: {cls.classId})</span>
+                          </span>
                         </label>
                       ))}
                     </div>
@@ -197,11 +203,11 @@ function MappedPage() {
 
                 {/* Select Teachers */}
                 <div className="radio-group-section" style={{ background: 'var(--surface)', color: 'var(--text)', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '16px', padding: '12px' }}>
-                  <h3 style={{ color: 'var(--primary)', fontWeight: 500, marginBottom: '8px', fontSize: '1rem' }}>Select Teacher:</h3>
+                  <h3 style={{ color: 'var(--primary)', fontWeight: 500, marginBottom: '8px', fontSize: '1rem', borderBottom: 'none' }}>Select Teacher:</h3>
                   {teachers.length > 0 ? (
-                    <div className="radio-grid" style={{ background: 'var(--surface)', color: 'var(--text)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px' }}>
+                    <div className="radio-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px' }}>
                       {teachers.map(teacher => (
-                        <label key={teacher._id || teacher.id} className="radio-label" style={{ color: 'var(--text)', background: 'var(--surface)', border: 'none', borderRadius: '6px', padding: '8px', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 400 }}>
+                        <label key={teacher._id || teacher.id} className="radio-label" style={{ wordBreak: 'break-word', background: 'var(--input-background, #ffffff)', color: 'var(--input-text)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '6px', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 400 }}>
                           <input
                             type="radio"
                             name="teacher"
@@ -209,9 +215,12 @@ function MappedPage() {
                             checked={selectedTeacher === (teacher._id || teacher.id)}
                             onChange={(e) => handleRadioChange(e, 'teacher')}
                             required
-                            style={{ accentColor: 'var(--primary)', width: '16px', height: '16px' }}
+                            style={{ accentColor: 'var(--primary)', width: '16px', height: '16px', flexShrink: 0 }}
                           />
-                          {teacher.name} <span style={{ color: 'var(--text-muted)', fontSize: '0.9em' }}>({teacher.id || teacher.email})</span>
+                          <span style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', wordBreak: 'break-word', minWidth: 0 }}>
+                            <span style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{teacher.name}</span>
+                            <span style={{ color: 'var(--text-muted)', fontSize: '0.9em', wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>({teacher.id || teacher.email})</span>
+                          </span>
                         </label>
                       ))}
                     </div>

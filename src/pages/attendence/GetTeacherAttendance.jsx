@@ -151,9 +151,9 @@ function GetTeacherAttendance() {
               required
               style={{ padding: '8px', borderRadius: 6, border: '1px solid var(--border-color)', marginRight: '20px', minWidth: 180, background: 'var(--input-background)', color: 'var(--input-text)' }}
             >
-              <option value="">Select Teacher</option>
+              <option value="" style={{ background: 'var(--input-background)'}}>Select Teacher</option>
               {teachers.map((teacher) => (
-                <option key={teacher._id} value={teacher._id}>
+                <option key={teacher._id} value={teacher._id} style={{ background: 'var(--input-background)'}}>
                   {teacher.name} ({teacher.s_id})
                 </option>
               ))}
@@ -201,9 +201,9 @@ function GetTeacherAttendance() {
                           onChange={(e) => setEditStatus(e.target.value)}
                           style={{ padding: '8px', borderRadius: 6, border: '1px solid var(--border-color)', background: 'var(--input-background)', color: 'var(--input-text)' }}
                         >
-                          <option value="present">Present</option>
-                          <option value="absent">Absent</option>
-                          <option value="leave">Leave</option>
+                          <option value="present" style={{ background: 'var(--input-background)'}}>Present</option>
+                          <option value="absent" style={{ background: 'var(--input-background)'}}>Absent</option>
+                          <option value="leave" style={{ background: 'var(--input-background)'}}>Leave</option>
                         </select>
                       ) : (
                         record.status
