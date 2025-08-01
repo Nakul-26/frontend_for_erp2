@@ -107,7 +107,8 @@
   border: 1px solid var(--border-color);
   padding: 10px 8px;
   text-align: center;
-  min-width: 160px;
+  /* min-width: 160px; */
+  min-width: 33.33%;
 }
 .timetable-table th {
   background: var(--primary);
@@ -135,4 +136,9 @@
 }
 .timetable-form-container .status-message.success {
   color: #16a34a;
+}
+
+.radio-label input[type="radio"] {
+  /* background: var(--input-background); */
+  color: #000;
 }

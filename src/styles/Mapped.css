@@ -3,16 +3,16 @@
 .radio-group-section { /* Renamed from .checkbox-group-section */
     margin-top: 25px;
     padding: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    background-color: #fcfcfc;
+    background-color: var(--surface);
 }
 
 .radio-group-section h3 {
-    margin-top: 0;
+    margin-top: 0;  
     margin-bottom: 15px;
-    color: #555;
-    border-bottom: 1px solid #eee;
+    color: var(--primary);
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 10px;
 }
 
@@ -27,23 +27,23 @@
     align-items: center;
     gap: 8px;
     font-size: 1rem;
-    color: #444;
+    color: var(--input-text);
     cursor: pointer;
     padding: 8px 10px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
-    background-color: #fff;
+    background-color: var(--input-background);
     transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .radio-label:hover {
-    background-color: #f0f0f0;
-    border-color: #c0c0c0;
+    background-color: var(--hover-surface, #222c);
+    border-color: var(--primary);
 }
 
 .radio-label input[type="radio"] { /* Changed to target radio buttons */
     transform: scale(1.2); /* Make radio button slightly larger */
-    accent-color: #007bff; /* Custom color for radio button */
+    accent-color: var(--primary);
     cursor: pointer;
 }
 

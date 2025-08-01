@@ -56,6 +56,7 @@ import AdminTimetablePdfGenerator from './pages/admin/AdminTimetablePdfGenerator
 import CreateTimetablePage from './pages/timetable/CreateTimetablePage';
 import GetAllTimetables from './pages/timetable/GetAllTimetables';
 import ViewClassMappingsPage from './pages/timetable/ViewClassMappingsPage';
+// import ViewClassMappingsFullWidthPage from './pages/timetable/ViewClassMappingsFullWidthPage';
 
 import CreateExam from './pages/exam/createExam';
 import GetAllExams from './pages/exam/GetAllExams';
@@ -158,6 +159,7 @@ function AppContent() {
           <Route path="/admin/timetable/create" element={<CreateTimetablePage />} />
           <Route path="/admin/timetable/getall" element={<GetAllTimetables />} />
           <Route path="/admin/timetable/view-mappings" element={<ViewClassMappingsPage />} />
+          {/* <Route path="/admin/timetable/view-mappings-full-width" element={<ViewClassMappingsFullWidthPage />} /> */}
 
           <Route path="/admin/exams/create" element={<CreateExam />} />
           <Route path="/admin/exams/delete" element={<DeleteExam />} />

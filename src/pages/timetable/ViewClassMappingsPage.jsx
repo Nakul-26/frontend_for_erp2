@@ -70,7 +70,7 @@ function ViewClassMappingsPage() {
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
-        <div className="timetable-form-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+        <div className="timetable-form-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', flexGrow: 1 }}>
           <h1 style={{ textAlign: 'center', width: '100%' }}>View Class Mappings</h1>
           {loading && <p className="status-message" style={{ textAlign: 'center' }}>Loading...</p>}
           {error && <p className="status-message error" style={{ textAlign: 'center' }}>{error}</p>}
@@ -84,20 +84,19 @@ function ViewClassMappingsPage() {
               ))}
             </select>
           </div>
-          <div style={{ width: '100%', margin: 0, overflowX: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ width: '100%', margin: 0, overflowX: 'auto', display: 'block' }}>
             {selectedClass && mappings.length > 0 && (
-              <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+              <div style={{ width: '100%', display: 'block' }}>
                 <table className="timetable-table" style={{
-                  width: '90vw',
-                  maxWidth: '1200px',
-                  minWidth: '480px',
+                  width: '100%',
+                  minWidth: '600px',
                   background: 'var(--surface)',
                   color: 'var(--text)',
                   borderRadius: '8px',
                   overflow: 'hidden',
                   borderCollapse: 'collapse',
                   boxShadow: '0 2px 8px var(--border-color)',
-                  margin: '0 auto',
+                  margin: 0,
                   textAlign: 'center'
                 }}>
                 <thead>
