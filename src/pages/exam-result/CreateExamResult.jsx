@@ -68,22 +68,22 @@ function CreateExamResult() {
   return (
     <div className="dashboard-container">
       <Sidebar />
-      <main className="main-content">
+      <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
-        <div className="form-container">
-          <h2>Create Exam Result</h2>
+        <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: '#f8fafc', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px #e0e7ef' }}>
+          <h2 style={{ marginBottom: 24, color: '#2563eb', fontWeight: 700 }}>Create Exam Result</h2>
           <form onSubmit={handleSubmit}>
-            <select required value={selectedClass} onChange={e => setSelectedClass(e.target.value)}>
+            <select required value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #cbd5e1' }}>
               <option value="">Select Class</option>
               {classes.map(c => <option key={c._id} value={c._id}>{c.name || c.className}</option>)}
             </select>
 
-            <select required value={selectedExam} onChange={e => setSelectedExam(e.target.value)}>
+            <select required value={selectedExam} onChange={e => setSelectedExam(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #cbd5e1' }}>
               <option value="">Select Exam</option>
               {exams.map(e => <option key={e._id} value={e._id}>{e.examName}</option>)}
             </select>
 
-            <select required value={selectedStudent} onChange={e => setSelectedStudent(e.target.value)}>
+            <select required value={selectedStudent} onChange={e => setSelectedStudent(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #cbd5e1' }}>
               <option value="">Select Student</option>
               {students.map(s => <option key={s._id} value={s._id}>{s.name}</option>)}
             </select>
@@ -91,20 +91,20 @@ function CreateExamResult() {
             {marksObtained.map((m, i) => {
               const subj = subjects.find(s => s._id === m.subjectId);
               return (
-                <div key={i}>
-                  <label>
+                <div key={i} style={{ marginBottom: 16 }}>
+                  <label style={{ fontWeight: 500, marginRight: 8 }}>
                     Subject: {subj ? `${subj.name} (${subj.code})` : m.subjectId}
                   </label>
                   <input type="number" value={m.marks} onChange={e => {
                     const updated = [...marksObtained];
                     updated[i].marks = Number(e.target.value);
                     setMarksObtained(updated);
-                  }} />
+                  }} style={{ marginLeft: 8, width: 80, padding: 6, borderRadius: 6, border: '1px solid #cbd5e1' }} />
                   <select value={m.status} onChange={e => {
                     const updated = [...marksObtained];
                     updated[i].status = e.target.value;
                     setMarksObtained(updated);
-                  }}>
+                  }} style={{ marginLeft: 8, padding: 6, borderRadius: 6, border: '1px solid #cbd5e1' }}>
                     <option value="Present">Present</option>
                     <option value="Absent">Absent</option>
                   </select>
@@ -112,7 +112,17 @@ function CreateExamResult() {
               );
             })}
 
-            <button type="submit">Submit</button>
+            <button type="submit" style={{
+              marginTop: 12,
+              padding: '10px 20px',
+              background: '#2563eb',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 6,
+              fontWeight: 600,
+              cursor: 'pointer',
+              boxShadow: '0 1px 4px #cbd5e1',
+            }}>Submit</button>
           </form>
         </div>
       </main>

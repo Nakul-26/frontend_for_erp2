@@ -38,7 +38,7 @@ function GetAllTimetables() {
   return (
     <div className="dashboard-container">
       <Sidebar />
-      <main className="main-content">
+      <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
         <div className="timetable-form-container">
           <h1>All Timetables</h1>

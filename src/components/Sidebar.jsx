@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Sidebar.css';
+import { useAuth } from '../context/AuthContext';
 
 function getInitialSidebarOpen() {
   if (typeof window !== 'undefined' && window.innerWidth <= 900) {
@@ -9,7 +10,10 @@ function getInitialSidebarOpen() {
   return true;
 }
 
-function Sidebar({ adminData, isOpen, setIsOpen }) {
+function Sidebar({ isOpen, setIsOpen }) {
+  const { adminData } = useAuth(); // Use adminData from context
+  console.log('Sidebar admin data:', adminData);
+  
   const [openSections, setOpenSections] = useState({
     classes: false,
     teachers: false,
@@ -88,10 +92,10 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
           </span>
           <div className={`nav-subgroup ${openSections.teachers ? 'open' : ''}`}>
             <Link to="/admin/teachers" data-icon="👥">All Teachers</Link>
-            <Link to="/admin/teachers/register" data-icon="➕">Register Teacher</Link>
+            <Link to="/admin/teachers/register" data-icon="➕">Add Teacher</Link>
             {/* <Link to="/admin/teachers/modify" data-icon="✏️">Modify Teacher</Link> */}
             {/* <Link to="/admin/teachers/delete" data-icon="🗑️">Delete Teacher</Link> */}
-            <Link to="/admin/teachers/attendance" data-icon="📝">Teacher Attendance</Link>
+            
             
           </div>
         </div>
@@ -108,10 +112,10 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
           </span>
           <div className={`nav-subgroup ${openSections.students ? 'open' : ''}`}>
             <Link to="/admin/students" data-icon="👥">All Students</Link>
-            <Link to="/admin/students/register" data-icon="➕">Register Student</Link>
-            <Link to="/admin/students/modify" data-icon="✏️">Modify Student</Link>
-            <Link to="/admin/students/delete" data-icon="🗑️">Delete Student</Link>
-            <Link to="/admin/students/attendance" data-icon="📝">Student Attendance</Link>
+            <Link to="/admin/students/register" data-icon="➕">Add Student</Link>
+            {/* <Link to="/admin/students/modify" data-icon="✏️">Modify Student</Link> */}
+            {/* <Link to="/admin/students/delete" data-icon="🗑️">Delete Student</Link> */}
+            {/* <Link to="/admin/students/attendance" data-icon="📝">Student Attendance</Link> */}
           </div>
         </div>
         <div className="nav-group">
@@ -128,9 +132,9 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
           <div className={`nav-subgroup ${openSections.subjects ? 'open' : ''}`}>
             <Link to="/admin/subjects" data-icon="📋">All Subjects</Link>
             <Link to="/admin/subjects/add" data-icon="➕">Add Subject</Link>
-            <Link to="/admin/subjects/update" data-icon="✏️">Update Subject</Link>
-            <Link to="/admin/subjects/delete" data-icon="🗑️">Delete Subject</Link>
-            <Link to="/admin/subjects/search" data-icon="🔍">Search Subject</Link>
+            {/* <Link to="/admin/subjects/update" data-icon="✏️">Update Subject</Link> */}
+            {/* <Link to="/admin/subjects/delete" data-icon="🗑️">Delete Subject</Link> */}
+            {/* <Link to="/admin/subjects/search" data-icon="🔍">Search Subject</Link> */}
           </div>
         </div>
         <div className="nav-group">
@@ -145,8 +149,9 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
             Attendance
           </span>
           <div className={`nav-subgroup ${openSections.attendance ? 'open' : ''}`}>
-            <Link to="/admin/adminstudentattendance" data-icon="👩‍🎓">Student Attendance</Link>
-            <Link to="/admin/adminteacherattendance" data-icon="👨‍🏫">Teacher Attendance</Link>
+            {/* <Link to="/admin/adminstudentattendance" data-icon="👩‍🎓">Student Attendance</Link>
+            <Link to="/admin/adminteacherattendance" data-icon="👨‍🏫">Teacher Attendance</Link> */}
+            <Link to="/admin/teachers/attendance" data-icon="📝">Mark Teacher Attendance</Link>
             <Link to="/admin/teacher-attendance" data-icon="📅">View Teacher Attendance</Link>
             <Link to="/admin/teacher-attendance/update/:attendanceId" data-icon="✏️">Update Teacher Attendance</Link>
           </div>
@@ -169,16 +174,13 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
             {/* <Link to="/admin/timetable/viewteacher" data-icon="👨‍🏫"> teacher timetable </Link> */}
             {/* <Link to="/admin/timetable/viewstudent" data-icon="👩‍🎓"> Student timetable </Link> */}
 
-            <Link to="/admin/mapped" data-icon="🔗">Mapped</Link>
-            <Link to="/admin/timetable-pdf" data-icon="📄">Timetable PDF Generator</Link>
-            <Link to="/admin/timetable/create" data-icon="🗓️">Create Timetable</Link>
-            {/* <Link to="/"></Link> */}
+            <Link to="/admin/mapped" data-icon="🔗">Create Mapped Relations</Link>
             <Link to="/admin/timetable/view-mappings" data-icon="🔍">View Class Mappings</Link> 
+            {/* <Link to="/admin/timetable-pdf" data-icon="📄">Timetable PDF Generator</Link> */}
+            <Link to="/admin/timetable/create" data-icon="🗓️">Create Timetable</Link>            
             <Link to="/admin/timetable/getall" data-icon="📋">Get All Timetables</Link>
           </div>
         </div>
-
-
         <div className="nav-group">
           <span
             className="nav-group-title"
@@ -193,12 +195,11 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
           <div className={`nav-subgroup ${openSections.exams ? 'open' : ''}`}>
             <Link to="/admin/exams/create" data-icon="➕">Create Exam</Link>
             {/* <Link to="/admin/exams/delete" data-icon="🗑️">Delete Exam</Link> */}
-            <Link to="/admin/exams/getall" data-icon="📋">Get All Exams</Link>
+            <Link to="/admin/exams/getall" data-icon="📋">All Exams</Link>
             {/* <Link to="/admin/exams/update/:examId" data-icon="✏️">Update Exam</Link> */}
             {/* <Link to="/admin/exams/getsingle/:examId" data-icon="🔍">Get Single Exam</Link> */}
           </div>
         </div>
-
         <div className="nav-group">
           <span
             className="nav-group-title"
@@ -212,7 +213,7 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
           </span>
           <div className={`nav-subgroup ${openSections.examresults ? 'open' : ''}`}>
             <Link to="/admin/examresult/create" data-icon="➕">Create Exam Result</Link>
-            <Link to="/admin/examresult/getbyexam/:examId" data-icon="📋">Get Results by Exam</Link>
+            <Link to="/admin/examresult/getbyexam/:examId" data-icon="📋">All Results by Exam</Link>
             <Link to="/admin/examresult/update/:resultId" data-icon="✏️">Update Exam Result</Link>
           </div>
         </div>
@@ -228,8 +229,8 @@ function Sidebar({ adminData, isOpen, setIsOpen }) {
         <Link to="/admin/exams" data-icon="📝">Exams</Link>
         <Link to="/admin/assignments" data-icon="📅">Assignments</Link>
         <Link to="/admin/notifications" data-icon="🔔">Notifications</Link> */}
-        <Link to="/admin/departments" data-icon="🏢">Departments</Link>
-        <Link to="/admin/settings" data-icon="⚙️">Settings</Link>
+        {/* <Link to="/admin/departments" data-icon="🏢">Departments</Link>
+        <Link to="/admin/settings" data-icon="⚙️">Settings</Link> */}
       </nav>
       {/* Mobile close button */}
       {typeof isOpen === 'boolean' && setIsOpen && (

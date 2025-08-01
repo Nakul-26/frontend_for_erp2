@@ -250,7 +250,7 @@ function ClassesPage() {
             </div>
 
             {/* Filter Controls */}
-            <div className="filter-controls" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', padding: '10px', border: '1px solid #eee', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
+          <div className="filter-controls" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', padding: '10px', border: '1px solid var(--border, #222)', borderRadius: '8px', backgroundColor: 'var(--surface, #222)' }}>
               <h3>Filter By:</h3>
               {/* Academic Year Filter */}
               <select name="academicYear" value={filters.academicYear} onChange={handleFilterChange} className="filter-select">

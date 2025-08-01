@@ -139,134 +139,138 @@ function GetTeacherAttendance() {
   return (
     <div className="dashboard-container">
       <Sidebar />
-      <main className="main-content">
+      <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar role="admin" />
-        <h2>View Teacher Attendance</h2>
-        {success && (
-          <div className="success-message" style={{ color: 'green', textAlign: 'center', marginBottom: '20px', fontWeight: 'bold' }}>
-            {success}
-          </div>
-        )}
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ marginRight: '10px' }}>Select Teacher:</label>
-          <select
-            value={selectedTeacherId}
-            onChange={handleTeacherChange}
-            required
-            style={{ padding: '5px', marginRight: '20px' }}
-          >
-            <option value="">Select Teacher</option>
-            {teachers.map((teacher) => (
-              <option key={teacher._id} value={teacher._id}>
-                {teacher.name} ({teacher.s_id})
-              </option>
-            ))}
-          </select>
-          <button
-            type="button"
-            className="login-button"
-            style={{ marginLeft: '10px' }}
-            onClick={handleFetchAttendance}
-            disabled={!selectedTeacherId}
-          >
-            Get Attendance
-          </button>
-        </div>
-        {error && <div className="error-message" style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>{error}</div>}
-        {loading ? (
-          <div style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>Loading...</div>
-        ) : attendanceRecords.length === 0 ? (
-          <div style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>
-            No attendance records found.
-          </div>
-        ) : (
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Remarks</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {attendanceRecords.map((record) => (
-                <tr key={record._id}>
-                  <td>{new Date(record.date).toLocaleDateString()}</td>
-                  <td>
-                    {editRecordId === record._id ? (
-                      <select
-                        value={editStatus}
-                        onChange={(e) => setEditStatus(e.target.value)}
-                        style={{ padding: '5px' }}
-                      >
-                        <option value="present">Present</option>
-                        <option value="absent">Absent</option>
-                        <option value="leave">Leave</option>
-                      </select>
-                    ) : (
-                      record.status
-                    )}
-                  </td>
-                  <td>
-                    {editRecordId === record._id ? (
-                      <input
-                        type="text"
-                        value={editRemarks}
-                        onChange={(e) => setEditRemarks(e.target.value)}
-                        style={{ padding: '5px', width: '150px' }}
-                        placeholder="Optional remarks"
-                      />
-                    ) : (
-                      record.remarks
-                    )}
-                  </td>
-                  <td>
-                    {editRecordId === record._id ? (
-                      <>
-                        <button
-                          type="button"
-                          className="login-button"
-                          style={{ marginRight: '5px' }}
-                          onClick={handleUpdateAttendance}
-                          disabled={loading}
-                        >
-                          Save
-                        </button>
-                        <button
-                          type="button"
-                          className="login-button"
-                          onClick={() => setEditRecordId(null)}
-                        >
-                          Cancel
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <button
-                          type="button"
-                          className="login-button"
-                          style={{ marginRight: '5px' }}
-                          onClick={() => handleEditClick(record)}
-                        >
-                          Update
-                        </button>
-                        <button
-                          type="button"
-                          className="login-button"
-                          onClick={() => handleDeleteAttendance(record._id)}
-                          disabled={loading}
-                        >
-                          Delete
-                        </button>
-                      </>
-                    )}
-                  </td>
-                </tr>
+        <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: '#f8fafc', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px #e0e7ef' }}>
+          <h2 style={{ marginBottom: 24, color: '#2563eb', fontWeight: 700 }}>View Teacher Attendance</h2>
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{ marginRight: '10px', fontWeight: 500 }}>Select Teacher:</label>
+            <select
+              value={selectedTeacherId}
+              onChange={handleTeacherChange}
+              required
+              style={{ padding: '8px', borderRadius: 6, border: '1px solid #cbd5e1', marginRight: '20px', minWidth: 180 }}
+            >
+              <option value="">Select Teacher</option>
+              {teachers.map((teacher) => (
+                <option key={teacher._id} value={teacher._id}>
+                  {teacher.name} ({teacher.s_id})
+                </option>
               ))}
-            </tbody>
-          </table>
-        )}
+            </select>
+            <button
+              type="button"
+              className="login-button"
+              style={{ marginLeft: '10px', padding: '10px 20px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px #cbd5e1' }}
+              onClick={handleFetchAttendance}
+              disabled={!selectedTeacherId}
+            >
+              Get Attendance
+            </button>
+          </div>
+          {error && <div className="error-message" style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>{error}</div>}
+          {success && (
+            <div className="success-message" style={{ color: 'green', textAlign: 'center', marginBottom: '20px', fontWeight: 'bold' }}>
+              {success}
+            </div>
+          )}
+          {loading ? (
+            <div style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>Loading...</div>
+          ) : attendanceRecords.length === 0 ? (
+            <div style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>
+              No attendance records found.
+            </div>
+          ) : (
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px', background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px #cbd5e1' }}>
+              <thead>
+                <tr style={{ background: '#e0e7ef' }}>
+                  <th style={{ padding: '12px', borderBottom: '1px solid #cbd5e1' }}>Date</th>
+                  <th style={{ padding: '12px', borderBottom: '1px solid #cbd5e1' }}>Status</th>
+                  <th style={{ padding: '12px', borderBottom: '1px solid #cbd5e1' }}>Remarks</th>
+                  <th style={{ padding: '12px', borderBottom: '1px solid #cbd5e1' }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {attendanceRecords.map((record) => (
+                  <tr key={record._id}>
+                    <td style={{ padding: '10px', borderBottom: '1px solid #e0e7ef' }}>{new Date(record.date).toLocaleDateString()}</td>
+                    <td style={{ padding: '10px', borderBottom: '1px solid #e0e7ef' }}>
+                      {editRecordId === record._id ? (
+                        <select
+                          value={editStatus}
+                          onChange={(e) => setEditStatus(e.target.value)}
+                          style={{ padding: '8px', borderRadius: 6, border: '1px solid #cbd5e1' }}
+                        >
+                          <option value="present">Present</option>
+                          <option value="absent">Absent</option>
+                          <option value="leave">Leave</option>
+                        </select>
+                      ) : (
+                        record.status
+                      )}
+                    </td>
+                    <td style={{ padding: '10px', borderBottom: '1px solid #e0e7ef' }}>
+                      {editRecordId === record._id ? (
+                        <input
+                          type="text"
+                          value={editRemarks}
+                          onChange={(e) => setEditRemarks(e.target.value)}
+                          style={{ padding: '8px', borderRadius: 6, border: '1px solid #cbd5e1', width: '150px' }}
+                          placeholder="Optional remarks"
+                        />
+                      ) : (
+                        record.remarks
+                      )}
+                    </td>
+                    <td style={{ padding: '10px', borderBottom: '1px solid #e0e7ef' }}>
+                      {editRecordId === record._id ? (
+                        <>
+                          <button
+                            type="button"
+                            className="login-button"
+                            style={{ marginRight: '5px', padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px #cbd5e1' }}
+                            onClick={handleUpdateAttendance}
+                            disabled={loading}
+                          >
+                            Save
+                          </button>
+                          <button
+                            type="button"
+                            className="login-button"
+                            style={{ padding: '8px 16px', background: '#64748b', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px #cbd5e1' }}
+                            onClick={() => setEditRecordId(null)}
+                          >
+                            Cancel
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            type="button"
+                            className="login-button"
+                            style={{ marginRight: '5px', padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px #cbd5e1' }}
+                            onClick={() => handleEditClick(record)}
+                          >
+                            Update
+                          </button>
+                          <button
+                            type="button"
+                            className="login-button"
+                            style={{ padding: '8px 16px', background: '#ef4444', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px #cbd5e1' }}
+                            onClick={() => handleDeleteAttendance(record._id)}
+                            disabled={loading}
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </main>
     </div>
   );

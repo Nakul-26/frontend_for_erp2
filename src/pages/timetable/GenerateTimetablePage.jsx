@@ -101,7 +101,7 @@ function GenerateTimetablePage() {
         <div className="dashboard-container">
             <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
             
-            <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}> {/* Changed from dashboard-content to main-content */}
+            <main className="main-content" style={{ fontSize: '18px' }}>
                 <Navbar setIsSidebarOpen={setIsSidebarOpen} />
                 
                 <header className="dashboard-header"> {/* Reusing dashboard-header from MappedPage/Dashboard */}

@@ -45,39 +45,41 @@ function GetAllExams() {
   return (
     <div className="dashboard-container">
       <Sidebar />
-      <main className="main-content">
+      <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
-        <div className="timetable-form-container">
-          <h2>All Exams</h2>
-          {message && <p style={{ color: 'green', marginBottom: 8 }}>{message}</p>}
-          {error && <p style={{ color: 'red', marginBottom: 8 }}>{error}</p>}
-          {loading ? <p>Loading...</p> : (
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
-                  <th>Exam Name</th>
-                  <th>Class</th>
-                  <th>Date</th>
-                  <th>Subjects</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {exams.map(exam => (
-                  <tr key={exam._id}>
-                    <td>{exam.examName}</td>
-                    <td>{exam.classId?.name || '-'}</td>
-                    <td>{exam.examDate ? new Date(exam.examDate).toLocaleDateString() : '-'}</td>
-                    <td>{exam.subjects?.map(s => s.subjectId?.name).join(', ')}</td>
-                    <td>
-                      <button onClick={() => handleModify(exam._id)} style={{ marginRight: 8, background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 12px', fontWeight: 600, cursor: 'pointer' }}>Modify</button>
-                      <button onClick={() => handleDelete(exam._id)} style={{ background: '#dc2626', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 12px', fontWeight: 600, cursor: 'pointer' }} disabled={deletingId === exam._id}>{deletingId === exam._id ? 'Deleting...' : 'Delete'}</button>
-                    </td>
+        <div style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '0px 0px 0px 0px' }}>
+          <div className="timetable-form-container">
+            <h2>All Exams</h2>
+            {message && <p style={{ color: 'green', marginBottom: 8 }}>{message}</p>}
+            {error && <p style={{ color: 'red', marginBottom: 8 }}>{error}</p>}
+            {loading ? <p>Loading...</p> : (
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr>
+                    <th>Exam Name</th>
+                    <th>Class</th>
+                    <th>Date</th>
+                    <th>Subjects</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+                </thead>
+                <tbody>
+                  {exams.map(exam => (
+                    <tr key={exam._id}>
+                      <td>{exam.examName}</td>
+                      <td>{exam.classId?.name || '-'}</td>
+                      <td>{exam.examDate ? new Date(exam.examDate).toLocaleDateString() : '-'}</td>
+                      <td>{exam.subjects?.map(s => s.subjectId?.name).join(', ')}</td>
+                      <td>
+                        <button onClick={() => handleModify(exam._id)} style={{ marginRight: 8, background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 12px', fontWeight: 600, cursor: 'pointer' }}>Modify</button>
+                        <button onClick={() => handleDelete(exam._id)} style={{ background: '#dc2626', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 12px', fontWeight: 600, cursor: 'pointer' }} disabled={deletingId === exam._id}>{deletingId === exam._id ? 'Deleting...' : 'Delete'}</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
       </main>
     </div>

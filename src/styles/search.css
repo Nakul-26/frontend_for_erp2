@@ -27,22 +27,24 @@
 .search-input {
     flex: 1;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border, #ddd);
     border-radius: 4px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
+    background-color: var(--surface, #fff);
+    color: var(--text, #232526);
 }
 
 .search-input:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--primary, #007bff);
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 .search-button {
     padding: 0.75rem 1.5rem;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--primary, #007bff);
+    color: var(--on-primary, #fff);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -50,11 +52,11 @@
 }
 
 .search-button:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-dark, #0056b3);
 }
 
 .search-button:disabled {
-    background-color: #ccc;
+    background-color: var(--disabled, #ccc);
     cursor: not-allowed;
 }
 

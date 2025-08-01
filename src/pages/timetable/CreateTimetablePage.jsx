@@ -201,150 +201,152 @@ function CreateTimetablePage() {
   return (
     <div className="dashboard-container">
       <Sidebar />
-      <main className="main-content">
+      <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
-        <div className="timetable-form-container">
-          <h1>Create Timetable</h1>
-          <form onSubmit={handleSubmit}>
-            {loading && <p className="status-message">Loading...</p>}
-            {error && <p className="status-message error">{error}</p>}
-            {success && <p className="status-message success">{success}</p>}
+        <div style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '0px 0px' }}>
+          <div className="timetable-form-container">
+            <h1>Create Timetable</h1>
+            <form onSubmit={handleSubmit}>
+              {loading && <p className="status-message">Loading...</p>}
+              {error && <p className="status-message error">{error}</p>}
+              {success && <p className="status-message success">{success}</p>}
 
-            <div style={{ marginBottom: '20px' }}>
-              <label htmlFor="class-select">Select Class: </label>
-              <select id="class-select" value={selectedClass} onChange={handleClassChange} required>
-                <option value="">-- Select Class --</option>
-                {classes.map(cls => (
-                  <option key={cls._id} value={cls._id}>{cls.name || cls.className}</option>
-                ))}
-              </select>
-            </div>
-
-            {selectedClass && timeSlots.length > 0 && (
-              <div style={{ overflowX: 'auto' }}>
-                {/* Drag-and-drop source list */}
-                <div style={{ marginBottom: 16 }}>
-                  <label>Drag Subject-Teacher Pair:</label>
-                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                    {mappedPairs.map(m => {
-                      const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
-                      const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
-                      const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || mSubject._id) : m.subjectId;
-                      const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || mTeacher._id) : m.teacherId;
-                      return (
-                        <div
-                          key={m._id}
-                          draggable
-                          onDragStart={() => handleDragStart(m._id)}
-                          style={{ padding: '6px 12px', background: '#e0e7ef', borderRadius: 6, cursor: 'grab', border: '1px solid #cbd5e1' }}
-                        >
-                          {subjectName} - {teacherName}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <table className="timetable-table">
-                  <thead>
-                    <tr>
-                      <th>Day / Time Slot</th>
-                      {timeSlots.map(slot => (
-                        <th key={slot._id}>
-                          {slot.period}<br />
-                          <small>{slot.startTime} - {slot.endTime}</small>
-                        </th>
-                      ))}
-                      <th>Fill All</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {days.map(day => (
-                      <tr key={day}>
-                        <td>{day}</td>
-                        {timeSlots.map(slot => (
-                          <td
-                            key={slot._id}
-                            onDragOver={e => e.preventDefault()}
-                            onDrop={() => handleDrop(day, slot._id)}
-                          >
-                            {isBreakPeriod(slot.period) ? (
-                              <em>{slot.period}</em>
-                            ) : (
-                              <>
-                                <div>
-                                  <select
-                                    value={grid[day]?.[slot._id]?.combo || ''}
-                                    onChange={e => {
-                                      const mappedId = e.target.value;
-                                      if (!mappedId) {
-                                        handleGridChange(day, slot._id, 'combo', '');
-                                        handleGridChange(day, slot._id, 'subject', '');
-                                        handleGridChange(day, slot._id, 'teacher', '');
-                                        return;
-                                      }
-                                      const found = mappedPairs.find(m => m._id === mappedId);
-                                      if (found) {
-                                        const mSubject = typeof found.subjectId === 'object' ? found.subjectId : null;
-                                        const mTeacher = typeof found.teacherId === 'object' ? found.teacherId : null;
-                                        const subjectId = mSubject ? mSubject._id : found.subjectId;
-                                        const teacherId = mTeacher ? mTeacher._id : found.teacherId;
-                                        handleGridChange(day, slot._id, 'combo', mappedId);
-                                        handleGridChange(day, slot._id, 'subject', subjectId);
-                                        handleGridChange(day, slot._id, 'teacher', teacherId);
-                                      }
-                                    }}
-                                  >
-                                    <option value="">-- Subject & Teacher --</option>
-                                    {mappedPairs.map(m => {
-                                      const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
-                                      const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
-                                      const subjectId = mSubject ? mSubject._id : m.subjectId;
-                                      const teacherId = mTeacher ? mTeacher._id : m.teacherId;
-                                      const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || subjectId) : subjectId;
-                                      const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || teacherId) : teacherId;
-                                      return (
-                                        <option key={m._id} value={m._id}>
-                                          {subjectName} - {teacherName}
-                                        </option>
-                                      );
-                                    })}
-                                  </select>
-                                </div>
-                              </>
-                            )}
-                          </td>
-                        ))}
-                        {/* Fill All for this day */}
-                        <td>
-                          <select
-                            onChange={e => handleFillAllDay(day, e.target.value)}
-                            defaultValue=""
-                          >
-                            <option value="">Fill All</option>
-                            {mappedPairs.map(m => {
-                              const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
-                              const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
-                              const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || mSubject._id) : m.subjectId;
-                              const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || mTeacher._id) : m.teacherId;
-                              return (
-                                <option key={m._id} value={m._id}>
-                                  {subjectName} - {teacherName}
-                                </option>
-                              );
-                            })}
-                          </select>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div style={{ marginBottom: '20px' }}>
+                <label htmlFor="class-select">Select Class: </label>
+                <select id="class-select" value={selectedClass} onChange={handleClassChange} required>
+                  <option value="">-- Select Class --</option>
+                  {classes.map(cls => (
+                    <option key={cls._id} value={cls._id}>{cls.name || cls.className}</option>
+                  ))}
+                </select>
               </div>
-            )}
 
-            <button type="submit" disabled={!selectedClass || loading}>
-              Create Timetable
-            </button>
-          </form>
+              {selectedClass && timeSlots.length > 0 && (
+                <div style={{ overflowX: 'auto' }}>
+                  {/* Drag-and-drop source list */}
+                  <div style={{ marginBottom: 16 }}>
+                    <label>Drag Subject-Teacher Pair:</label>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                      {mappedPairs.map(m => {
+                        const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
+                        const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
+                        const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || mSubject._id) : m.subjectId;
+                        const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || mTeacher._id) : m.teacherId;
+                        return (
+                          <div
+                            key={m._id}
+                            draggable
+                            onDragStart={() => handleDragStart(m._id)}
+                            style={{ padding: '6px 12px', background: '#e0e7ef', borderRadius: 6, cursor: 'grab', border: '1px solid #cbd5e1' }}
+                          >
+                            {subjectName} - {teacherName}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <table className="timetable-table">
+                    <thead>
+                      <tr>
+                        <th>Day / Time Slot</th>
+                        {timeSlots.map(slot => (
+                          <th key={slot._id}>
+                            {slot.period}<br />
+                            <small>{slot.startTime} - {slot.endTime}</small>
+                          </th>
+                        ))}
+                        <th>Fill All</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {days.map(day => (
+                        <tr key={day}>
+                          <td>{day}</td>
+                          {timeSlots.map(slot => (
+                            <td
+                              key={slot._id}
+                              onDragOver={e => e.preventDefault()}
+                              onDrop={() => handleDrop(day, slot._id)}
+                            >
+                              {isBreakPeriod(slot.period) ? (
+                                <em>{slot.period}</em>
+                              ) : (
+                                <>
+                                  <div>
+                                    <select
+                                      value={grid[day]?.[slot._id]?.combo || ''}
+                                      onChange={e => {
+                                        const mappedId = e.target.value;
+                                        if (!mappedId) {
+                                          handleGridChange(day, slot._id, 'combo', '');
+                                          handleGridChange(day, slot._id, 'subject', '');
+                                          handleGridChange(day, slot._id, 'teacher', '');
+                                          return;
+                                        }
+                                        const found = mappedPairs.find(m => m._id === mappedId);
+                                        if (found) {
+                                          const mSubject = typeof found.subjectId === 'object' ? found.subjectId : null;
+                                          const mTeacher = typeof found.teacherId === 'object' ? found.teacherId : null;
+                                          const subjectId = mSubject ? mSubject._id : found.subjectId;
+                                          const teacherId = mTeacher ? mTeacher._id : found.teacherId;
+                                          handleGridChange(day, slot._id, 'combo', mappedId);
+                                          handleGridChange(day, slot._id, 'subject', subjectId);
+                                          handleGridChange(day, slot._id, 'teacher', teacherId);
+                                        }
+                                      }}
+                                    >
+                                      <option value="">-- Subject & Teacher --</option>
+                                      {mappedPairs.map(m => {
+                                        const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
+                                        const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
+                                        const subjectId = mSubject ? mSubject._id : m.subjectId;
+                                        const teacherId = mTeacher ? mTeacher._id : m.teacherId;
+                                        const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || subjectId) : subjectId;
+                                        const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || teacherId) : teacherId;
+                                        return (
+                                          <option key={m._id} value={m._id}>
+                                            {subjectName} - {teacherName}
+                                          </option>
+                                        );
+                                      })}
+                                    </select>
+                                  </div>
+                                </>
+                              )}
+                            </td>
+                          ))}
+                          {/* Fill All for this day */}
+                          <td>
+                            <select
+                              onChange={e => handleFillAllDay(day, e.target.value)}
+                              defaultValue=""
+                            >
+                              <option value="">Fill All</option>
+                              {mappedPairs.map(m => {
+                                const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
+                                const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
+                                const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || mSubject._id) : m.subjectId;
+                                const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || mTeacher._id) : m.teacherId;
+                                return (
+                                  <option key={m._id} value={m._id}>
+                                    {subjectName} - {teacherName}
+                                  </option>
+                                );
+                              })}
+                            </select>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              <button type="submit" disabled={!selectedClass || loading}>
+                Create Timetable
+              </button>
+            </form>
+          </div>
         </div>
       </main>
     </div>

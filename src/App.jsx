@@ -50,7 +50,7 @@ import DepartmentsPage from './pages/other/DepartmentsPage';
 import SettingsPage from './pages/other/SettingsPage'; 
 import { AuthProvider } from './context/AuthContext'; 
 
-import MappedPage from './pages/attendence/Mapped';
+import MappedPage from './pages/timetable/Mapped';
 import GenerateTimetablePage from './pages/timetable/GenerateTimetablePage';
 import AdminTimetablePdfGenerator from './pages/admin/AdminTimetablePdfGenerator';
 import CreateTimetablePage from './pages/timetable/CreateTimetablePage';
@@ -120,14 +120,14 @@ function AppContent() {
           <Route path="/admin/teachers" element={<TeachersPage />} />
           <Route path="/admin/teachers/modify" element={<ModifyTeacherPage />} />
           <Route path="/admin/teachers/search" element={<SearchTeacher />} />
-          <Route path="/admin/teachers/attendance" element={<MarkTeacherAttendance />} />
+          
 
           <Route path="/admin/students" element={<StudentsPage />} />
           <Route path="/admin/students/modify" element={<ModifyStudentPage />} />
           <Route path="/admin/students/attendance" element={<MarkStudentAttendance />} />
 
-          <Route path="/admin/departments" element={<DepartmentsPage />} />
-          <Route path="/admin/settings" element={<SettingsPage />} />
+          {/* <Route path="/admin/departments" element={<DepartmentsPage />} />
+          <Route path="/admin/settings" element={<SettingsPage />} /> */}
 
           <Route path="/teacher/changepassword" element={<TeacherChangePassword />} />
           <Route path="/teacher/schedule" element={<TeacherSchedulePage />} />
@@ -169,6 +169,7 @@ function AppContent() {
           <Route path="/admin/examresult/getbyexam/:examId" element={<ExamResultsByExam />} />
           <Route path="/admin/examresult/update/:resultId" element={<UpdateExamResult />} />
 
+          <Route path="/admin/teachers/attendance" element={<MarkTeacherAttendance />} />
           <Route path="/admin/teacher-attendance" element={<GetTeacherAttendance />} />
           <Route path="/admin/teacher-attendance/update/:attendanceId" element={<UpdateTeacherAttendance />} />
 

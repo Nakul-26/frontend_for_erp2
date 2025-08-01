@@ -135,15 +135,15 @@ function MappedPage() {
   return (
     <div className="dashboard-container">
       <Sidebar isOpen={isSidebarOpen} />
-      <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
+      <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
         <header className="dashboard-header">
           <h1>Create New Mapping</h1>
           <p className="dashboard-subtitle">Link a specific class, subject, and teacher</p>
         </header>
 
-        <div className="login-container" style={{ width: '80%', maxWidth: '800px', padding: '30px' }}>
-          <form className="login-form" onSubmit={handleSubmit}>
+        <div className="login-container" style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '30px 0' }}>
+          <form className="login-form" onSubmit={handleSubmit} style={{ width: '100%', background: '#fff', borderRadius: '16px', boxShadow: '0 2px 16px #e0e7ef', padding: '40px 24px', margin: '0 auto' }}>
             <h2 style={{ marginBottom: '20px', textAlign: 'center', color: '#333' }}>Create Class-Subject-Teacher Mapping</h2>
 
             {loading ? (

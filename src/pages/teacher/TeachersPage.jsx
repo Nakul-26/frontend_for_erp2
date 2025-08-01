@@ -225,20 +225,20 @@ function AdminTeachersPage() {
             >
               Register Teacher
             </button>
-            <button
+            {/* <button
               className="login-button"
               style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
               onClick={() => navigate('/admin/teachers/modify')}
             >
               Update Teacher
-            </button>
-            <button
+            </button> */}
+            {/* <button
               className="login-button"
               style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
               onClick={() => navigate('/admin/teachers/search')}
             >
               Search Teacher
-            </button>
+            </button> */}
             <button
               onClick={() => setIsTableView(!isTableView)}
               className="login-button"
@@ -249,7 +249,7 @@ function AdminTeachersPage() {
           </div>
 
           {/* Filter Controls */}
-          <div className="filter-controls" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', padding: '10px', border: '1px solid #eee', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
+          <div className="filter-controls" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', padding: '10px', border: '1px solid var(--border, #222)', borderRadius: '8px', backgroundColor: 'var(--surface, #222)' }}>
             <h3>Filter By:</h3>
             {/* Subject Filter */}
             <select name="subject" value={filters.subject} onChange={handleFilterChange} className="filter-select">

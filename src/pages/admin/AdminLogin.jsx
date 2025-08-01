@@ -34,11 +34,10 @@ function AdminLogin() {
       );
 
       if (response.data.success) {
-        console.log('Login successful');
-        console.log(response);
-        console.log(response.data);
-        // Store admin data from response
-        localStorage.setItem('admindata', JSON.stringify(response.data.data));
+        // console.log('Login successful');
+        // console.log(response);
+        console.log(response.data.data);
+        // Store admin data in context only
         login(response.data.data); // Update auth context
         navigate('/admin/dashboard');
       } else {

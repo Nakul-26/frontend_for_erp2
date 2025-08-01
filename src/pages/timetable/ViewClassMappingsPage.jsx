@@ -70,7 +70,7 @@ function ViewClassMappingsPage() {
   return (
     <div className="dashboard-container">
       <Sidebar />
-      <main className="main-content">
+      <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
         <div className="timetable-form-container">
           <h1>View Class Mappings</h1>
@@ -86,41 +86,43 @@ function ViewClassMappingsPage() {
               ))}
             </select>
           </div>
-          {selectedClass && mappings.length > 0 && (
-            <table className="timetable-table">
-              <thead>
-                <tr>
-                  <th>Subject</th>
-                  <th>Teacher</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {mappings.map(mapping => (
-                  <tr key={mapping._id}>
-                    <td>{
-                      mapping.subjectName ||
-                      mapping.subject?.name ||
-                      (typeof mapping.subjectId === 'object' ? (mapping.subjectId.name || mapping.subjectId.code || mapping.subjectId.shortName || mapping.subjectId._id) : mapping.subjectId)
-                    }</td>
-                    <td>{
-                      mapping.teacherName ||
-                      mapping.teacher?.name ||
-                      (typeof mapping.teacherId === 'object' ? (mapping.teacherId.name || mapping.teacherId.code || mapping.teacherId.shortName || mapping.teacherId._id) : mapping.teacherId)
-                    }</td>
-                    <td>
-                      <button onClick={() => handleDelete(mapping._id)} disabled={loading} style={{ color: 'red' }}>
-                        Delete
-                      </button>
-                    </td>
+          <div style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '30px 0' }}>
+            {selectedClass && mappings.length > 0 && (
+              <table className="timetable-table">
+                <thead>
+                  <tr>
+                    <th>Subject</th>
+                    <th>Teacher</th>
+                    <th>Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-          {selectedClass && mappings.length === 0 && !loading && (
-            <p>No mappings found for this class.</p>
-          )}
+                </thead>
+                <tbody>
+                  {mappings.map(mapping => (
+                    <tr key={mapping._id}>
+                      <td>{
+                        mapping.subjectName ||
+                        mapping.subject?.name ||
+                        (typeof mapping.subjectId === 'object' ? (mapping.subjectId.name || mapping.subjectId.code || mapping.subjectId.shortName || mapping.subjectId._id) : mapping.subjectId)
+                      }</td>
+                      <td>{
+                        mapping.teacherName ||
+                        mapping.teacher?.name ||
+                        (typeof mapping.teacherId === 'object' ? (mapping.teacherId.name || mapping.teacherId.code || mapping.teacherId.shortName || mapping.teacherId._id) : mapping.teacherId)
+                      }</td>
+                      <td>
+                        <button onClick={() => handleDelete(mapping._id)} disabled={loading} style={{ color: 'red' }}>
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+            {selectedClass && mappings.length === 0 && !loading && (
+              <p>No mappings found for this class.</p>
+            )}
+          </div>
         </div>
       </main>
     </div>

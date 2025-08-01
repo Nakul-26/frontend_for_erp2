@@ -47,14 +47,14 @@ function UpdateExamResult() {
   return (
     <div className="dashboard-container">
       <Sidebar />
-      <main className="main-content">
+      <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
-        <div className="form-container">
-          <h2>Update Exam Result</h2>
+        <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: '#f8fafc', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px #e0e7ef' }}>
+          <h2 style={{ marginBottom: 24, color: '#2563eb', fontWeight: 700 }}>Update Exam Result</h2>
 
           <div style={{ marginBottom: 16 }}>
-            <label>Select Exam Result to Update:</label>
-            <select value={selectedResultId} onChange={handleResultSelect} required style={{ padding: 8, borderRadius: 6 }}>
+            <label style={{ fontWeight: 600, marginBottom: 8, display: 'block' }}>Select Exam Result to Update:</label>
+            <select value={selectedResultId} onChange={handleResultSelect} required style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 8, border: '1px solid #cbd5e1' }}>
               <option value="">Select</option>
               {results.map(r => (
                 <option key={r._id} value={r._id}>
@@ -65,25 +65,25 @@ function UpdateExamResult() {
           </div>
 
           {resultData && (
-            <form onSubmit={handleSubmit}>
-              <h4>Student: {resultData.studentId?.name || resultData.studentId}</h4>
-              <h4>Exam: {resultData.examId?.examName || resultData.examId}</h4>
+            <form onSubmit={handleSubmit} style={{ marginTop: 16 }}>
+              <h4 style={{ marginBottom: 8, color: '#334155' }}>Student: {resultData.studentId?.name || resultData.studentId}</h4>
+              <h4 style={{ marginBottom: 16, color: '#334155' }}>Exam: {resultData.examId?.examName || resultData.examId}</h4>
 
               {resultData.marksObtained.map((m, i) => (
                 <div key={i} style={{ marginBottom: 12 }}>
-                  <label>
+                  <label style={{ fontWeight: 500, marginRight: 8 }}>
                     {m.subjectId?.name || m.subjectId}:
                     <input
                       type="number"
                       min={0}
                       value={m.marks}
                       onChange={(e) => handleMarksChange(i, 'marks', e.target.value)}
-                      style={{ marginLeft: 8, width: 80, padding: 6 }}
+                      style={{ marginLeft: 8, width: 80, padding: 6, borderRadius: 6, border: '1px solid #cbd5e1' }}
                     />
                     <select
                       value={m.status}
                       onChange={(e) => handleMarksChange(i, 'status', e.target.value)}
-                      style={{ marginLeft: 8, padding: 6 }}
+                      style={{ marginLeft: 8, padding: 6, borderRadius: 6, border: '1px solid #cbd5e1' }}
                     >
                       <option value="Present">Present</option>
                       <option value="Absent">Absent</option>
@@ -103,6 +103,7 @@ function UpdateExamResult() {
                   borderRadius: 6,
                   fontWeight: 600,
                   cursor: 'pointer',
+                  boxShadow: '0 1px 4px #cbd5e1',
                 }}
               >
                 Update Result

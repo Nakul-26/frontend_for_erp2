@@ -18,7 +18,7 @@ function StudentRegister() {
     address: '',
     phone: '',
     dateofadmission: '',
-    Class: '',
+    class: '',
     fatherName: '',
     fatherPhoneNumber: '',
     fatherOccupation: '',
@@ -93,7 +93,7 @@ function StudentRegister() {
     
     studentData.append('phone', formData.phone);
     studentData.append('dateofadmission', formData.dateofadmission);
-    studentData.append('class', formData.Classs);
+    studentData.append('class', formData.class);
     studentData.append('fatherName', formData.fatherName);
     studentData.append('fatherPhoneNumber', formData.fatherPhoneNumber);
     studentData.append('fatherOccupation', formData.fatherOccupation || undefined);
@@ -136,8 +136,8 @@ function StudentRegister() {
           <h1>Register Student</h1>
           <p className="dashboard-subtitle">Add a new student to the system</p>
         </header>
-        <div className="login-container" style={{ width: '600px' }}>
-          <form className="enhanced-form student-register-form" onSubmit={handleSubmit}>
+        <div className="login-container" style={{ width: '100%', maxWidth: '100%', margin: '0', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+          <form className="enhanced-form student-register-form" onSubmit={handleSubmit} style={{ width: '100%', background: '#fff', borderRadius: '16px', boxShadow: '0 2px 16px #e0e7ef', padding: '40px 24px', margin: '32px 0' }}>
             <div className="input-group">
               <input
                 type="text"
@@ -190,11 +190,25 @@ function StudentRegister() {
               />
             </div>
             <div className="input-group">
+              <label htmlFor="dateofbirth" style={{ fontWeight: 500, marginBottom: 4, display: 'block' }}>Date of Birth</label>
               <input
                 type="date"
                 name="dateofbirth"
+                id="dateofbirth"
                 placeholder="Date of Birth"
                 value={formData.dateofbirth}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-group">
+              <label htmlFor="dateofadmission" style={{ fontWeight: 500, marginBottom: 4, display: 'block' }}>Date of Admission</label>
+              <input
+                type="date"
+                name="dateofadmission"
+                id="dateofadmission"
+                placeholder="Date of Admission"
+                value={formData.dateofadmission}
                 onChange={handleChange}
                 required
               />
@@ -219,25 +233,15 @@ function StudentRegister() {
               />
             </div>
             <div className="input-group">
-              <input
-                type="date"
-                name="dateofadmission"
-                placeholder="Date of Admission"
-                value={formData.dateofadmission}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-group">
               <select
-                name="Classs"
-                value={formData.Classs}
+                name="class"
+                value={formData.Class}
                 onChange={handleChange}
                 required
               >
                 <option value="">Select Class</option>
                 {classes.map((cls) => (
-                  <option key={cls._id || cls.classId} value={cls.classId}>{cls.className || cls.classId}</option>
+                  <option key={cls._id || cls.classId} value={cls._id}>{cls.className || cls.classId}</option>
                 ))}
               </select>
             </div>

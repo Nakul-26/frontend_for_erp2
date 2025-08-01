@@ -1,31 +1,16 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { FaIdCard, FaUser, FaEnvelope, FaShieldAlt } from 'react-icons/fa';
-import axios from 'axios';
 import '../../styles/Dashboard.css';
+import { useAuth } from '../../context/AuthContext';
 
 const Sidebar = lazy(() => import('../../components/Sidebar'));
 const Navbar = lazy(() => import('../../components/Navbar'));
 
 function AdminDashboard() {
-  const [adminData, setAdminData] = useState(null);
+  const { adminData } = useAuth(); // Get admin data from context
+
+  console.log('Admin Dashboard admin data:', adminData);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  useEffect(() => {
-    const fetchAdminData = async () => {
-      try {
-        // Check localStorage first
-        const storedData = JSON.parse(localStorage.getItem('admindata'));
-        if (storedData) {
-          setAdminData(storedData);
-          return;
-        }
-      } catch (error) {
-        console.error('Error Admin teacher data:', error);
-      }
-    };
-
-    fetchAdminData();
-  }, []);
 
   const stats = [
     { icon: <FaIdCard />, title: 'Admin ID', value: adminData?.id || '-' },
@@ -43,9 +28,9 @@ function AdminDashboard() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="dashboard-container">
-        <Sidebar adminData={adminData} isOpen={isSidebarOpen} />
+        <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
         <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-          <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+          <Navbar role="adminData" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
           <div className="stats-grid">
             {stats.map((stat, index) => (
               <div key={index} className="stat-card">
