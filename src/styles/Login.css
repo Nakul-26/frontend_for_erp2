@@ -111,3 +111,9 @@
     font-size: var(--font-size-sm);
   }
 }
+
+.clear-filters-btn {
+  min-height: 38px;
+  border-radius: 5px;
+  min-width: 150px;
+}

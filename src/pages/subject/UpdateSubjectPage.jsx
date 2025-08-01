@@ -174,16 +174,16 @@ function UpdateSubjectPage() {
           subjectData,
           { withCredentials: true }
         );
-        console.log("1 Update Subject Response:", response.data);
+        // console.log("1 Update Subject Response:", response.data);
         if (response.data.success === true) {
-          console.log("2 Subject updated successfully:", response.data);
+          // console.log("2 Subject updated successfully:", response.data);
           setSuccess('Subject updated successfully');
         } else {
           console.error("3 Failed to update subject:", response.data);
           throw new Error(response.data.message || 'Failed to update subject');
         }
       }
-      console.log("4 Operation completed successfully, navigating to subjects list.");
+      // console.log("4 Operation completed successfully, navigating to subjects list.");
       setTimeout(() => navigate('/admin/subjects'), 2000);
     } catch (err) {
       console.error("5 Error during subject operation:", err);

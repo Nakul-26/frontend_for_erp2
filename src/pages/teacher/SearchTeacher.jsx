@@ -45,7 +45,7 @@ function SearchTeacher() {
         { withCredentials: true }
       );
 
-      console.log('Search response:', response.data); // Debugging log
+      // console.log('Search response:', response.data); // Debugging log
 
       if (response.data.success === true && response.data.data) {
         // Assuming 'response.data.data' directly contains the single teacher object

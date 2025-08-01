@@ -9,7 +9,7 @@ const Navbar = lazy(() => import('../../components/Navbar'));
 function AdminDashboard() {
   const { adminData } = useAuth(); // Get admin data from context
 
-  console.log('Admin Dashboard admin data:', adminData);
+  // console.log('Admin Dashboard admin data:', adminData);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const stats = [

@@ -25,7 +25,7 @@ function StudentLogin() {
       );
 
       if (response.data.success) {
-        console.log('Student login successful');
+        // console.log('Student login successful');
         navigate('/student/dashboard');
       } else {
         setError('Invalid credentials');

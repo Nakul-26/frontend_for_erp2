@@ -49,12 +49,12 @@ function UpdateExamResult() {
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
-        <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: '#f8fafc', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px #e0e7ef' }}>
+        <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px #222' }}>
           <h2 style={{ marginBottom: 24, color: '#2563eb', fontWeight: 700 }}>Update Exam Result</h2>
 
           <div style={{ marginBottom: 16 }}>
             <label style={{ fontWeight: 600, marginBottom: 8, display: 'block' }}>Select Exam Result to Update:</label>
-            <select value={selectedResultId} onChange={handleResultSelect} required style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 8, border: '1px solid #cbd5e1' }}>
+            <select value={selectedResultId} onChange={handleResultSelect} required style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 8, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }}>
               <option value="">Select</option>
               {results.map(r => (
                 <option key={r._id} value={r._id}>
@@ -73,17 +73,17 @@ function UpdateExamResult() {
                 <div key={i} style={{ marginBottom: 12 }}>
                   <label style={{ fontWeight: 500, marginRight: 8 }}>
                     {m.subjectId?.name || m.subjectId}:
-                    <input
-                      type="number"
-                      min={0}
-                      value={m.marks}
-                      onChange={(e) => handleMarksChange(i, 'marks', e.target.value)}
-                      style={{ marginLeft: 8, width: 80, padding: 6, borderRadius: 6, border: '1px solid #cbd5e1' }}
-                    />
+                      <input
+                        type="number"
+                        min={0}
+                        value={m.marks}
+                        onChange={(e) => handleMarksChange(i, 'marks', e.target.value)}
+                        style={{ marginLeft: 8, width: 80, padding: 6, borderRadius: 6, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }}
+                      />
                     <select
                       value={m.status}
                       onChange={(e) => handleMarksChange(i, 'status', e.target.value)}
-                      style={{ marginLeft: 8, padding: 6, borderRadius: 6, border: '1px solid #cbd5e1' }}
+                      style={{ marginLeft: 8, padding: 6, borderRadius: 6, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }}
                     >
                       <option value="Present">Present</option>
                       <option value="Absent">Absent</option>

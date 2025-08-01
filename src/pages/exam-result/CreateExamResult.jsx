@@ -25,7 +25,7 @@ function CreateExamResult() {
     axios.get(`${API}/api/v1/admin/getall`, { withCredentials: true })
       .then(res => {
         setSubjects(res.data.subjects);
-        console.log('Subjects fetched:', res.data.subjects);
+        // console.log('Subjects fetched:', res.data.subjects);
       });
   }, []);
 
@@ -70,20 +70,20 @@ function CreateExamResult() {
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
-        <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: '#f8fafc', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px #e0e7ef' }}>
+        <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px #222' }}>
           <h2 style={{ marginBottom: 24, color: '#2563eb', fontWeight: 700 }}>Create Exam Result</h2>
           <form onSubmit={handleSubmit}>
-            <select required value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #cbd5e1' }}>
+            <select required value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }}>
               <option value="">Select Class</option>
               {classes.map(c => <option key={c._id} value={c._id}>{c.name || c.className}</option>)}
             </select>
 
-            <select required value={selectedExam} onChange={e => setSelectedExam(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #cbd5e1' }}>
+            <select required value={selectedExam} onChange={e => setSelectedExam(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }}>
               <option value="">Select Exam</option>
               {exams.map(e => <option key={e._id} value={e._id}>{e.examName}</option>)}
             </select>
 
-            <select required value={selectedStudent} onChange={e => setSelectedStudent(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #cbd5e1' }}>
+            <select required value={selectedStudent} onChange={e => setSelectedStudent(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }}>
               <option value="">Select Student</option>
               {students.map(s => <option key={s._id} value={s._id}>{s.name}</option>)}
             </select>
@@ -99,12 +99,12 @@ function CreateExamResult() {
                     const updated = [...marksObtained];
                     updated[i].marks = Number(e.target.value);
                     setMarksObtained(updated);
-                  }} style={{ marginLeft: 8, width: 80, padding: 6, borderRadius: 6, border: '1px solid #cbd5e1' }} />
+                  }} style={{ marginLeft: 8, width: 80, padding: 6, borderRadius: 6, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }} />
                   <select value={m.status} onChange={e => {
                     const updated = [...marksObtained];
                     updated[i].status = e.target.value;
                     setMarksObtained(updated);
-                  }} style={{ marginLeft: 8, padding: 6, borderRadius: 6, border: '1px solid #cbd5e1' }}>
+                  }} style={{ marginLeft: 8, padding: 6, borderRadius: 6, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }}>
                     <option value="Present">Present</option>
                     <option value="Absent">Absent</option>
                   </select>

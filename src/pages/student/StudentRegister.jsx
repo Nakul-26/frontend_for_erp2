@@ -6,6 +6,7 @@ import axios from 'axios';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
 import { useAuth } from '../../context/AuthContext';
+// import '../../App.css';
 
 function StudentRegister() {
   const [formData, setFormData] = useState({
@@ -46,7 +47,7 @@ function StudentRegister() {
         const response = await axios.get(`${API_BASE_URL}/api/v1/admin/getallclass`,
           { withCredentials: true }
         );
-        console.log('Classes fetched:', response.data);
+        // console.log('Classes fetched:', response.data);
         if (response.data.success && Array.isArray(response.data.data)) {
           setClasses(response.data.data);
         }
@@ -137,7 +138,7 @@ function StudentRegister() {
           <p className="dashboard-subtitle">Add a new student to the system</p>
         </header>
         <div className="login-container" style={{ width: '100%', maxWidth: '100%', margin: '0', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
-          <form className="enhanced-form student-register-form" onSubmit={handleSubmit} style={{ width: '100%', background: '#fff', borderRadius: '16px', boxShadow: '0 2px 16px #e0e7ef', padding: '40px 24px', margin: '32px 0' }}>
+          <form className="enhanced-form student-register-form" onSubmit={handleSubmit} style={{ width: '100%', borderRadius: '16px', padding: '40px 24px', margin: '32px 0' }}>
             <div className="input-group">
               <input
                 type="text"

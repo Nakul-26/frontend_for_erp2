@@ -1,16 +1,16 @@
 .timetable-form-container {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  padding: 32px 24px;
-  margin: auto;
-  max-width: 1550px;
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+  margin: 0 auto;
 }
 
 .timetable-form-container h1 {
   margin-bottom: 16px;
   font-size: 2rem;
-  color: #2d3748;
+  color: var(--text-heading, var(--text));
 }
 
 .timetable-form-container label {
@@ -21,14 +21,66 @@
 .timetable-form-container select, .timetable-form-container button {
   padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border-color);
   font-size: 1rem;
   margin-bottom: 8px;
 }
 
+.timetable-form-container input,
+.timetable-form-container select {
+  background: var(--input-background);
+  color: var(--input-text);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 8px;
+}
+
+.timetable-form-container input[type="date"] {
+  color-scheme: var(--background);
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .timetable-form-container {
+    padding: 1rem;
+    max-width: 100%;
+  }
+  .timetable-form-container h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .timetable-form-container {
+    padding: 0.5rem;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .timetable-form-container h1 {
+    font-size: 1.2rem;
+  }
+  .timetable-form-container label,
+  .timetable-form-container select,
+  .timetable-form-container button {
+    font-size: 0.95rem;
+    padding: 6px 8px;
+  }
+  .timetable-form-container input,
+  .timetable-form-container select {
+    padding: 6px;
+  }
+}
+
+.timetable-table {
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
 .timetable-form-container button {
-  background: #2563eb;
-  color: #fff;
+  background: var(--primary);
+  color: var(--text-light);
+  border-radius: var(--border-radius-sm);
   border: none;
   font-weight: 600;
   cursor: pointer;
@@ -46,32 +98,33 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 24px;
-  background: #f8fafc;
+  background: var(--surface);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  box-shadow: var(--shadow-sm, 0 1px 4px rgba(0,0,0,0.04));
 }
 .timetable-table th, .timetable-table td {
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
   padding: 10px 8px;
   text-align: center;
   min-width: 160px;
 }
 .timetable-table th {
-  background: #2563eb;
-  color: #fff;
+  background: var(--primary);
+  color: var(--text-light);
   font-weight: 700;
   font-size: 1rem;
 }
 .timetable-table td {
-  background: #fff;
+  background: var(--surface);
+  color: var(--text);
 }
 .timetable-table select {
   width: 100%;
   margin-bottom: 0;
 }
 .timetable-table small {
-  color: #ddd6ff;
+  color: var(--text-muted, #ddd6ff);
 }
 .timetable-form-container .status-message {
   margin-bottom: 16px;

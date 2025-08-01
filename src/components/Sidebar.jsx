@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTheme } from '../ThemeContext';
 import { Link } from 'react-router-dom';
 import '../styles/Sidebar.css';
 import { useAuth } from '../context/AuthContext';
@@ -11,8 +12,9 @@ function getInitialSidebarOpen() {
 }
 
 function Sidebar({ isOpen, setIsOpen }) {
+  const { theme, toggleTheme } = useTheme();
   const { adminData } = useAuth(); // Use adminData from context
-  console.log('Sidebar admin data:', adminData);
+  // console.log('Sidebar admin data:', adminData);
   
   const [openSections, setOpenSections] = useState({
     classes: false,
@@ -53,7 +55,7 @@ function Sidebar({ isOpen, setIsOpen }) {
   };
 
   return (
-    <div className={sidebarClass()}>
+    <div className={sidebarClass()} data-theme={theme}>
       <div className="profile-section">
         <div className="profile-image">{adminData?.Name?.charAt(0) || 'A'}</div>
         <h3>{adminData?.Name || 'Loading...'}</h3>
@@ -243,6 +245,10 @@ function Sidebar({ isOpen, setIsOpen }) {
           ×
         </button>
       )}
+      {/* Theme toggle button for sidebar */}
+      <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+        {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+      </button>
     </div>
   );
 }

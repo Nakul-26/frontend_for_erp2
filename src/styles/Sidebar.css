@@ -39,7 +39,7 @@
   width: 60px;
   height: 60px;
   background: var(--primary);
-  color: white;
+  color: var(--text-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,14 +113,10 @@
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.sidebar-nav a:hover {
-  background: var(--primary);
-  color: white;
-}
-
+.sidebar-nav a:hover,
 .sidebar-nav a.active {
   background: var(--primary);
-  color: white;
+  color: var(--text-light);
   font-weight: var(--font-weight-bold);
 }
 
@@ -163,4 +159,5 @@
 /* Always hide the close button on desktop */
 .sidebar-close-btn {
   display: none;
+  color: var(--text);
 }

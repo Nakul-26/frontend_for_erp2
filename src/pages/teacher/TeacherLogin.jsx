@@ -29,8 +29,8 @@ function TeacherLogin() {
       );
 
       if (response.data.success) {
-        console.log('Teacher login successful');
-        console.log(response); // Corrected typo: console.log(response)
+        // console.log('Teacher login successful');
+        // console.log(response); // Corrected typo: console.log(response)
         localStorage.setItem('teacherData', JSON.stringify(response.data.data));
         navigate('/teacher/dashboard'); // Use absolute path from root
       } else {

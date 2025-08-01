@@ -46,3 +46,34 @@
     accent-color: #007bff; /* Custom color for radio button */
     cursor: pointer;
 }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .radio-group-section {
+    padding: 8px;
+    margin-top: 12px;
+  }
+  .radio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 6px;
+  }
+  .radio-label {
+    font-size: 0.95rem;
+    padding: 6px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .radio-group-section {
+    padding: 4px;
+    margin-top: 6px;
+  }
+  .radio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 4px;
+  }
+  .radio-label {
+    font-size: 0.9rem;
+    padding: 4px 4px;
+  }
+}

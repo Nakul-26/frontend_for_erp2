@@ -12,6 +12,7 @@ function CreateTimetablePage() {
   const [selectedClass, setSelectedClass] = useState('');
   const [days] = useState(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
   const [timeSlots, setTimeSlots] = useState([]);
+  // ...existing code...
   const [grid, setGrid] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -26,6 +27,7 @@ function CreateTimetablePage() {
   const fetchClasses = async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallclassformapped`, { withCredentials: true });
+      // console.log('Classes fetched:', res.data.data);
       setClasses(res.data.data || []);
     } catch (err) {
       setError('Failed to fetch classes.');
@@ -36,6 +38,7 @@ function CreateTimetablePage() {
   const fetchTimeSlots = async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallslots`, { withCredentials: true });
+      // console.log('Time slots fetched:', res.data);
       setTimeSlots(res.data || []);
     } catch (err) {
       setError('Failed to fetch time slots.');
@@ -58,9 +61,9 @@ function CreateTimetablePage() {
       });
       const uniqueSubjects = Object.values(subjectsMap);
       const uniqueTeachers = Object.values(teachersMap);
-      console.log('Subjects fetched:', uniqueSubjects);
-      console.log('Teachers fetched:', uniqueTeachers);
-      console.log('Mapped pairs fetched:', pairs);
+      // console.log('Subjects fetched:', uniqueSubjects);
+      // console.log('Teachers fetched:', uniqueTeachers);
+      // console.log('Mapped pairs fetched:', pairs);
       setSubjects(uniqueSubjects);
       setTeachers(uniqueTeachers);
       setMappedPairs(pairs);
@@ -180,7 +183,7 @@ function CreateTimetablePage() {
               mapped: mappedId
             };
           });
-        console.log('Final periods payload:', JSON.stringify(periods, null, 2));
+        // console.log('Final periods payload:', JSON.stringify(periods, null, 2));
         const payload = {
           day,
           periods
@@ -203,7 +206,7 @@ function CreateTimetablePage() {
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar />
-        <div style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '0px 0px' }}>
+        <div style={{ width: '100%', maxWidth: '1400px', margin: '0 auto', padding: '0px 0px', overflowX: 'hidden' }}>
           <div className="timetable-form-container">
             <h1>Create Timetable</h1>
             <form onSubmit={handleSubmit}>
@@ -222,7 +225,7 @@ function CreateTimetablePage() {
               </div>
 
               {selectedClass && timeSlots.length > 0 && (
-                <div style={{ overflowX: 'auto' }}>
+                <div>
                   {/* Drag-and-drop source list */}
                   <div style={{ marginBottom: 16 }}>
                     <label>Drag Subject-Teacher Pair:</label>
@@ -237,7 +240,17 @@ function CreateTimetablePage() {
                             key={m._id}
                             draggable
                             onDragStart={() => handleDragStart(m._id)}
-                            style={{ padding: '6px 12px', background: '#e0e7ef', borderRadius: 6, cursor: 'grab', border: '1px solid #cbd5e1' }}
+                            style={{
+                              padding: '10px 18px',
+                              background: 'var(--surface)',
+                              color: 'var(--text)',
+                              borderRadius: 8,
+                              cursor: 'grab',
+                              border: '2px solid var(--primary)',
+                              fontWeight: 600,
+                              fontSize: '1rem',
+                              boxShadow: '0 2px 8px var(--border-color)'
+                            }}
                           >
                             {subjectName} - {teacherName}
                           </div>
@@ -245,100 +258,111 @@ function CreateTimetablePage() {
                       })}
                     </div>
                   </div>
-                  <table className="timetable-table">
-                    <thead>
-                      <tr>
-                        <th>Day / Time Slot</th>
-                        {timeSlots.map(slot => (
-                          <th key={slot._id}>
-                            {slot.period}<br />
-                            <small>{slot.startTime} - {slot.endTime}</small>
-                          </th>
+                  <div style={{ overflowX: 'auto', width: '100%' }}>
+                    <table className="timetable-table" style={{ tableLayout: 'fixed', minWidth: '1200px', width: '100%' }}>
+                      <colgroup>
+                        <col style={{ width: '160px' }} />
+                        {timeSlots.map((slot, idx) => (
+                          <col key={slot._id} style={{ width: '180px' }} />
                         ))}
-                        <th>Fill All</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {days.map(day => (
-                        <tr key={day}>
-                          <td>{day}</td>
+                        <col style={{ width: '120px' }} />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th>Day / Time Slot</th>
                           {timeSlots.map(slot => (
-                            <td
-                              key={slot._id}
-                              onDragOver={e => e.preventDefault()}
-                              onDrop={() => handleDrop(day, slot._id)}
-                            >
-                              {isBreakPeriod(slot.period) ? (
-                                <em>{slot.period}</em>
-                              ) : (
-                                <>
-                                  <div>
-                                    <select
-                                      value={grid[day]?.[slot._id]?.combo || ''}
-                                      onChange={e => {
-                                        const mappedId = e.target.value;
-                                        if (!mappedId) {
-                                          handleGridChange(day, slot._id, 'combo', '');
-                                          handleGridChange(day, slot._id, 'subject', '');
-                                          handleGridChange(day, slot._id, 'teacher', '');
-                                          return;
-                                        }
-                                        const found = mappedPairs.find(m => m._id === mappedId);
-                                        if (found) {
-                                          const mSubject = typeof found.subjectId === 'object' ? found.subjectId : null;
-                                          const mTeacher = typeof found.teacherId === 'object' ? found.teacherId : null;
-                                          const subjectId = mSubject ? mSubject._id : found.subjectId;
-                                          const teacherId = mTeacher ? mTeacher._id : found.teacherId;
-                                          handleGridChange(day, slot._id, 'combo', mappedId);
-                                          handleGridChange(day, slot._id, 'subject', subjectId);
-                                          handleGridChange(day, slot._id, 'teacher', teacherId);
-                                        }
-                                      }}
-                                    >
-                                      <option value="">-- Subject & Teacher --</option>
-                                      {mappedPairs.map(m => {
-                                        const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
-                                        const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
-                                        const subjectId = mSubject ? mSubject._id : m.subjectId;
-                                        const teacherId = mTeacher ? mTeacher._id : m.teacherId;
-                                        const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || subjectId) : subjectId;
-                                        const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || teacherId) : teacherId;
-                                        return (
-                                          <option key={m._id} value={m._id}>
-                                            {subjectName} - {teacherName}
-                                          </option>
-                                        );
-                                      })}
-                                    </select>
-                                  </div>
-                                </>
-                              )}
-                            </td>
+                            <th key={slot._id}>
+                              {slot.period}<br />
+                              <small>{slot.startTime} - {slot.endTime}</small>
+                            </th>
                           ))}
-                          {/* Fill All for this day */}
-                          <td>
-                            <select
-                              onChange={e => handleFillAllDay(day, e.target.value)}
-                              defaultValue=""
-                            >
-                              <option value="">Fill All</option>
-                              {mappedPairs.map(m => {
-                                const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
-                                const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
-                                const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || mSubject._id) : m.subjectId;
-                                const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || mTeacher._id) : m.teacherId;
-                                return (
-                                  <option key={m._id} value={m._id}>
-                                    {subjectName} - {teacherName}
-                                  </option>
-                                );
-                              })}
-                            </select>
-                          </td>
+                          <th>Fill All</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {days.map(day => (
+                          <tr key={day}>
+                            <td>{day}</td>
+                            {timeSlots.map(slot => (
+                              <td
+                                key={slot._id}
+                                onDragOver={e => e.preventDefault()}
+                                onDrop={() => handleDrop(day, slot._id)}
+                                style={{ wordBreak: 'break-word', maxWidth: '170px', fontSize: '1rem' }}
+                              >
+                                {isBreakPeriod(slot.period) ? (
+                                  <em>{slot.period}</em>
+                                ) : (
+                                  <>
+                                    <div>
+                                      <select
+                                        value={grid[day]?.[slot._id]?.combo || ''}
+                                        onChange={e => {
+                                          const mappedId = e.target.value;
+                                          if (!mappedId) {
+                                            handleGridChange(day, slot._id, 'combo', '');
+                                            handleGridChange(day, slot._id, 'subject', '');
+                                            handleGridChange(day, slot._id, 'teacher', '');
+                                            return;
+                                          }
+                                          const found = mappedPairs.find(m => m._id === mappedId);
+                                          if (found) {
+                                            const mSubject = typeof found.subjectId === 'object' ? found.subjectId : null;
+                                            const mTeacher = typeof found.teacherId === 'object' ? found.teacherId : null;
+                                            const subjectId = mSubject ? mSubject._id : found.subjectId;
+                                            const teacherId = mTeacher ? mTeacher._id : found.teacherId;
+                                            handleGridChange(day, slot._id, 'combo', mappedId);
+                                            handleGridChange(day, slot._id, 'subject', subjectId);
+                                            handleGridChange(day, slot._id, 'teacher', teacherId);
+                                          }
+                                        }}
+                                      >
+                                        <option value="">-- Subject & Teacher --</option>
+                                        {mappedPairs.map(m => {
+                                          const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
+                                          const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
+                                          const subjectId = mSubject ? mSubject._id : m.subjectId;
+                                          const teacherId = mTeacher ? mTeacher._id : m.teacherId;
+                                          const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || subjectId) : subjectId;
+                                          const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || teacherId) : teacherId;
+                                          return (
+                                            <option key={m._id} value={m._id}>
+                                              {subjectName} - {teacherName}
+                                            </option>
+                                          );
+                                        })}
+                                      </select>
+                                    </div>
+                                  </>
+                                )}
+                              </td>
+                            ))}
+                            {/* Fill All for this day */}
+                            <td>
+                              <select
+                                onChange={e => handleFillAllDay(day, e.target.value)}
+                                defaultValue=""
+                                style={{ fontSize: '1rem' }}
+                              >
+                                <option value="">Fill All</option>
+                                {mappedPairs.map(m => {
+                                  const mSubject = typeof m.subjectId === 'object' ? m.subjectId : null;
+                                  const mTeacher = typeof m.teacherId === 'object' ? m.teacherId : null;
+                                  const subjectName = mSubject ? (mSubject.name || mSubject.code || mSubject.shortName || mSubject._id) : m.subjectId;
+                                  const teacherName = mTeacher ? (mTeacher.name || mTeacher.code || mTeacher.shortName || mTeacher._id) : m.teacherId;
+                                  return (
+                                    <option key={m._id} value={m._id}>
+                                      {subjectName} - {teacherName}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               )}
 

@@ -8,7 +8,7 @@ function Card({ data, type, onDelete, fields }) {
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-  console.log(`Card data (${type}):`, data); // Debug data
+  // console.log(`Card data (${type}):`, data);
 
   const handleDelete = async () => {
     const idField = type === 'class' ? 'c_id' : 'id'; // Ensure 's_id' for teachers

@@ -37,7 +37,7 @@ function ModifyStudentPage() {
   const queryParams = new URLSearchParams(location.search);
   const s_id = queryParams.get('s_id');
 
-  console.log('Extracted s_id:', s_id);
+  // console.log('Extracted s_id:', s_id);
 
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -57,7 +57,7 @@ function ModifyStudentPage() {
           { withCredentials: true }
         );
 
-        console.log('Backend Student Data Response:', response.data);
+        // console.log('Backend Student Data Response:', response.data);
 
         if (response.data.success && response.data.data) {
           const data = response.data.data;
@@ -111,7 +111,7 @@ function ModifyStudentPage() {
         { withCredentials: true }
       );
 
-      console.log('Update Response:', response.data);
+      // console.log('Update Response:', response.data);
 
       if (response.data.success) {
         alert('Student updated successfully');

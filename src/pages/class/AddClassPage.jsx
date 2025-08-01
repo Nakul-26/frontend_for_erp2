@@ -74,11 +74,11 @@ function AddClassPage() {
                 const subjectsResponse = await axios.get(`${API_BASE_URL}/api/v1/admin/getall`, { withCredentials: true });
                 if (subjectsResponse.data.status === "success") {
                     setSubjects(subjectsResponse.data.subjects);
-                    console.log('Subjects state updated:', subjectsResponse.data.subjects);
+                    // console.log('Subjects state updated:', subjectsResponse.data.subjects);
                 } else {
                     setError(prev => prev + (prev ? '; ' : '') + (subjectsResponse.data.message || 'Failed to fetch subjects.'));
                 }
-                console.log(subjectsResponse);
+                // console.log(subjectsResponse);
                 // No longer need a delay for showSubjectsDelayed with checkboxes
                 // setTimeout(() => {
                 //     setShowSubjectsDelayed(true);

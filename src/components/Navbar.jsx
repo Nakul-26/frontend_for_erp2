@@ -38,7 +38,7 @@ function Navbar({ role, toggleSidebar }) {
       );
   
       if (response.data) {
-        console.log('Logout successful');
+        // console.log('Logout successful');
         // Clear all local storage data
         localStorage.clear();
         // Redirect to login page

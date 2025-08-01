@@ -26,7 +26,7 @@ function GetAllTimetables() {
     setTimetables([]);
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getalldailyschedules/${classId}`, { withCredentials: true });
-      console.log('Timetables fetched:', res.data.data);
+      // console.log('Timetables fetched:', res.data.data);
       setTimetables(res.data.data || []);
     } catch (err) {
       setError('Failed to fetch timetables.');
@@ -78,12 +78,12 @@ function GetAllTimetables() {
           {error && <p style={{ color: 'red' }}>{error}</p>}
           {timetables.length === 0 && !loading && selectedClass && <p>No timetables found for this class.</p>}
           {timetables.length > 0 && (
-            <div style={{ marginBottom: 32, background: '#f1f5f9', borderRadius: 8, padding: 16 }}>
-              <h3>Class: {timetables[0].classId?.name || timetables[0].classId}</h3>
+            <div style={{ marginBottom: 32, background: 'var(--surface)', borderRadius: 8, padding: 16 }}>
+              <h3 style={{ color: 'var(--text)' }}>Class: {timetables[0].classId?.name || timetables[0].classId}</h3>
               <div style={{ overflowX: 'auto' }}>
-                <table className="timetable-table">
+                <table className="timetable-table" style={{ width: '100%', background: 'var(--surface)', color: 'var(--text)', borderRadius: '8px', overflow: 'hidden', borderCollapse: 'collapse', boxShadow: '0 2px 8px var(--border-color)' }}>
                   <thead>
-                    <tr>
+                    <tr style={{ background: 'var(--primary)', color: 'var(--text-light)' }}>
                       <th>Day / Time Slot</th>
                       {(() => {
                         // Collect all unique periods from all days
@@ -98,7 +98,7 @@ function GetAllTimetables() {
                         return allPeriods.map(slot => (
                           <th key={slot?._id}>
                             {slot?.period}<br />
-                            <small>{slot?.startTime} - {slot?.endTime}</small>
+                            <small style={{ color: 'var(--text-light)' }}>{slot?.startTime} - {slot?.endTime}</small>
                           </th>
                         ));
                       })()}
@@ -106,8 +106,8 @@ function GetAllTimetables() {
                   </thead>
                   <tbody>
                     {['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'].map(day => (
-                      <tr key={day}>
-                        <td>{day}</td>
+                      <tr key={day} style={{ background: 'var(--surface)', color: 'var(--text)' }}>
+                        <td style={{ color: 'var(--text)', fontWeight: 500 }}>{day}</td>
                         {(() => {
                           // Find the timetable for this day
                           const ttDay = timetables.find(tt => tt.day === day);
@@ -123,16 +123,16 @@ function GetAllTimetables() {
                           return allPeriods.map(slot => {
                             // Find the period for this slot in this day
                             const periodObj = ttDay?.periods?.find(p => p.period?._id === slot?._id);
-                            if (!periodObj) return <td key={slot?._id}><em>-</em></td>;
+                            if (!periodObj) return <td key={slot?._id} style={{ background: 'var(--surface)', color: 'var(--text)' }}><em>-</em></td>;
                             // If break, show break
                             if (periodObj.period?.period?.toLowerCase().includes('break')) {
-                              return <td key={slot?._id}><em>{periodObj.period?.period}</em></td>;
+                              return <td key={slot?._id} style={{ background: 'var(--surface)', color: 'var(--text)' }}><em>{periodObj.period?.period}</em></td>;
                             }
                             return (
-                              <td key={slot?._id}>
+                              <td key={slot?._id} style={{ background: 'var(--surface)', color: 'var(--text)' }}>
                                 <div>
-                                  <b>{periodObj.mapped?.subjectId?.name || periodObj.mapped?.subjectId?.code || '-'}</b><br />
-                                  <span>{periodObj.mapped?.teacherId?.name || periodObj.mapped?.teacherId?.email || '-'}</span>
+                                  <b style={{ color: 'var(--text)' }}>{periodObj.mapped?.subjectId?.name || periodObj.mapped?.subjectId?.code || '-'}</b><br />
+                                  <span style={{ color: 'var(--text)' }}>{periodObj.mapped?.teacherId?.name || periodObj.mapped?.teacherId?.email || '-'}</span>
                                 </div>
                               </td>
                             );

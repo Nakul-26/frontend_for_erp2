@@ -105,6 +105,22 @@ button:focus-visible {
   padding: 2em;
 }
 
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-family);
+}
+button {
+  background: var(--primary);
+  color: var(--text-light);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid transparent;
+  font-weight: 500;
+  transition: background 0.3s, color 0.3s;
+}
+button:hover {
+  background: var(--primary-dark);
+}
 .read-the-docs {
-  color: #888;
+  color: var(--text-muted);
 }

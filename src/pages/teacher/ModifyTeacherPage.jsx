@@ -87,7 +87,7 @@ function ModifyTeacherPage() {
         setSearchResult(teacher);
         setOriginalId(teacher.id);
 
-        console.log('Teacher found:', teacher);
+        // console.log('Teacher found:', teacher);
 
         setFormData({
           id: teacher.id,
@@ -221,7 +221,7 @@ function ModifyTeacherPage() {
     // LOGIC FOR CHANGING TEACHER ID (DELETE OLD, REGISTER NEW) vs. UPDATE EXISTING
     if (formData.id !== originalId && originalId !== null) {
       // Scenario: Teacher ID has been changed
-      console.log(`Teacher ID changed from ${originalId} to ${formData.id}. Attempting to register new and delete old.`);
+      // console.log(`Teacher ID changed from ${originalId} to ${formData.id}. Attempting to register new and delete old.`);
 
       if (!formData.password) {
         setError('Password is required when changing Teacher ID (new registration).');
@@ -240,7 +240,7 @@ function ModifyTeacherPage() {
         );
 
         if (registerResponse.data.success) {
-          console.log(`New teacher ${formData.id} registered successfully.`);
+          // console.log(`New teacher ${formData.id} registered successfully.`);
           try {
             const deleteResponse = await axios.delete(
               `${API_BASE_URL}/api/v1/admin/teacher/${originalId}`,
@@ -249,7 +249,7 @@ function ModifyTeacherPage() {
 
             if (deleteResponse.data.success) {
               setSuccess(`Teacher ID changed from ${originalId} to ${formData.id} successfully.`);
-              console.log(`Old teacher ${originalId} deleted successfully.`);
+              // console.log(`Old teacher ${originalId} deleted successfully.`);
               setTimeout(() => navigate('/admin/teachers'), 2000);
             } else {
               setError(`New teacher ${formData.id} registered, but failed to delete old teacher ${originalId}.`);
@@ -269,7 +269,7 @@ function ModifyTeacherPage() {
       }
     } else {
       // Scenario: Teacher ID has NOT been changed
-      console.log(`Updating existing teacher ${formData.id}.`);
+      // console.log(`Updating existing teacher ${formData.id}.`);
       
       //commonTeacherData.append('status', formData.status);
 
@@ -304,7 +304,7 @@ function ModifyTeacherPage() {
       return;
     }
 
-    console.log(`Attempting to delete teacher with ID: ${searchData.id}.`);
+    // console.log(`Attempting to delete teacher with ID: ${searchData.id}.`);
 
     try {
       const response = await axios.delete(

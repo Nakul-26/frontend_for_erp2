@@ -9,7 +9,7 @@
 }
 
 .login-container {
-  background: var(--surface);
+  background: var(--surface, #222);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-md);
@@ -17,6 +17,7 @@
   /* min-width: 700px; -- REMOVED for better responsiveness on small screens */
   max-width: 800px; /* Limits container width on larger screens */
   animation: fadeIn 0.5s ease-in-out;
+  color: var(--text, #e0e0e0);
 }
 
 @keyframes fadeIn {

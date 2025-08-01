@@ -9,7 +9,6 @@ import { useAuth } from '../../context/AuthContext';
 
 // Import the new Table component
 const Table = lazy(() => import('../../components/Table'));
-
 const Sidebar = lazy(() => import('../../components/Sidebar'));
 const Navbar = lazy(() => import('../../components/Navbar'));
 const ClassCard = lazy(() => import('../../components/ClassCard'));

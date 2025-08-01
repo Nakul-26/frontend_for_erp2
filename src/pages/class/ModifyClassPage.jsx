@@ -88,10 +88,10 @@ function ModifyClassPage() {
 
                 // If paramClassId exists and is not 'new', fetch existing class data
                 const classResponse = await axios.get(`${API_BASE_URL}/api/v1/admin/class/${paramClassId}`, { withCredentials: true });
-                console.log("Class Response:", classResponse.data); // Debugging log
+                // console.log("Class Response:", classResponse.data); // Debugging log
                 if (classResponse.data.success && classResponse.data.data) {
                     const fetchedClass = classResponse.data.data;
-                    console.log("Fetched Class Data, subjects:", fetchedClass.subjects); // Debugging log
+                    // console.log("Fetched Class Data, subjects:", fetchedClass.subjects); // Debugging log
                     setFormData({
                         classId: fetchedClass.classId || '', // Use classId
                         name: fetchedClass.name || '',

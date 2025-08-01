@@ -20,7 +20,6 @@ function ViewClassMappingsPage() {
   const fetchClasses = async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getallclassformapped`, { withCredentials: true });
-      console.log('Classes fetched:', res);
       setClasses(res.data.data || []);
     } catch (err) {
       setError('Failed to fetch classes.');
@@ -33,7 +32,6 @@ function ViewClassMappingsPage() {
     setSuccess('');
     try {
       const res = await axios.get(`${API_BASE_URL}/api/v1/admin/getClassMappings/${classId}`, { withCredentials: true });
-      console.log('Mappings fetched:', res.data.data);
       setMappings(res.data.data || []);
     } catch (err) {
       setError('Failed to fetch mappings.');
@@ -77,40 +75,49 @@ function ViewClassMappingsPage() {
           {loading && <p className="status-message">Loading...</p>}
           {error && <p className="status-message error">{error}</p>}
           {success && <p className="status-message success">{success}</p>}
-          <div style={{ marginBottom: '20px' }}>
-            <label htmlFor="class-select">Select Class: </label>
-            <select id="class-select" value={selectedClass} onChange={handleClassChange} required>
+          <div style={{ marginBottom: '1rem', display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+            <label htmlFor="class-select" style={{ fontSize: '1rem', marginRight: '8px' }}>Select Class: </label>
+            <select id="class-select" value={selectedClass} onChange={handleClassChange} required style={{ fontSize: '1rem', padding: '6px 8px', minWidth: '120px', maxWidth: '100%' }}>
               <option value="">-- Select Class --</option>
               {classes.map(cls => (
                 <option key={cls._id} value={cls._id}>{cls.name || cls.className}</option>
               ))}
             </select>
           </div>
-          <div style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '30px 0' }}>
+          <div style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '1rem 0', overflowX: 'auto' }}>
             {selectedClass && mappings.length > 0 && (
-              <table className="timetable-table">
+              <table className="timetable-table" style={{
+                width: '100%',
+                minWidth: '480px',
+                background: 'var(--surface)',
+                color: 'var(--text)',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                borderCollapse: 'collapse',
+                boxShadow: '0 2px 8px var(--border-color)'
+              }}>
                 <thead>
-                  <tr>
+                  <tr style={{ background: 'var(--primary)', color: 'var(--text-light)' }}>
                     <th>Subject</th>
                     <th>Teacher</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {mappings.map(mapping => (
-                    <tr key={mapping._id}>
-                      <td>{
+                  {mappings.map((mapping, idx) => (
+                    <tr key={mapping._id} style={{ background: 'var(--surface)', color: 'var(--text)', borderBottom: idx === mappings.length - 1 ? 'none' : '1px solid var(--border-color)' }}>
+                      <td style={{ color: 'var(--text)', fontWeight: 500 }}>{
                         mapping.subjectName ||
                         mapping.subject?.name ||
                         (typeof mapping.subjectId === 'object' ? (mapping.subjectId.name || mapping.subjectId.code || mapping.subjectId.shortName || mapping.subjectId._id) : mapping.subjectId)
                       }</td>
-                      <td>{
+                      <td style={{ color: 'var(--text)', fontWeight: 500 }}>{
                         mapping.teacherName ||
                         mapping.teacher?.name ||
                         (typeof mapping.teacherId === 'object' ? (mapping.teacherId.name || mapping.teacherId.code || mapping.teacherId.shortName || mapping.teacherId._id) : mapping.teacherId)
                       }</td>
                       <td>
-                        <button onClick={() => handleDelete(mapping._id)} disabled={loading} style={{ color: 'red' }}>
+                        <button onClick={() => handleDelete(mapping._id)} disabled={loading} style={{ color: 'var(--danger)', background: 'var(--surface)', border: '1px solid var(--danger)', borderRadius: '6px', padding: '6px 16px', fontWeight: 500, cursor: 'pointer' }}>
                           Delete
                         </button>
                       </td>

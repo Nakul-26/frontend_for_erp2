@@ -1,3 +1,24 @@
+/* Light theme (default) */
+input, textarea, select {
+  background: var(--input-bg, #f8fafc);
+  color: var(--text-primary, #222);
+  border: 1px solid var(--border-color, #cbd5e1);
+}
+
+/* Dark theme overrides */
+/* body[data-theme="dark"] input,
+body[data-theme="dark"] textarea,
+body[data-theme="dark"] select {
+  background: #23272f !important;
+  color: #f3f4f6 !important;
+  border: 1px solid #444857 !important;
+} */
+
+/* body[data-theme="dark"] input[type="date"],
+body[data-theme="dark"] input[type="file"] {
+  background: #23272f !important;
+  color: #f3f4f6 !important;
+} */
 /*
   Enhanced form and container styles for all non-login forms (responsive, filled background, modern look)
   Do NOT use for login forms!
@@ -26,6 +47,7 @@
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
+   background: var(--background, #181a20);
 }
 
 /* Only style .enhanced-form and its variants, not .login-form or .login2-form */
@@ -36,7 +58,7 @@
 .modify-class-form,
 .add-subject-form,
 .update-subject-form {
-  background: var(--surface, #fff); /* Use theme variable, fallback to white */
+  background: var(--surface, #222); /* Use theme variable, fallback to dark */
   border-radius: 18px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
   padding: 2.5rem 2.5rem 2rem 2.5rem;
@@ -45,7 +67,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  color: var(--text, #232526); /* Use theme variable for text */
+  color: var(--text, #e0e0e0); /* Use theme variable for text */
 }
 
 .enhanced-form .input-group,
@@ -61,7 +83,7 @@
   padding: 0.85rem 1rem;
   border: 1px solid #444;
   border-radius: 6px;
-  background: var(--input-bg, #fff); /* Use theme variable, fallback to white */
+  background: var(--input-background, #fff) !important; /* Use theme variable, fallback to white */
   color: var(--text, #232526);
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;

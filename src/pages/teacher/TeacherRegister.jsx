@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../../styles/EnhancedForm.css';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
+// import '../../App.css'; // Ensure global styles are applied
 // Assuming useAuth is still needed, though not directly used in the provided snippet's logic for form submission.
 // import { useAuth } from '../../context/AuthContext'; 
 

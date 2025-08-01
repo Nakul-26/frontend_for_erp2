@@ -1,4 +1,3 @@
-
 :root {
   --background: #f4f7fa;
   --surface: #ffffff;
@@ -16,6 +15,7 @@
   --danger-dark: #c0392b;
   --border-color: #dfe1e5;
   --border-color-dark: #444;
+  --input-bg: #ffffff;
   --input-background: #fff;
   --input-background-dark: #23272f;
   --input-text: #2c3e50;
@@ -41,6 +41,7 @@
   --border-radius-sm: 4px;
 }
 
+/* Dark theme overrides */
 [data-theme="dark"] {
   --background: #1a1a1a;
   --surface: #23272f;
@@ -127,8 +128,9 @@ body, #root {
 
 .card {
   padding: 2em;
+  background: var(--surface);
 }
 
 .read-the-docs {
-  color: #888;
+  color: var(--text-muted);
 }

@@ -3,8 +3,10 @@ import { FaUserGraduate, FaCalendarAlt, FaChalkboardTeacher, FaBook } from 'reac
 import '../styles/Dashboard.css';
 import Sidebar from './Sidebar'; // Adjust path if necessary
 import Navbar from './Navbar';   // Adjust path if necessary
+import { useTheme } from '../ThemeContext';
 
 function Dashboard() {
+  const { theme, toggleTheme } = useTheme();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [teacherData, setTeacherData] = useState(null);
 
@@ -30,10 +32,13 @@ function Dashboard() {
   ];
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container" data-theme={theme}>
       <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-      <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
+      <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}> 
         <Navbar role="admin" />
+        <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme" style={{ position: 'fixed', top: '1rem', right: '1rem', zIndex: 2000 }}>
+          {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+        </button>
         <div className="dashboard-container">
           <Sidebar teacherData={teacherData} />
           <main className="main-content">

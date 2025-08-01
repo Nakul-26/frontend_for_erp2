@@ -40,12 +40,12 @@
 
 .status-badge.active {
   background: var(--success);
-  color: white;
+  color: var(--text-light);
 }
 
 .status-badge.inactive {
   background: var(--danger);
-  color: white;
+  color: var(--text-light);
 }
 
 .status-badge.unknown {
@@ -119,7 +119,7 @@
 }
 
 .form-group input:disabled {
-  background: #f0f0f0;
+  background: var(--input-disabled);
   cursor: not-allowed;
 }
 
@@ -127,11 +127,12 @@
 .login-button {
   padding: var(--spacing-sm);
   background: var(--primary);
-  color: white;
+  color: var(--text-light);
   border: none;
   border-radius: var(--border-radius-sm);
   cursor: pointer;
   font-size: var(--font-size-md);
+  transition: background 0.2s;
 }
 
 .login-button:hover {
@@ -178,6 +179,7 @@
   --border-color: #dfe1e5; /* Light gray for borders */
   --input-background: #ffffff; /* Explicitly white for input fields */
   --input-text: #2c3e50; /* Dark text for input fields */
+  --input-disabled: #f0f0f0; /* Light gray for disabled inputs */
 
 
   /* Typography */
@@ -247,15 +249,4 @@ button:hover {
 
 button:active {
   transform: translateY(0);
-}
-
-/* Light/Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1a1a1a;
-    --surface: #2c2c2c;
-    --text: #e0e0e0;
-    --text-muted: #a0a0a0;
-    --border: #444444;
-  }
 }

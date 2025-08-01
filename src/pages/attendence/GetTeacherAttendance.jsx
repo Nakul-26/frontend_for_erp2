@@ -21,7 +21,7 @@ function GetTeacherAttendance() {
         `${API_BASE_URL}/api/v1/admin/teacher-attendance/${recordId}`,
         { withCredentials: true }
       );
-      console.log('Delete response:', response);
+      // console.log('Delete response:', response);
       if (response.status == 200) {
         setAttendanceRecords(attendanceRecords.filter((r) => r._id !== recordId));
         setSuccess('Attendance record deleted successfully');
@@ -57,7 +57,7 @@ function GetTeacherAttendance() {
         },
         { withCredentials: true }
       );
-      console.log('Update response:', response.status);
+      // console.log('Update response:', response.status);
       if (response.status == 200) {
         setSuccess('Attendance updated successfully');
         setAttendanceRecords(attendanceRecords.map((r) =>
@@ -121,7 +121,7 @@ function GetTeacherAttendance() {
         { withCredentials: true }
       );
 
-      console.log('Attendance response:', response);
+      // console.log('Attendance response:', response);
       if (response.data.status === 200) {
         setAttendanceRecords(response.data.data);
       } else {
@@ -141,15 +141,15 @@ function GetTeacherAttendance() {
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar role="admin" />
-        <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: '#f8fafc', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px #e0e7ef' }}>
-          <h2 style={{ marginBottom: 24, color: '#2563eb', fontWeight: 700 }}>View Teacher Attendance</h2>
+        <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: 'var(--surface)', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px var(--border-color)' }}>
+          <h2 style={{ marginBottom: 24, color: 'var(--primary)', fontWeight: 700 }}>View Teacher Attendance</h2>
           <div style={{ marginBottom: '20px' }}>
-            <label style={{ marginRight: '10px', fontWeight: 500 }}>Select Teacher:</label>
+            <label style={{ marginRight: '10px', fontWeight: 500, color: 'var(--text)' }}>Select Teacher:</label>
             <select
               value={selectedTeacherId}
               onChange={handleTeacherChange}
               required
-              style={{ padding: '8px', borderRadius: 6, border: '1px solid #cbd5e1', marginRight: '20px', minWidth: 180 }}
+              style={{ padding: '8px', borderRadius: 6, border: '1px solid var(--border-color)', marginRight: '20px', minWidth: 180, background: 'var(--input-background)', color: 'var(--input-text)' }}
             >
               <option value="">Select Teacher</option>
               {teachers.map((teacher) => (
@@ -161,45 +161,45 @@ function GetTeacherAttendance() {
             <button
               type="button"
               className="login-button"
-              style={{ marginLeft: '10px', padding: '10px 20px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px #cbd5e1' }}
+              style={{ marginLeft: '10px', padding: '10px 20px', background: 'var(--primary)', color: 'var(--text-light)', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px var(--border-color)' }}
               onClick={handleFetchAttendance}
               disabled={!selectedTeacherId}
             >
               Get Attendance
             </button>
           </div>
-          {error && <div className="error-message" style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>{error}</div>}
+          {error && <div className="error-message" style={{ color: 'var(--danger)', textAlign: 'center', marginBottom: '20px' }}>{error}</div>}
           {success && (
-            <div className="success-message" style={{ color: 'green', textAlign: 'center', marginBottom: '20px', fontWeight: 'bold' }}>
+            <div className="success-message" style={{ color: 'var(--success)', textAlign: 'center', marginBottom: '20px', fontWeight: 'bold' }}>
               {success}
             </div>
           )}
           {loading ? (
-            <div style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>Loading...</div>
+            <div style={{ textAlign: 'center', fontSize: '18px', color: 'var(--text-muted, #666)' }}>Loading...</div>
           ) : attendanceRecords.length === 0 ? (
-            <div style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>
+            <div style={{ textAlign: 'center', fontSize: '18px', color: 'var(--text-muted, #666)' }}>
               No attendance records found.
             </div>
           ) : (
-            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px', background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px #cbd5e1' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px', background: 'var(--surface)', borderRadius: 8, boxShadow: '0 1px 4px var(--border-color)', color: 'var(--text)' }}>
               <thead>
-                <tr style={{ background: '#e0e7ef' }}>
-                  <th style={{ padding: '12px', borderBottom: '1px solid #cbd5e1' }}>Date</th>
-                  <th style={{ padding: '12px', borderBottom: '1px solid #cbd5e1' }}>Status</th>
-                  <th style={{ padding: '12px', borderBottom: '1px solid #cbd5e1' }}>Remarks</th>
-                  <th style={{ padding: '12px', borderBottom: '1px solid #cbd5e1' }}>Actions</th>
+                <tr style={{ background: 'var(--primary)', color: 'var(--text-light)' }}>
+                  <th style={{ padding: '12px', borderBottom: '1px solid var(--border-color)' }}>Date</th>
+                  <th style={{ padding: '12px', borderBottom: '1px solid var(--border-color)' }}>Status</th>
+                  <th style={{ padding: '12px', borderBottom: '1px solid var(--border-color)' }}>Remarks</th>
+                  <th style={{ padding: '12px', borderBottom: '1px solid var(--border-color)' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {attendanceRecords.map((record) => (
-                  <tr key={record._id}>
-                    <td style={{ padding: '10px', borderBottom: '1px solid #e0e7ef' }}>{new Date(record.date).toLocaleDateString()}</td>
-                    <td style={{ padding: '10px', borderBottom: '1px solid #e0e7ef' }}>
+                  <tr key={record._id} style={{ background: 'var(--surface)', color: 'var(--text)' }}>
+                    <td style={{ padding: '10px', borderBottom: '1px solid var(--border-color)' }}>{new Date(record.date).toLocaleDateString()}</td>
+                    <td style={{ padding: '10px', borderBottom: '1px solid var(--border-color)' }}>
                       {editRecordId === record._id ? (
                         <select
                           value={editStatus}
                           onChange={(e) => setEditStatus(e.target.value)}
-                          style={{ padding: '8px', borderRadius: 6, border: '1px solid #cbd5e1' }}
+                          style={{ padding: '8px', borderRadius: 6, border: '1px solid var(--border-color)', background: 'var(--input-background)', color: 'var(--input-text)' }}
                         >
                           <option value="present">Present</option>
                           <option value="absent">Absent</option>
@@ -209,26 +209,26 @@ function GetTeacherAttendance() {
                         record.status
                       )}
                     </td>
-                    <td style={{ padding: '10px', borderBottom: '1px solid #e0e7ef' }}>
+                    <td style={{ padding: '10px', borderBottom: '1px solid var(--border-color)' }}>
                       {editRecordId === record._id ? (
                         <input
                           type="text"
                           value={editRemarks}
                           onChange={(e) => setEditRemarks(e.target.value)}
-                          style={{ padding: '8px', borderRadius: 6, border: '1px solid #cbd5e1', width: '150px' }}
+                          style={{ padding: '8px', borderRadius: 6, border: '1px solid var(--border-color)', width: '150px', background: 'var(--input-background)', color: 'var(--input-text)' }}
                           placeholder="Optional remarks"
                         />
                       ) : (
                         record.remarks
                       )}
                     </td>
-                    <td style={{ padding: '10px', borderBottom: '1px solid #e0e7ef' }}>
+                    <td style={{ padding: '10px', borderBottom: '1px solid var(--border-color)' }}>
                       {editRecordId === record._id ? (
                         <>
                           <button
                             type="button"
                             className="login-button"
-                            style={{ marginRight: '5px', padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px #cbd5e1' }}
+                            style={{ marginRight: '5px', padding: '8px 16px', background: 'var(--primary)', color: 'var(--text-light)', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px var(--border-color)' }}
                             onClick={handleUpdateAttendance}
                             disabled={loading}
                           >
@@ -237,7 +237,7 @@ function GetTeacherAttendance() {
                           <button
                             type="button"
                             className="login-button"
-                            style={{ padding: '8px 16px', background: '#64748b', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px #cbd5e1' }}
+                            style={{ padding: '8px 16px', background: 'var(--secondary, #64748b)', color: 'var(--text-light)', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px var(--border-color)' }}
                             onClick={() => setEditRecordId(null)}
                           >
                             Cancel
@@ -248,7 +248,7 @@ function GetTeacherAttendance() {
                           <button
                             type="button"
                             className="login-button"
-                            style={{ marginRight: '5px', padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px #cbd5e1' }}
+                            style={{ marginRight: '5px', padding: '8px 16px', background: 'var(--primary)', color: 'var(--text-light)', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px var(--border-color)' }}
                             onClick={() => handleEditClick(record)}
                           >
                             Update
@@ -256,7 +256,7 @@ function GetTeacherAttendance() {
                           <button
                             type="button"
                             className="login-button"
-                            style={{ padding: '8px 16px', background: '#ef4444', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px #cbd5e1' }}
+                            style={{ padding: '8px 16px', background: 'var(--danger)', color: 'var(--text-light)', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 4px var(--border-color)' }}
                             onClick={() => handleDeleteAttendance(record._id)}
                             disabled={loading}
                           >
