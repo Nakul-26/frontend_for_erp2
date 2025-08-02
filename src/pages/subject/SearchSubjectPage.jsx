@@ -1,6 +1,6 @@
 // src/pages/SearchSubjectPage.jsx
 import React, { useState } from 'react';
-import '../../styles/Login.css';
+import '../../styles/InputForm.css';
 import axios from 'axios';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
@@ -52,8 +52,8 @@ function SearchSubjectPage() {
           <h1>Search Subject</h1>
           <p className="dashboard-subtitle">Find a subject by code</p>
         </header>
-        <div className="login-container" style={{ width: '600px' }}>
-          <form className="login-form" onSubmit={handleSubmit}>
+        <div className="form-container" style={{ width: '600px' }}>
+          <form className="form-form" onSubmit={handleSubmit}>
             <div className="input-group">
               <input
                 type="text"
@@ -80,7 +80,7 @@ function SearchSubjectPage() {
                 <p><strong>Active:</strong> {searchResult.isActive ? 'Yes' : 'No'}</p>
               </div>
             )}
-            <button type="submit" className="login-button">SEARCH SUBJECT</button>
+            <button type="submit" className="form-button">SEARCH SUBJECT</button>
           </form>
         </div>
       </main>

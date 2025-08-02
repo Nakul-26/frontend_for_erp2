@@ -223,11 +223,11 @@ function UpdateSubjectPage() {
             <h1>Update Subject</h1>
             <p className="dashboard-subtitle">Error or New Subject Entry</p>
           </header>
-          <div className="login-container" style={{ width: '600px', textAlign: 'center' }}>
+          <div className="form-container" style={{ width: '600px', textAlign: 'center' }}>
             <div className="error-message" style={{ color: 'red', textAlign: 'center' }}>{error}</div>
             {/* Provide a way to go back or start fresh if it's an error */}
             {initialSubjectCode !== "new" && (
-              <button className="login-button" onClick={() => navigate('/admin/subjects')}>Go Back to Subjects</button>
+              <button className="form-button" onClick={() => navigate('/admin/subjects')}>Go Back to Subjects</button>
             )}
             {initialSubjectCode === "new" && (
               <p style={{ marginTop: '10px', color: '#555' }}>
@@ -324,7 +324,7 @@ function UpdateSubjectPage() {
                 </div>
                 {error && <div className="error-message" style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
                 {success && <div className="success-message" style={{ color: 'green', textAlign: 'center' }}>{success}</div>}
-                <button type="submit" className="login-button">REGISTER NEW SUBJECT</button>
+                <button type="submit" className="form-button">REGISTER NEW SUBJECT</button>
               </form>
             </div>
           )}
@@ -429,7 +429,7 @@ function UpdateSubjectPage() {
             </div>
             {error && <div className="error-message" style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
             {success && <div className="success-message" style={{ color: 'green', textAlign: 'center' }}>{success}</div>}
-            <button type="submit" className="login-button">UPDATE SUBJECT</button>
+            <button type="submit" className="form-button">UPDATE SUBJECT</button>
           </form>
         </div>
       </main>

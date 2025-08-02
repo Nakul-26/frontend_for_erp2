@@ -1,6 +1,6 @@
 // src/pages/SearchTeacher.jsx
 import React, { useState } from 'react';
-import '../../styles/Login.css'; // Assuming this style is still relevant for the form
+import '../../styles/InputForm.css'; // Use InputForm.css for form styling
 import '../../styles/Dashboard.css'; // For dashboard layout
 import axios from 'axios';
 import Sidebar from '../../components/Sidebar';

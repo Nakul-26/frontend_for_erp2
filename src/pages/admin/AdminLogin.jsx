@@ -12,6 +12,7 @@ function AdminLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth(); // Use authentication context
+  // const { user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,17 +35,15 @@ function AdminLogin() {
       );
 
       if (response.data.success) {
-        // console.log('Login successful');
-        // console.log(response);
-        // console.log(response.data.data);
-        // Store admin data in context only
-        login(response.data.data); // Update auth context
+        // Ensure role is set in user object
+        const userData = { ...response.data.data, role: 'admin' };
+        login(userData); // Update auth context with role
         navigate('/admin/dashboard');
       } else {
         setError('Invalid credentials. Please check your Admin ID and password.');
       }
     } catch (error) {
-      setError(error.response?.data?.message || 'Server error. Try again later.');
+      setError(error);
     } finally {
       setIsLoading(false);
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/Dashboard.css';
-import '../../styles/Login.css'; // Importing Login.css for input-group and button styling
+import '../../styles/InputForm.css'; // Use InputForm.css for input-group and button styling
 import '../../styles/Mapped.css'; // Importing Mapped.css for checkbox-group/grid styling
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
@@ -101,17 +101,17 @@ function GenerateTimetablePage() {
         <div className="dashboard-container">
             <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
             
-            <main className="main-content" style={{ fontSize: '18px' }}>
-                <Navbar setIsSidebarOpen={setIsSidebarOpen} />
+            <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`} style={{ fontSize: '18px' }}>
+                <Navbar toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
                 
                 <header className="dashboard-header"> {/* Reusing dashboard-header from MappedPage/Dashboard */}
                     <h1>Generate Timetable</h1>
                     <p className="dashboard-subtitle">Define parameters and select classes to generate timetables.</p>
                 </header>
 
-                {/* Using login-container and login-form for consistent form styling */}
-                <div className="login-container" style={{ width: '80%', maxWidth: '800px', padding: '30px', marginTop: '20px' }}>
-                    <form onSubmit={handleSubmit} className="login-form"> {/* Reusing login-form */}
+                {/* Using form-container and form-form for consistent form styling */}
+                <div className="form-container" style={{ width: '80%', maxWidth: '800px', padding: '30px', marginTop: '20px' }}>
+                    <form onSubmit={handleSubmit} className="form-form"> {/* Reusing form-form */}
                         <h2 style={{ marginBottom: '20px', textAlign: 'center', color: '#333' }}>Timetable Details</h2>
 
                         {error && <div className="error-message" style={{ color: 'red', textAlign: 'center', marginBottom: '15px' }}>{error}</div>}
@@ -191,7 +191,7 @@ function GenerateTimetablePage() {
 
                         <button 
                             type="submit" 
-                            className="login-button" // Reusing login-button
+                            className="form-button" // Reusing form-button
                             disabled={loading}
                         >
                             {loading ? 'Generating...' : 'Generate Timetable'}

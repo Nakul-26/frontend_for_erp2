@@ -1,7 +1,7 @@
 // src/pages/SearchClass.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../../styles/Login.css'; // For form styling
+import '../../styles/InputForm.css'; // For form styling
 import '../../styles/Dashboard.css'; // For dashboard layout
 import '../../styles/ClassCard.css'; // For ClassCard styling
 import Sidebar from '../../components/Sidebar';

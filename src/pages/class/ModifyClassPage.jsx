@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import '../../styles/Dashboard.css';
 //import '../../styles/Card.css';
-import '../../styles/Login.css';
+import '../../styles/InputForm.css';
 //import '../../styles/ClassesPage.css';
 import '../../styles/EnhancedForm.css'; // Ensure EnhancedForm.css is imported for .form-page-container
 

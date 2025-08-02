@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/Dashboard.css';
 import '../../styles/Card.css';
-import '../../styles/Login.css';
+import '../../styles/InputForm.css';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
 import SubjectCard from '../../components/SubjectCard';
@@ -194,11 +194,11 @@ function SubjectsPage() {
       label: 'Actions',
       renderCell: (subject) => (
         <div style={{ display: 'flex', gap: '5px' }}>
-          <Link to={`/admin/subjects/updatesubject/${subject.code}`} className="login-button small-button">
+          <Link to={`/admin/subjects/updatesubject/${subject.code}`} className="form-button small-button">
             Edit
           </Link>
           <button
-            className="login-button delete-button small-button"
+            className="form-button delete-button small-button"
             onClick={() => handleDeleteSubject(subject.code)}
           >
             Delete
@@ -210,9 +210,9 @@ function SubjectsPage() {
 
   return (
     <div className="dashboard-container">
-      <Sidebar isOpen={isSidebarOpen} />
+      <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
+      <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
         <header className="dashboard-header">
           <h1>Subjects Management</h1>
           <p className="dashboard-subtitle">View and manage all subjects</p>
@@ -220,12 +220,12 @@ function SubjectsPage() {
 
         <div className="action-and-filter-bar" style={{ marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
           <div className="action-buttons" style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
-            <Link to="/admin/subjects/add" className="login-button" style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <Link to="/admin/subjects/add" className="form-button" style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               Add Subject
             </Link>
             <button
               onClick={() => setIsTableView(!isTableView)}
-              className="login-button"
+              className="form-button"
               style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
             >
               {isTableView ? 'Show Card View' : 'Show Table View'}

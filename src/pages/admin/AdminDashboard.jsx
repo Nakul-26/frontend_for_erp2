@@ -7,16 +7,16 @@ const Sidebar = lazy(() => import('../../components/Sidebar'));
 const Navbar = lazy(() => import('../../components/Navbar'));
 
 function AdminDashboard() {
-  const { adminData } = useAuth(); // Get admin data from context
+  const { user } = useAuth(); // Get admin data from context
 
-  // console.log('Admin Dashboard admin data:', adminData);
+  // console.log('Admin Dashboard admin data:', user);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const stats = [
-    { icon: <FaIdCard />, title: 'Admin ID', value: adminData?.id || '-' },
-    { icon: <FaUser />, title: 'Name', value: adminData?.Name || '-' },
-    { icon: <FaEnvelope />, title: 'Email', value: adminData?.email || '-' },
-    { icon: <FaShieldAlt />, title: 'Role', value: adminData?.isAdmin ? 'Admin' : 'Non-Admin' },
+    { icon: <FaIdCard />, title: 'Admin ID', value: user?.id || '-' },
+    { icon: <FaUser />, title: 'Name', value: user?.Name || '-' },
+    { icon: <FaEnvelope />, title: 'Email', value: user?.email || '-' },
+    { icon: <FaShieldAlt />, title: 'Role', value: user?.isAdmin ? 'Admin' : 'Non-Admin' },
   ];
 
   const upcomingEvents = [
@@ -30,7 +30,7 @@ function AdminDashboard() {
       <div className="dashboard-container">
         <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
         <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-          <Navbar role="adminData" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+          <Navbar role="user" toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
           <div className="stats-grid">
             {stats.map((stat, index) => (
               <div key={index} className="stat-card">

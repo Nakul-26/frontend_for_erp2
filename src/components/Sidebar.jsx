@@ -13,8 +13,7 @@ function getInitialSidebarOpen() {
 
 function Sidebar({ isOpen, setIsOpen }) {
   const { theme, toggleTheme } = useTheme();
-  const { adminData } = useAuth(); // Use adminData from context
-  // console.log('Sidebar admin data:', adminData);
+  const { user } = useAuth();
   
   const [openSections, setOpenSections] = useState({
     classes: false,
@@ -57,9 +56,9 @@ function Sidebar({ isOpen, setIsOpen }) {
   return (
     <div className={sidebarClass()} data-theme={theme}>
       <div className="profile-section">
-        <div className="profile-image">{adminData?.Name?.charAt(0) || 'A'}</div>
-        <h3>{adminData?.Name || 'Loading...'}</h3>
-        <p>{adminData?.email || 'Loading...'}</p>
+        <div className="profile-image">{user?.Name?.charAt(0) || 'A'}</div>
+        <h3>{user?.Name || 'Loading...'}</h3>
+        <p>{user?.email || 'Loading...'}</p>
       </div>
       <nav className="sidebar-nav">
         <Link to="/admin/dashboard" data-icon="🏠">Dashboard</Link>

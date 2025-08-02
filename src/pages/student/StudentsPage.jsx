@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/Dashboard.css';
 import '../../styles/Card.css';
-import '../../styles/Login.css';
+import '../../styles/InputForm.css';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
 import StudentCard from '../../components/StudentCard';

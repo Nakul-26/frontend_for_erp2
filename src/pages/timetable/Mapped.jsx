@@ -1,7 +1,7 @@
 // src/pages/MappedPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../../styles/Login.css'; // Assuming you have general form styling here
+import '../../styles/InputForm.css'; // Use InputForm.css for general form styling
 import '../../styles/Dashboard.css'; // For overall layout
 import '../../styles/Mapped.css'; // For radio button styling (will need updates in Mapped.css)
 import Sidebar from '../../components/Sidebar';
@@ -129,16 +129,16 @@ function MappedPage() {
 
   return (
     <div className="dashboard-container">
-      <Sidebar isOpen={isSidebarOpen} />
-      <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+      <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`} style={{ fontSize: '18px' }}>
+        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
         <header className="dashboard-header">
           <h1>Create New Mapping</h1>
           <p className="dashboard-subtitle">Link a specific class, subject, and teacher</p>
         </header>
 
         <div className="form-container" style={{ width: '100%', maxWidth: '100%' }}>
-          <form className="login-form" onSubmit={handleSubmit} style={{ width: '100%', background: 'var(--surface)', color: 'var(--text)', borderRadius: '12px', padding: '2rem 1rem', margin: '0 auto' }}>
+          <form className="form-form" onSubmit={handleSubmit} style={{ width: '100%', background: 'var(--surface)', color: 'var(--text)', borderRadius: '12px', padding: '2rem 1rem', margin: '0 auto' }}>
             <h2 style={{ marginBottom: '24px', textAlign: 'center', color: 'var(--primary)', fontWeight: 600, fontSize: '1.5rem' }}>Create Class-Subject-Teacher Mapping</h2>
 
             {loading ? (
@@ -233,7 +233,7 @@ function MappedPage() {
 
             {error && <div className="error-message" style={{ color: 'var(--danger)', textAlign: 'center', marginTop: '20px' }}>{error}</div>}
             {success && <div className="success-message" style={{ color: 'var(--success)', textAlign: 'center', marginTop: '20px' }}>{success}</div>}
-            <button type="submit" className="login-button" disabled={loading} style={{ background: 'var(--primary)', color: 'var(--text-light)', fontWeight: 600, fontSize: '1rem', padding: '10px 0', borderRadius: '6px', marginTop: '12px', boxShadow: '0 1px 4px var(--primary-dark)', letterSpacing: '0.5px' }}>
+            <button type="submit" className="form-button" disabled={loading} style={{ background: 'var(--primary)', color: 'var(--text-light)', fontWeight: 600, fontSize: '1rem', padding: '10px 0', borderRadius: '6px', marginTop: '12px', boxShadow: '0 1px 4px var(--primary-dark)', letterSpacing: '0.5px' }}>
               {loading ? 'Submitting...' : 'CREATE MAPPING'}
             </button>
           </form>

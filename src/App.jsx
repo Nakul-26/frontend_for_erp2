@@ -1,6 +1,10 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from './ThemeContext';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'; 
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext'; 
+import ProtectedRoute from './components/ProtectedRoute';
+
+import Index from './pages/other/FirstPage'; 
 
 import AddClassPage from './pages/class/AddClassPage'; 
 import ClassesPage from './pages/class/ClassesPage'; 
@@ -9,23 +13,12 @@ import SearchClass from './pages/class/SearchClass';
 
 import AdminDashboard from './pages/admin/AdminDashboard'; 
 import AdminLogin from './pages/admin/AdminLogin'; 
-import AdminStudentAttendece from './pages/admin/AdminStudentAttendance';
-import AdminTeacherAttendance from './pages/admin/AdminTeacherAttendance';
 
 import TeacherLogin from './pages/teacher/TeacherLogin'; 
 import TeacherDashboard from './pages/teacher/TeacherDashboard'; 
-import TeacherChangePassword from './pages/teacher/TeacherChangePassword'; 
-import TeacherSchedulePage from './pages/teacher/TeacherSchedulePage'; 
-import TeacherGradesPage from './pages/teacher/TeacherGradesPage'; 
-import TeacherTimetable from './pages/teacher/TeacherTimetable'; 
-// import TeacherAttendanceHistory from './pages/teacher/TeacherAttendanceHistory'; 
-import TeacherSettings from './pages/teacher/TeacherSettings'; 
-
 import TeacherRegister from './pages/teacher/TeacherRegister'; 
 import TeachersPage from './pages/teacher/TeachersPage'; 
-// import TeacherAttendancePage from './pages/teacher/TeacherAttendancePage'; 
 import ModifyTeacherPage from './pages/teacher/ModifyTeacherPage'; 
-// import MarkTeacherAttendance from './pages/teacher/MarkTeacherAttendance'; 
 import SearchTeacher from './pages/teacher/SearchTeacher';
 
 import StudentLogin from './pages/student/StudentLogin'; 
@@ -33,11 +26,6 @@ import StudentDashboard from './pages/student/StudentDashboard';
 import StudentRegister from './pages/student/StudentRegister'; 
 import StudentsPage from './pages/student/StudentsPage'; 
 import ModifyStudentPage from './pages/student/ModifyStudentPage'; 
-import StudentTimetable from './pages/student/StudentTimetable'; 
-// import MarkStudentAttendance from './pages/student/MarkStudentAttendance'; 
-// import StudentAttendanceHistory from './pages/student/StudentAttendanceHistory'; 
-import StudentSettings from './pages/student/StudentSettings';
-// import TakeStudentAttendancePage from './pages/student/TakeStudentAttendancePage';
 
 import SubjectsPage from './pages/subject/SubjectsPage'; 
 import AddSubjectPage from './pages/subject/AddSubjectPage'; 
@@ -45,18 +33,12 @@ import UpdateSubjectPage from './pages/subject/UpdateSubjectPage';
 import SearchSubjectPage from './pages/subject/SearchSubjectPage'; 
 import DeleteSubjectPage from './pages/subject/DeleteSubjectPage'; 
 
-import Index from './pages/other/IndexPage'; 
-import DepartmentsPage from './pages/other/DepartmentsPage'; 
-import SettingsPage from './pages/other/SettingsPage'; 
-import { AuthProvider } from './context/AuthContext'; 
-
 import MappedPage from './pages/timetable/Mapped';
 import GenerateTimetablePage from './pages/timetable/GenerateTimetablePage';
 import AdminTimetablePdfGenerator from './pages/admin/AdminTimetablePdfGenerator';
 import CreateTimetablePage from './pages/timetable/CreateTimetablePage';
 import GetAllTimetables from './pages/timetable/GetAllTimetables';
 import ViewClassMappingsPage from './pages/timetable/ViewClassMappingsPage';
-// import ViewClassMappingsFullWidthPage from './pages/timetable/ViewClassMappingsFullWidthPage';
 
 import CreateExam from './pages/exam/createExam';
 import GetAllExams from './pages/exam/GetAllExams';
@@ -68,18 +50,11 @@ import CreateExamResult from './pages/exam-result/CreateExamResult';
 import ExamResultsByExam from './pages/exam-result/ExamResultsByExam';
 import UpdateExamResult from './pages/exam-result/UpdateExamResult';
 
-import TeacherAttendancePage from './pages/attendence/TeacherAttendancePage';
-// import StudentAttendancePage from './pages/attendence/StudentAttendancePage';
 import MarkStudentAttendance from './pages/attendence/MarkStudentAttendance';
 import MarkTeacherAttendance from './pages/attendence/MarkTeacherAttendance';
-import StudentAttendanceHistory from './pages/attendence/StudentAttendanceHistory';
-import TeacherAttendanceHistory from './pages/attendence/TeacherAttendanceHistory';
-import TakeStudentAttendancePage from './pages/attendence/TakeStudentAttendancePage';
-
 import GetTeacherAttendance from './pages/attendence/GetTeacherAttendance';
 import UpdateTeacherAttendance from './pages/attendence/UpdateTeacherAttendance';
 
-//import { ProtectedRoute } from './components/ProtectedRoute';
 
 
 import './App.css';
@@ -104,76 +79,58 @@ function AppContent() {
           <Route path="/teacher/login" element={<TeacherLogin />} />
           <Route path="/student/login" element={<StudentLogin />} />
 
-          {/* Direct access without ProtectedRoute */}
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
-          <Route path="/student/dashboard" element={<StudentDashboard />} />
 
-          <Route path="/admin/teachers/register" element={<TeacherRegister />} />
-          <Route path="/admin/students/register" element={<StudentRegister />} />
+          {/* Protected admin routes */}
+          <Route path="/admin/dashboard" element={<ProtectedRoute element={<AdminDashboard />} requiredRole="admin" />} />
 
-          <Route path="/admin/classes" element={<ClassesPage />} />
-          <Route path="/admin/classes/add" element={<AddClassPage />} />
-          <Route path="/admin/classes/modify" element={<ModifyClassPage />} />
-          <Route path="/admin/classes/modify/:c_id" element={<ModifyClassPage />} />
-          <Route path="/admin/classes/search" element={<SearchClass />} />
+          <Route path="/admin/teachers/register" element={<ProtectedRoute element={<TeacherRegister />} requiredRole="admin" />} />
+          <Route path="/admin/teachers" element={<ProtectedRoute element={<TeachersPage />} requiredRole="admin" />} />
+          <Route path="/admin/teachers/modify" element={<ProtectedRoute element={<ModifyTeacherPage />} requiredRole="admin" />} />
+          <Route path="/admin/teachers/search" element={<ProtectedRoute element={<SearchTeacher />} requiredRole="admin" />} />
 
-          <Route path="/admin/teachers" element={<TeachersPage />} />
-          <Route path="/admin/teachers/modify" element={<ModifyTeacherPage />} />
-          <Route path="/admin/teachers/search" element={<SearchTeacher />} />
-          
+          <Route path="/admin/students/register" element={<ProtectedRoute element={<StudentRegister />} requiredRole="admin" />} />
+          <Route path="/admin/students" element={<ProtectedRoute element={<StudentsPage />} requiredRole="admin" />} />
+          <Route path="/admin/students/modify" element={<ProtectedRoute element={<ModifyStudentPage />} requiredRole="admin" />} />
 
-          <Route path="/admin/students" element={<StudentsPage />} />
-          <Route path="/admin/students/modify" element={<ModifyStudentPage />} />
-          <Route path="/admin/students/attendance" element={<MarkStudentAttendance />} />
+          <Route path="/admin/classes" element={<ProtectedRoute element={<ClassesPage />} requiredRole="admin" />} />
+          <Route path="/admin/classes/add" element={<ProtectedRoute element={<AddClassPage />} requiredRole="admin" />} />
+          <Route path="/admin/classes/modify" element={<ProtectedRoute element={<ModifyClassPage />} requiredRole="admin" />} />
+          <Route path="/admin/classes/modify/:c_id" element={<ProtectedRoute element={<ModifyClassPage />} requiredRole="admin" />} />
+          <Route path="/admin/classes/search" element={<ProtectedRoute element={<SearchClass />} requiredRole="admin" />} />
 
-          {/* <Route path="/admin/departments" element={<DepartmentsPage />} />
-          <Route path="/admin/settings" element={<SettingsPage />} /> */}
+          {/* Protected teacher routes */}
+          <Route path="/teacher/dashboard" element={<ProtectedRoute element={<TeacherDashboard />} requiredRole="teacher" />} />
 
-          <Route path="/teacher/changepassword" element={<TeacherChangePassword />} />
-          <Route path="/teacher/schedule" element={<TeacherSchedulePage />} />
-          <Route path="/teacher/grades" element={<TeacherGradesPage />} />
-          <Route path="/teacher/attendance" element={<TeacherAttendancePage />} />
-          <Route path="/teacher/timetable" element={<TeacherTimetable />} />
-          <Route path="/teacher/attendance/history" element={<TeacherAttendanceHistory />} />
-          <Route path="/teacher/settings" element={<TeacherSettings />} />
-          <Route path="/teacher/studentattendance" element={<TakeStudentAttendancePage />} />
+          {/* Protected student routes */}
+          <Route path="/student/dashboard" element={<ProtectedRoute element={<StudentDashboard />} requiredRole="student" />} />
 
-          <Route path="/student/timetable" element={<StudentTimetable />} />
-          <Route path="/student/attendance/history" element={<StudentAttendanceHistory />} />
-          <Route path="/student/settings" element={<StudentSettings />} />
+          {/* Protected admin subject routes */}
+          <Route path="/admin/subjects" element={<ProtectedRoute element={<SubjectsPage />} requiredRole="admin" />} />
+          <Route path="/admin/subjects/add" element={<ProtectedRoute element={<AddSubjectPage />} requiredRole="admin" />} />
+          <Route path="/admin/subjects/updatesubject/:subjectCode" element={<ProtectedRoute element={<UpdateSubjectPage />} requiredRole="admin" />} />
+          <Route path="/admin/subjects/search" element={<ProtectedRoute element={<SearchSubjectPage />} requiredRole="admin" />} />
+          <Route path="/admin/subjects/delete" element={<ProtectedRoute element={<DeleteSubjectPage />} requiredRole="admin" />} />
 
-          <Route path="/admin/subjects" element={<SubjectsPage />} />
-          <Route path="/admin/subjects/add" element={<AddSubjectPage />} />
-          <Route path="/admin/subjects/updatesubject/:subjectCode" element={<UpdateSubjectPage />} />
-          {/* <Route path="/admin/subjects/update" element={<UpdateSubjectPage />} /> */}
-          <Route path="/admin/subjects/search" element={<SearchSubjectPage />} />
-          <Route path="/admin/subjects/delete" element={<DeleteSubjectPage />} />
+          <Route path="/admin/mapped" element={<ProtectedRoute element={<MappedPage />} requiredRole="admin" />} />
+          <Route path="/admin/generatetimetable" element={<ProtectedRoute element={<GenerateTimetablePage />} requiredRole="admin" />} />
+          <Route path="/admin/timetable-pdf" element={<ProtectedRoute element={<AdminTimetablePdfGenerator />} requiredRole="admin" />} />
+          <Route path="/admin/timetable/create" element={<ProtectedRoute element={<CreateTimetablePage />} requiredRole="admin" />} />
+          <Route path="/admin/timetable/getall" element={<ProtectedRoute element={<GetAllTimetables />} requiredRole="admin" />} />
+          <Route path="/admin/timetable/view-mappings" element={<ProtectedRoute element={<ViewClassMappingsPage />} requiredRole="admin" />} />
 
-          <Route path="/admin/adminstudentattendance" element={<AdminStudentAttendece />} />
-          <Route path="/admin/adminteacherattendance" element={<AdminTeacherAttendance />} />
+          <Route path="/admin/exams/create" element={<ProtectedRoute element={<CreateExam />} requiredRole="admin" />} />
+          <Route path="/admin/exams/delete" element={<ProtectedRoute element={<DeleteExam />} requiredRole="admin" />} />
+          <Route path="/admin/exams/getall" element={<ProtectedRoute element={<GetAllExams />} requiredRole="admin" />} />
+          <Route path="/admin/exams/update/:examId" element={<ProtectedRoute element={<UpdateExam />} requiredRole="admin" />} />
+          <Route path="/admin/exams/getsingle/:examId" element={<ProtectedRoute element={<GetSingleExam />} requiredRole="admin" />} />
 
-          <Route path="/admin/mapped" element={<MappedPage />} />
-          <Route path="/admin/generatetimetable" element={<GenerateTimetablePage />} />
-          <Route path="/admin/timetable-pdf" element={<AdminTimetablePdfGenerator />} />
-          <Route path="/admin/timetable/create" element={<CreateTimetablePage />} />
-          <Route path="/admin/timetable/getall" element={<GetAllTimetables />} />
-          <Route path="/admin/timetable/view-mappings" element={<ViewClassMappingsPage />} />
-          {/* <Route path="/admin/timetable/view-mappings-full-width" element={<ViewClassMappingsFullWidthPage />} /> */}
+          <Route path="/admin/examresult/create" element={<ProtectedRoute element={<CreateExamResult />} requiredRole="admin" />} />
+          <Route path="/admin/examresult/getbyexam/:examId" element={<ProtectedRoute element={<ExamResultsByExam />} requiredRole="admin" />} />
+          <Route path="/admin/examresult/update/:resultId" element={<ProtectedRoute element={<UpdateExamResult />} requiredRole="admin" />} />
 
-          <Route path="/admin/exams/create" element={<CreateExam />} />
-          <Route path="/admin/exams/delete" element={<DeleteExam />} />
-          <Route path="/admin/exams/getall" element={<GetAllExams />} />
-          <Route path="/admin/exams/update/:examId" element={<UpdateExam />} />
-          <Route path="/admin/exams/getsingle/:examId" element={<GetSingleExam />} />
-
-          <Route path="/admin/examresult/create" element={<CreateExamResult />} />
-          <Route path="/admin/examresult/getbyexam/:examId" element={<ExamResultsByExam />} />
-          <Route path="/admin/examresult/update/:resultId" element={<UpdateExamResult />} />
-
-          <Route path="/admin/teachers/attendance" element={<MarkTeacherAttendance />} />
-          <Route path="/admin/teacher-attendance" element={<GetTeacherAttendance />} />
-          <Route path="/admin/teacher-attendance/update/:attendanceId" element={<UpdateTeacherAttendance />} />
+          <Route path="/admin/teachers/attendance" element={<ProtectedRoute element={<MarkTeacherAttendance />} requiredRole="admin" />} />
+          <Route path="/admin/teacher-attendance" element={<ProtectedRoute element={<GetTeacherAttendance />} requiredRole="admin" />} />
+          <Route path="/admin/teacher-attendance/update/:attendanceId" element={<ProtectedRoute element={<UpdateTeacherAttendance />} requiredRole="admin" />} />
 
           {/* <Route path="*" element={<Navigate to="/" />} />  */}
         </Routes>

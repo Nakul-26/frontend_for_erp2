@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/Dashboard.css';
 import '../../styles/Card.css';
-import '../../styles/Login.css';
+import '../../styles/InputForm.css';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
 import TeacherCard from '../../components/TeacherCard';
@@ -190,7 +190,7 @@ function AdminTeachersPage() {
       renderCell: (teacher) => (
         <div style={{ display: 'flex', gap: '5px' }}>
           <button
-            className="login-button small-button"
+            className="form-button small-button"
             onClick={() => navigate(`/admin/teachers/modify?t_id=${teacher.id}`)}
           >
             Edit

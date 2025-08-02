@@ -4,11 +4,13 @@ import React, { createContext, useState, useContext } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [adminData, setAdminData] = useState(() => {
+
+  // Store user info and role
+  const [user, setUser] = useState(() => {
     try {
-      const storedData = localStorage.getItem('admindata');
+      const storedData = localStorage.getItem('user');
       if (storedData) {
-        return JSON.parse(storedData).data.admindata;
+        return JSON.parse(storedData);
       }
       return null;
     } catch (error) {
@@ -16,16 +18,19 @@ export const AuthProvider = ({ children }) => {
     }
   });
 
+  // data should include { name, role, ... }
   const login = (data) => {
-    setAdminData(data);
+    setUser(data);
+    localStorage.setItem('user', JSON.stringify(data));
   };
 
   const logout = () => {
-    setAdminData(null);
+    setUser(null);
+    localStorage.removeItem('user');
   };
 
   return (
-    <AuthContext.Provider value={{ adminData, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -34,7 +34,7 @@ function AddClassPage() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 900);
     const navigate = useNavigate();
     const { adminData } = useAuth(); // Assuming adminData contains necessary auth info
 
@@ -223,15 +223,15 @@ function AddClassPage() {
     return (
         <Suspense fallback={<div>Loading dashboard...</div>}>
             <div className="form-page-container">
-                <Sidebar isOpen={isSidebarOpen} />
-                <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-                    <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+                <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+                <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}> 
+                    <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
                     <header className="dashboard-header">
                         <h1>Add Class</h1>
                         <p className="dashboard-subtitle">Create a new class in the system</p>
                     </header>
                     <div className="form-content-wrapper">
-                        <form className="enhanced-form add-class-form" onSubmit={handleSubmit}>
+                        <form className="enhanced-form add-class-form form-form" onSubmit={handleSubmit}>
                             {/* Class ID */}
                             <div className="input-group">
                                 <input
@@ -357,7 +357,7 @@ function AddClassPage() {
                             {success && <div className="success-message" style={{ color: 'green', textAlign: 'center' }}>{success}</div>}
 
                             {/* Submit Button */}
-                            <button type="submit" className="login-button" disabled={loading}>
+                            <button type="submit" className="form-button" disabled={loading}>
                                 {loading ? 'Adding Class...' : 'ADD CLASS'}
                             </button>
                         </form>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/Dashboard.css';
 import '../../styles/Card.css';
-import '../../styles/Login.css';
+import '../../styles/InputForm.css';
 import '../../styles/ClassesPage.css';
 import { useAuth } from '../../context/AuthContext';
 
