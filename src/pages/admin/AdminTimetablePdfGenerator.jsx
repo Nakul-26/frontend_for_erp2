@@ -145,11 +145,11 @@ function AdminTimetablePdfGenerator() {
     <div className="dashboard-container">
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-        <Navbar setIsSidebarOpen={setIsSidebarOpen} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Timetable PDF Generator"} setIsSidebarOpen={setIsSidebarOpen} />
+        {/* <header className="dashboard-header">
           <h1>Timetable PDF Generator</h1>
           <p className="dashboard-subtitle">Download class timetables as PDF files.</p>
-        </header>
+        </header> */}
         {/* <div style={{ padding: '30px' }}>
           {loading && <p>Loading timetables...</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}

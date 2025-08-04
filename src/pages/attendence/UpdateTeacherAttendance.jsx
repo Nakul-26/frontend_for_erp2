@@ -118,7 +118,7 @@ function UpdateTeacherAttendance() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar role="admin" />
+        <Navbar pageTitle={"Update Teacher Attendance"} role="admin" />
         <div
           className="form-container"
           style={{
@@ -133,7 +133,7 @@ function UpdateTeacherAttendance() {
             transition: 'background 0.3s, color 0.3s',
           }}
         >
-          <h2
+          {/* <h2
             style={{
               marginBottom: 24,
               color: 'var(--primary)',
@@ -142,7 +142,7 @@ function UpdateTeacherAttendance() {
             }}
           >
             Update Teacher Attendance
-          </h2>
+          </h2> */}
           <form onSubmit={handleUpdateAttendance}>
             <div style={{ marginBottom: '20px' }}>
               <label style={{ marginRight: '10px', fontWeight: 500 }}>Select Teacher:</label>

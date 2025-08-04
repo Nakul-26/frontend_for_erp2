@@ -39,9 +39,9 @@ function GetAllTimetables() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar />
+        <Navbar pageTitle={"All Timetables"} />
         <div className="timetable-form-container">
-          <h1>All Timetables</h1>
+          {/* <h1>All Timetables</h1> */}
           <div style={{ marginBottom: 20 }}>
             <label htmlFor="class-select">Select Class: </label>
             <select

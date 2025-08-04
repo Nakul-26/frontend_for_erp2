@@ -129,11 +129,11 @@ function ModifyStudentPage() {
     <div className="dashboard-container">
       <Sidebar isOpen={isSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Modify Student"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        {/* <header className="dashboard-header">
           <h1>Modify Student</h1>
           <p className="dashboard-subtitle">Edit student details</p>
-        </header>
+        </header> */}
         {error && (
           <div className="error-message" style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>
             {error}

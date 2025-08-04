@@ -26,9 +26,9 @@ function DeleteExam() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content">
-        <Navbar />
+        <Navbar pageTitle={"Delete Exam"} />
         <div className="timetable-form-container">
-          <h2>Delete Exam</h2>
+          {/* <h2>Delete Exam</h2> */}
           <form onSubmit={handleDelete} style={{ marginBottom: 24 }}>
             <input type="text" value={examId} onChange={e => setExamId(e.target.value)} placeholder="Enter Exam ID" required style={{ padding: 8, borderRadius: 6, border: '1px solid #cbd5e1', marginRight: 8 }} />
             <button type="submit" style={{ background: '#dc2626', color: '#fff', border: 'none', borderRadius: 6, padding: '8px 16px', fontWeight: 600, cursor: 'pointer' }}>Delete</button>

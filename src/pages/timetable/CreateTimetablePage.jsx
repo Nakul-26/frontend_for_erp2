@@ -205,10 +205,10 @@ function CreateTimetablePage() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar />
+        <Navbar pageTitle={"Create Timetable"} />
         <div style={{ width: '100%', maxWidth: '1400px', margin: '0 auto', padding: '0px 0px', overflowX: 'hidden' }}>
           <div className="timetable-form-container">
-            <h1>Create Timetable</h1>
+            {/* <h1>Create Timetable</h1> */}
             <form onSubmit={handleSubmit}>
               {loading && <p className="status-message">Loading...</p>}
               {error && <p className="status-message error">{error}</p>}

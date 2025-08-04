@@ -198,11 +198,11 @@ function UpdateSubjectPage() {
       <div className="dashboard-container">
         <Sidebar isOpen={isSidebarOpen} />
         <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-          <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-          <header className="dashboard-header">
+          <Navbar pageTitle={"Update Subject"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+          {/* <header className="dashboard-header">
             <h1>Update Subject</h1>
             <p className="dashboard-subtitle">Loading subject details...</p>
-          </header>
+          </header> */}
           <div className="form-content-wrapper">
             Loading...
           </div>
@@ -218,11 +218,11 @@ function UpdateSubjectPage() {
       <div className="dashboard-container">
         <Sidebar isOpen={isSidebarOpen} />
         <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-          <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-          <header className="dashboard-header">
+          <Navbar pageTitle={"Update Subject"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+          {/* <header className="dashboard-header">
             <h1>Update Subject</h1>
             <p className="dashboard-subtitle">Error or New Subject Entry</p>
-          </header>
+          </header> */}
           <div className="form-container" style={{ width: '600px', textAlign: 'center' }}>
             <div className="error-message" style={{ color: 'red', textAlign: 'center' }}>{error}</div>
             {/* Provide a way to go back or start fresh if it's an error */}
@@ -337,11 +337,11 @@ function UpdateSubjectPage() {
     <div className="dashboard-container">
       <Sidebar isOpen={isSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Update Subject"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        {/* <header className="dashboard-header">
           <h1>Update Subject</h1>
           <p className="dashboard-subtitle">Modify an existing subject</p>
-        </header>
+        </header> */}
         <div className="form-content-wrapper">
           <form className="enhanced-form" onSubmit={handleSubmit}>
             <div className="input-group">

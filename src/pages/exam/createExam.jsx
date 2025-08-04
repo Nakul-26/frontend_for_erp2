@@ -86,11 +86,11 @@ function CreateExam() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar />
+        <Navbar pageTitle={"Create Exam"} />
         <div style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '30px 0' }}>
           <div className="timetable-form-container">
             <form onSubmit={handleSubmit}>
-              <h2 style={{ marginBottom: 16 }}>Create Exam</h2>
+              {/* <h2 style={{ marginBottom: 16 }}>Create Exam</h2> */}
               <div style={{ marginBottom: 20 }}>
                 <label style={{ fontWeight: 600, marginRight: 8 }}>Class:</label>
                 <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} required style={{ padding: 8, borderRadius: 6, border: '1px solid #cbd5e1' }}>

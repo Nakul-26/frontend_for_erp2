@@ -140,9 +140,9 @@ function GetTeacherAttendance() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar role="admin" />
+        <Navbar pageTitle={"View Teacher Attendance"} role="admin" />
         <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: 'var(--surface)', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px var(--border-color)' }}>
-          <h2 style={{ marginBottom: 24, color: 'var(--primary)', fontWeight: 700 }}>View Teacher Attendance</h2>
+          {/* <h2 style={{ marginBottom: 24, color: 'var(--primary)', fontWeight: 700 }}>View Teacher Attendance</h2> */}
           <div style={{ marginBottom: '20px' }}>
             <label style={{ marginRight: '10px', fontWeight: 500, color: 'var(--text)' }}>Select Teacher:</label>
             <select

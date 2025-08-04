@@ -339,11 +339,11 @@ function ModifyTeacherPage() {
       <Sidebar isOpen={isSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}
         style={{ overflowX: 'hidden', width: '100vw', boxSizing: 'border-box' }}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Modify Teacher"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        {/* <header className="dashboard-header">
           <h1>Modify Teacher</h1>
           <p className="dashboard-subtitle">Search, update, or delete a teacher</p>
-        </header>
+        </header> */}
         {/* <div className="form-page-container" style={{ overflowX: 'hidden', width: '100vw', boxSizing: 'border-box' }}>
           <div className="form-content-wrapper">
             

@@ -289,11 +289,11 @@ function ModifyClassPage() {
                 <div className="dashboard-container">
                     <Sidebar isOpen={isSidebarOpen} />
                     <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-                        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-                        <header className="dashboard-header">
+                        <Navbar pageTitle={"Modify Class"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+                        {/* <header className="dashboard-header">
                             <h1>Modify Class</h1>
                             <p className="dashboard-subtitle">Loading class details...</p>
-                        </header>
+                        </header> */}
                         <div className="login-container" style={{ width: '600px', textAlign: 'center' }}>
                             Loading...
                         </div>
@@ -309,13 +309,13 @@ function ModifyClassPage() {
                 <Sidebar isOpen={isSidebarOpen} />
                 <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}
                     style={{ overflowX: 'hidden', width: '100vw', boxSizing: 'border-box' }}>
-                    <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-                    <header className="dashboard-header">
+                    <Navbar pageTitle={"Modify Class"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+                    {/* <header className="dashboard-header">
                         <h1>{paramClassId === "new" ? "Register New Class" : "Modify Class"}</h1>
                         <p className="dashboard-subtitle">
                             {paramClassId === "new" ? "Enter details for a new class" : "Edit existing class details"}
                         </p>
-                    </header>
+                    </header> */}
                     {error && <div className="error-message" style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>{error}</div>}
                     {success && <div className="success-message" style={{ color: 'green', textAlign: 'center', marginBottom: '20px' }}>{success}</div>}
 

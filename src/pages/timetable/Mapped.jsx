@@ -131,11 +131,11 @@ function MappedPage() {
     <div className="dashboard-container">
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`} style={{ fontSize: '18px' }}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Create New Mappings"} role="admin" toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
+        {/* <header className="dashboard-header">
           <h1>Create New Mapping</h1>
           <p className="dashboard-subtitle">Link a specific class, subject, and teacher</p>
-        </header>
+        </header> */}
 
         <div className="form-container" style={{ width: '100%', maxWidth: '100%' }}>
           <form className="form-form" onSubmit={handleSubmit} style={{ width: '100%', background: 'var(--surface)', color: 'var(--text)', borderRadius: '12px', padding: '2rem 1rem', margin: '0 auto' }}>

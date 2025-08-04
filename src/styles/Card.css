@@ -2,7 +2,7 @@
 .card {
   background: var(--surface);
   border: 1px solid var(--border-color);
-  border-radius: 5px;
+  border-radius: 18px;
   box-shadow: var(--shadow-sm);
   padding: var(--spacing-md);
   margin-bottom: var(--spacing-lg);
@@ -161,28 +161,27 @@
   }
 }
 
-/* Variables (consolidated from erpstyle.txt and index.css) */
+/* Variables (consolidated from erpstyle.txt and index.css) *
 :root {
-  /* Color Scheme */
-  --primary: #007bff; /* Blue for buttons and accents */
-  --primary-dark: #0056b3; /* Darker blue for hover */
-  --secondary: #6c757d; /* Gray for secondary elements */
-  --background: #f4f7fa; /* Light background */
-  --surface: #ffffff; /* White for cards and forms */
-  --text: #333333; /* Dark text */
-  --text-muted: #6c757d; /* Muted text */
-  --error: #dc3545; /* Red for errors */
-  --success: #28a745; /* Green for success */
-  --warning: #f1c40f; /* Warning color */
+  /* Color Scheme *
+  --primary: #007bff; /* Blue for buttons and accents *
+  --primary-dark: #0056b3; /* Darker blue for hover *
+  --secondary: #6c757d; /* Gray for secondary elements *
+  --background: #f4f7fa; /* Light background *
+  --surface: #ffffff; /* White for cards and forms *
+  --text: #333333; /* Dark text *
+  --text-muted: #6c757d;
+  --error: #dc3545;
+  --success: #28a745; 
+  --warning: #f1c40f; 
   --danger: #e74c3c;
   --danger-dark: #c0392b;
-  --border-color: #dfe1e5; /* Light gray for borders */
-  --input-background: #ffffff; /* Explicitly white for input fields */
-  --input-text: #2c3e50; /* Dark text for input fields */
-  --input-disabled: #f0f0f0; /* Light gray for disabled inputs */
+  --border-color: #dfe1e5;
+  --input-background: #ffffff;
+  --input-text: #2c3e50;
+  --input-disabled: #f0f0f0;
 
 
-  /* Typography */
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
   --font-size-base: 16px;
   --font-size-sm: 14px;
@@ -191,23 +190,20 @@
   --font-size-xl: 24px;
   --font-weight-normal: 400;
   --font-weight-bold: 600;
-  --font-weight-semibold: 600; /* Added for consistency */
+  --font-weight-semibold: 600; /* Added for consistency *
 
-  /* Spacing */
-  --spacing-xs: 0.5rem; /* 8px */
-  --spacing-sm: 1rem; /* 16px */
-  --spacing-md: 1.5rem; /* 24px */
-  --spacing-lg: 2rem; /* 32px */
-  --spacing-xl: 3rem; /* 48px */
+  --spacing-xs: 0.5rem; /* 8px *
+  --spacing-sm: 1rem; /* 16px *
+  --spacing-md: 1.5rem; /* 24px *
+  --spacing-lg: 2rem; /* 32px *
+  --spacing-xl: 3rem; /* 48px *
 
-  /* Border Radius */
   --border-radius: 8px;
   --border-radius-sm: 4px;
 
-  /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
+} */
 
 
 

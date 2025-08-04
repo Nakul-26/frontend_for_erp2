@@ -47,11 +47,11 @@ function SearchSubjectPage() {
     <div className="dashboard-container">
       <Sidebar isOpen={isSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Search Subject"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        {/* <header className="dashboard-header">
           <h1>Search Subject</h1>
           <p className="dashboard-subtitle">Find a subject by code</p>
-        </header>
+        </header> */}
         <div className="form-container" style={{ width: '600px' }}>
           <form className="form-form" onSubmit={handleSubmit}>
             <div className="input-group">

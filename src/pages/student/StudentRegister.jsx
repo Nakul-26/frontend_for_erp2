@@ -132,11 +132,11 @@ function StudentRegister() {
     <div className="dashboard-container">
       <Sidebar isOpen={isSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Register Student"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        {/* <header className="dashboard-header">
           <h1>Register Student</h1>
           <p className="dashboard-subtitle">Add a new student to the system</p>
-        </header>
+        </header> */}
         <div className="login-container" style={{ width: '100%', maxWidth: '100%', margin: '0', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
           <form className="enhanced-form student-register-form" onSubmit={handleSubmit} style={{ width: '100%', borderRadius: '16px', padding: '40px 24px', margin: '32px 0' }}>
             <div className="input-group">

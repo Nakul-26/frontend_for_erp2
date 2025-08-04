@@ -69,9 +69,9 @@ function ViewClassMappingsPage() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar />
+        <Navbar pageTitle={"View Class Mappings"} />
         <div className="timetable-form-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', flexGrow: 1 }}>
-          <h1 style={{ textAlign: 'center', width: '100%' }}>View Class Mappings</h1>
+          {/* <h1 style={{ textAlign: 'center', width: '100%' }}>View Class Mappings</h1> */}
           {loading && <p className="status-message" style={{ textAlign: 'center' }}>Loading...</p>}
           {error && <p className="status-message error" style={{ textAlign: 'center' }}>{error}</p>}
           {success && <p className="status-message success" style={{ textAlign: 'center' }}>{success}</p>}

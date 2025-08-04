@@ -4,7 +4,7 @@ import '../styles/Navbar.css';
 //import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
-function Navbar({ role, toggleSidebar }) {
+function Navbar({ role, pageTitle, toggleSidebar }) {
   const [adminData, setAdminData] = useState(null); // Uncomment if needed
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   //const { logout } = useAuth();
@@ -66,7 +66,7 @@ function Navbar({ role, toggleSidebar }) {
       >
         ☰
       </button>
-      <h1> Dashboard</h1>
+      <h1>{pageTitle}</h1>
       <div className="header-actions">
         <button className="profile-btn" onClick={handleLogout}>
           Logout

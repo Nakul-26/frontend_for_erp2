@@ -75,11 +75,11 @@ function SearchTeacher() {
     <div className="dashboard-container">
       <Sidebar isOpen={isSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Search Teacher"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        {/* <header className="dashboard-header">
           <h1>Search Teacher</h1>
           <p className="dashboard-subtitle">Find a teacher by ID, Name, or Email</p>
-        </header>
+        </header> */}
         <div className="login-container" style={{ width: '600px' }}>
           <form className="login-form" onSubmit={handleSubmit}>
             <div className="input-group">

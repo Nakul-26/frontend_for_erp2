@@ -28,9 +28,9 @@ function ExamResultsByStudent() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar />
+        <Navbar pageTitle={"Results by Student"} />
         <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px #222' }}>
-          <h2 style={{ marginBottom: 24, color: '#2563eb', fontWeight: 700 }}>Results by Student</h2>
+          {/* <h2 style={{ marginBottom: 24, color: '#2563eb', fontWeight: 700 }}>Results by Student</h2> */}
           <select onChange={e => setSelectedStudent(e.target.value)} value={selectedStudent} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #cbd5e1' }}>
             <option value="">Select Student</option>
             {students.map(s => <option key={s._id} value={s._id}>{s.name}</option>)}

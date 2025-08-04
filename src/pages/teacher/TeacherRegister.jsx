@@ -168,11 +168,11 @@ function TeacherRegister() {
     <div className="form-page-container">
       <Sidebar isOpen={isSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Register Teacher"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        {/* <header className="dashboard-header">
           <h1>Register Teacher</h1>
           <p className="dashboard-subtitle">Add a new teacher to the system</p>
-        </header>
+        </header> */}
         <div className="form-content-wrapper">
           <form className="enhanced-form teacher-register-form" onSubmit={handleSubmit}>
             <div className="input-group">

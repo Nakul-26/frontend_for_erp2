@@ -74,11 +74,11 @@ function AddSubjectPage() {
     <div className="form-page-container">
       <Sidebar isOpen={isSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Add Subject"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        {/* <header className="dashboard-header">
           <h1>Add Subject</h1>
           <p className="dashboard-subtitle">Add a new subject to the system</p>
-        </header>
+        </header> */}
         <div className="form-content-wrapper">
           <form className="enhanced-form add-subject-form" onSubmit={handleSubmit}>
             <div className="input-group">

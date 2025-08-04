@@ -69,9 +69,9 @@ function CreateExamResult() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar />
+        <Navbar pageTitle={"Create Exam Result"} />
         <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px #222' }}>
-          <h2 style={{ marginBottom: 24, color: '#2563eb', fontWeight: 700 }}>Create Exam Result</h2>
+          {/* <h2 style={{ marginBottom: 24, color: '#2563eb', fontWeight: 700 }}>Create Exam Result</h2> */}
           <form onSubmit={handleSubmit}>
             <select required value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }}>
               <option value="">Select Class</option>

@@ -46,10 +46,10 @@ function GetAllExams() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar />
+        <Navbar pageTitle={"All Exams"} />
         <div style={{ width: '100%', maxWidth: '100%', margin: 0, padding: '0px 0px 0px 0px' }}>
           <div className="timetable-form-container">
-            <h2>All Exams</h2>
+            {/* <h2>All Exams</h2> */}
             {message && <p style={{ color: 'green', marginBottom: 8 }}>{message}</p>}
             {error && <p style={{ color: 'red', marginBottom: 8 }}>{error}</p>}
             {loading ? <p>Loading...</p> : (

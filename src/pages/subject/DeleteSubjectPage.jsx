@@ -49,11 +49,11 @@ function DeleteSubjectPage() {
     <div className="dashboard-container">
       <Sidebar isOpen={isSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-        <Navbar role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <header className="dashboard-header">
+        <Navbar pageTitle={"Delete Subject"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        {/* <header className="dashboard-header">
           <h1>Delete Subject</h1>
           <p className="dashboard-subtitle">Remove a subject from the system</p>
-        </header>
+        </header> */}
         <div className="login-container" style={{ width: '600px' }}>
           <form className="login-form" onSubmit={handleSubmit}>
             <div className="input-group">

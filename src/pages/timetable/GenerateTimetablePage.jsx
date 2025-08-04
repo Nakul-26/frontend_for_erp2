@@ -102,12 +102,12 @@ function GenerateTimetablePage() {
             <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
             
             <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`} style={{ fontSize: '18px' }}>
-                <Navbar toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
+                <Navbar pageTitle={"Generate Timetable"} toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
                 
-                <header className="dashboard-header"> {/* Reusing dashboard-header from MappedPage/Dashboard */}
+                {/* <header className="dashboard-header">
                     <h1>Generate Timetable</h1>
                     <p className="dashboard-subtitle">Define parameters and select classes to generate timetables.</p>
-                </header>
+                </header> */}
 
                 {/* Using form-container and form-form for consistent form styling */}
                 <div className="form-container" style={{ width: '80%', maxWidth: '800px', padding: '30px', marginTop: '20px' }}>

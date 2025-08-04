@@ -48,7 +48,7 @@ body[data-theme="dark"] input[type="file"] {
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
-   background: var(--background, #181a20);
+  background: var(--background, #181a20);
 }
 
 /* Only style .enhanced-form and its variants, not .login-form or .login2-form */

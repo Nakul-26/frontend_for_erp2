@@ -29,9 +29,9 @@ function ExamResultsByExam() {
     <div className="dashboard-container">
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
-        <Navbar />
+        <Navbar pageTitle={"Results by Exam"} />
         <div className="form-container" style={{ width: '100%', maxWidth: '100%', margin: 0, background: 'var(--surface)', color: 'var(--text)', padding: 32, borderRadius: 12, boxShadow: '0 2px 8px var(--border-color)' }}>
-          <h2 style={{ marginBottom: 24, color: 'var(--primary)', fontWeight: 700 }}>Results by Exam</h2>
+          {/* <h2 style={{ marginBottom: 24, color: 'var(--primary)', fontWeight: 700 }}>Results by Exam</h2> */}
           <select onChange={e => setSelectedExam(e.target.value)} value={selectedExam} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid var(--border-color)', background: 'var(--input-background)', color: 'var(--input-text)' }}>
             <option value="">Select Exam</option>
             {exams.map(e => <option key={e._id} value={e._id}>{e.examName}</option>)}
