@@ -234,7 +234,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Link to="/admin/settings" data-icon="⚙️">Settings</Link> */}
       </nav>
       {/* Mobile close button */}
-      {typeof isOpen === 'boolean' && setIsOpen && (
+      {/* {typeof isOpen === 'boolean' && setIsOpen && (
         <button
           className="sidebar-close-btn"
           style={{ display: 'block' }}
@@ -243,7 +243,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         >
           ×
         </button>
-      )}
+      )} */}
       {/* Theme toggle button for sidebar */}
       <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
         {theme === 'light' ? '🌙 Dark' : '☀️ Light'}

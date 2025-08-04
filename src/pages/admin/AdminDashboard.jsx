@@ -30,7 +30,7 @@ function AdminDashboard() {
       <div className="dashboard-container">
         <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
         <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
-          <Navbar role="user" toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
+          <Navbar pageTitle={"Dashboard"} role="user" toggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
           <div className="stats-grid">
             {stats.map((stat, index) => (
               <div key={index} className="stat-card">
