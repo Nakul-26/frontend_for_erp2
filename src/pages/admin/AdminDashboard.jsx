@@ -2,11 +2,16 @@ import React, { useState, lazy, Suspense } from 'react';
 import { FaIdCard, FaUser, FaEnvelope, FaShieldAlt } from 'react-icons/fa';
 import '../../styles/Dashboard.css';
 import { useAuth } from '../../context/AuthContext';
+import '../../App.css';
+import { useTheme } from '../../Context';
 
 const Sidebar = lazy(() => import('../../components/Sidebar'));
 const Navbar = lazy(() => import('../../components/Navbar'));
 
 function AdminDashboard() {
+  const { theme } = useTheme(); // Get theme from context
+  console.log(`Admin Dashboard theme: ${theme}`);
+
   const { user } = useAuth(); // Get admin data from context
 
   // console.log('Admin Dashboard admin data:', user);

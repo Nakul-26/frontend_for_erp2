@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useTheme } from '../ThemeContext';
+import { useTheme } from '../Context';
 import { Link } from 'react-router-dom';
 import '../styles/Sidebar.css';
 import { useAuth } from '../context/AuthContext';

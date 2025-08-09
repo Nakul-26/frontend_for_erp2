@@ -3,7 +3,8 @@ import { FaUserGraduate, FaCalendarAlt, FaChalkboardTeacher, FaBook } from 'reac
 import '../styles/Dashboard.css';
 import Sidebar from './Sidebar'; // Adjust path if necessary
 import Navbar from './Navbar';   // Adjust path if necessary
-import { useTheme } from '../ThemeContext';
+import { useTheme } from '../Context';
+import '../App.css';
 
 function Dashboard() {
   const { theme, toggleTheme } = useTheme();

@@ -27,7 +27,7 @@
 }
 
 .menu-btn {
-  display: none; /* Hidden on desktop */
+  /* display: none; Hidden on desktop */
   font-size: var(--font-size-lg);
   background: none;
   border: none;

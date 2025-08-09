@@ -31,7 +31,7 @@ function SubjectCard({ subject, onDelete }) {
 
   const getValue = (value, fallback = 'Not Available') => {
     if (value === undefined || value === null) return fallback;
-    if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+    if (typeof value === 'boolean') return value ? 'active' : 'inactive';
     return value.toString() || fallback;
   };
 

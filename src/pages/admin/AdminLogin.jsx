@@ -3,7 +3,7 @@ import '../../styles/Login.css';
 import { FaUser, FaLock } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext'; // Auth Context for login state
+import { useAuth } from '../../context/AuthContext';
 
 function AdminLogin() {
   const [userId, setUserId] = useState('');
@@ -11,9 +11,8 @@ function AdminLogin() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth(); // Use authentication context
-  // const { user } = useAuth();
-
+  const { login } = useAuth();
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');

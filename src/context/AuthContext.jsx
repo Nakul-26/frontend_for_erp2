@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
   // data should include { name, role, ... }
   const login = (data) => {
     setUser(data);
+    console.log('User logged in:', data);
     localStorage.setItem('user', JSON.stringify(data));
   };
 

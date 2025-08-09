@@ -10,30 +10,30 @@ function TeacherDashboard() {
   // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [teacherData, setTeacherData] = useState(null);
 
-  useEffect(() => {
-    const fetchTeacherData = async () => {
-      try {
-        // Check localStorage first
-        const storedData = JSON.parse(localStorage.getItem('teacherData'));
-        if (storedData) {
-          setTeacherData(storedData);
-          return;
-        }
+  // useEffect(() => {
+  //   const fetchTeacherData = async () => {
+  //     try {
+  //       // Check localStorage first
+  //       const storedData = JSON.parse(localStorage.getItem('teacherData'));
+  //       if (storedData) {
+  //         setTeacherData(storedData);
+  //         return;
+  //       }
 
-        // Fetch from backend
-        const response = await axios.get('https://your-backend-domain.com/teacher/profile', {
-          withCredentials: true,
-        });
-        const data = response.data.data;
-        setTeacherData(data);
-        localStorage.setItem('teacherData', JSON.stringify(data));
-      } catch (error) {
-        console.error('Error fetching teacher data:', error);
-      }
-    };
+  //       // Fetch from backend
+  //       const response = await axios.get('https://your-backend-domain.com/teacher/profile', {
+  //         withCredentials: true,
+  //       });
+  //       const data = response.data.data;
+  //       setTeacherData(data);
+  //       localStorage.setItem('teacherData', JSON.stringify(data));
+  //     } catch (error) {
+  //       console.error('Error fetching teacher data:', error);
+  //     }
+  //   };
 
-    fetchTeacherData();
-  }, []);
+  //   fetchTeacherData();
+  // }, []);
 
   const stats = [
     { icon: <FaIdCard />, title: 'Teacher ID', value: teacherData?.id || '-' },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider, useTheme } from './ThemeContext';
+import { ThemeProvider, useTheme } from './Context';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext'; 
 import ProtectedRoute from './components/ProtectedRoute';
@@ -15,7 +15,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminLogin from './pages/admin/AdminLogin'; 
 
 import TeacherLogin from './pages/teacher/TeacherLogin'; 
-import TeacherDashboard from './pages/teacher/TeacherDashboard'; 
+import TeacherDashboard from './pages/teacher/TeacherDashboard';
 import TeacherRegister from './pages/teacher/TeacherRegister'; 
 import TeachersPage from './pages/teacher/TeachersPage'; 
 import ModifyTeacherPage from './pages/teacher/ModifyTeacherPage'; 
@@ -55,10 +55,13 @@ import MarkTeacherAttendance from './pages/attendence/MarkTeacherAttendance';
 import GetTeacherAttendance from './pages/attendence/GetTeacherAttendance';
 import UpdateTeacherAttendance from './pages/attendence/UpdateTeacherAttendance';
 
+import TeacherChangePassword from './pages/teacher/TeacherChangePassword';
+
 import './App.css';
 
 function ThemeToggleButton() {
   const { theme, toggleTheme } = useTheme();
+  console.log(`Current appjsx theme: ${theme}`);
   return (
     <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
       {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
@@ -129,6 +132,8 @@ function AppContent() {
           <Route path="/admin/teachers/attendance" element={<ProtectedRoute element={<MarkTeacherAttendance />} requiredRole="admin" />} />
           <Route path="/admin/teacher-attendance" element={<ProtectedRoute element={<GetTeacherAttendance />} requiredRole="admin" />} />
           <Route path="/admin/teacher-attendance/update/:attendanceId" element={<ProtectedRoute element={<UpdateTeacherAttendance />} requiredRole="admin" />} />
+
+          <Route path="/teacher/change-password" element={<ProtectedRoute element={<TeacherChangePassword />} requiredRole="teacher" />} />
 
           {/* <Route path="*" element={<Navigate to="/" />} />  */}
         </Routes>

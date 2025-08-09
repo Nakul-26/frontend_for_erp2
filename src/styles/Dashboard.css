@@ -5,14 +5,14 @@ input, textarea, select {
   border: 1px solid var(--border-color);
 }
 
-body[data-theme="dark"] input,
+/* body[data-theme="dark"] input,
 body[data-theme="dark"] textarea,
 body[data-theme="dark"] select {
   background: #23272f;
   color: #f3f4f6;
   border: 1px solid #444857;
-}
-
+} */
+/* 
 body[data-theme="dark"] input[type="date"] {
   background: #23272f;
   color: #f3f4f6;
@@ -23,7 +23,7 @@ body[data-theme="dark"] input[type="date"] {
 
 body[data-theme="dark"] {
   --input-bg: #23272f;
-}
+} */
 /* Ensure dropdowns and options use theme variables for dark/light mode */
 
 select, select option {

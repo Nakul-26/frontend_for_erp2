@@ -35,7 +35,7 @@
   border-radius: var(--border-radius-sm);
   font-size: var(--font-size-sm);
   text-transform: capitalize;
-  min-width: 58px;
+  min-width: 80px;
 }
 
 .status-badge.active {
