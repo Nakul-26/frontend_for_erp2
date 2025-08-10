@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import TeacherSidebar from '../../components/TeacherSidebar';
 import Navbar from '../../components/Navbar';
-import '../../styles/Dashboard.css';
+import '../../styles/Dashboard.css'; // Make sure this CSS file includes the table styles
 import { useAuth } from '../../context/AuthContext';
 
 function GetTeacherSchedule() {
@@ -20,8 +20,6 @@ function GetTeacherSchedule() {
     setLoading(true);
     setError('');
     try {
-      // Assuming this endpoint returns a full schedule for the class,
-      // and we need to filter for the teacher on the frontend.
       const response = await axios.get(
         `${API_BASE_URL}/api/v1/teacher/schedule/${user._id}`,
         { withCredentials: true }
@@ -51,6 +49,7 @@ function GetTeacherSchedule() {
       return <p>No schedule found.</p>;
     }
 
+    // Get period names for the table header from the first day's schedule
     const periods = schedule[0]?.periods.map(p => p.period.period) || [];
 
     return (
@@ -70,8 +69,8 @@ function GetTeacherSchedule() {
                 <td>{dayEntry.day}</td>
                 {dayEntry.periods.map((periodEntry, periodIndex) => (
                   <td key={periodIndex}>
-                    {/* New condition: Check if the mapped teacher's ID matches the current user's ID */}
-                    {periodEntry.mapped?.teacherId?._id === user._id ? (
+                    {/* Check if mapped and subjectId exist before accessing */}
+                    {periodEntry.mapped?.subjectId ? (
                       <>
                         <div className="subject-name">{periodEntry.mapped.subjectId.subjectName}</div>
                         <div className="class-id">({dayEntry.classId?.classId})</div>
