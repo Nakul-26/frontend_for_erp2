@@ -56,6 +56,8 @@ import GetTeacherAttendance from './pages/attendence/GetTeacherAttendance';
 import UpdateTeacherAttendance from './pages/attendence/UpdateTeacherAttendance';
 
 import TeacherChangePassword from './pages/teacher/TeacherChangePassword';
+import GetTeacherSchedule from './pages/teacher/GetTeacherSchedule';
+import CreateAttendance from './pages/teacher_pages/CreateAttendance';
 
 import './App.css';
 
@@ -134,6 +136,8 @@ function AppContent() {
           <Route path="/admin/teacher-attendance/update/:attendanceId" element={<ProtectedRoute element={<UpdateTeacherAttendance />} requiredRole="admin" />} />
 
           <Route path="/teacher/change-password" element={<ProtectedRoute element={<TeacherChangePassword />} requiredRole="teacher" />} />
+          <Route path="/teacher/schedule" element={<ProtectedRoute element={<GetTeacherSchedule />} requiredRole="teacher" />} />
+          <Route path="/teacher/create-attendance" element={<ProtectedRoute element={<CreateAttendance />} requiredRole="teacher" />} />
 
           {/* <Route path="*" element={<Navigate to="/" />} />  */}
         </Routes>
