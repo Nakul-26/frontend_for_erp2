@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../../styles/Dashboard.css';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
@@ -119,6 +120,44 @@ function UpdateTeacherAttendance() {
       <Sidebar />
       <main className="main-content" style={{ fontSize: '18px' }}>
         <Navbar pageTitle={"Update Teacher Attendance"} role="admin" />
+        
+        {/* Back Button */}
+        <div style={{ 
+          padding: '20px',
+          display: 'flex',
+          alignItems: 'center'
+        }}>
+          <Link 
+            to="/admin/teachers/attendance"
+            className="login-button"
+            style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 16px',
+              backgroundColor: '#4b5563',
+              color: '#ffffff',
+              borderRadius: '6px',
+              textDecoration: 'none',
+              fontSize: '0.875rem',
+              fontWeight: '500',
+              transition: 'all 0.2s ease',
+              border: '1px solid #374151',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.15)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            }}
+          >
+            ← Back to Attendance
+          </Link>
+        </div>
+
         <div
           className="form-container"
           style={{

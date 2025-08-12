@@ -62,7 +62,7 @@
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
 }
 
 .nav-group {
@@ -103,7 +103,7 @@
 }
 
 .sidebar-nav a {
-  padding: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-sm);
   font-size: var(--font-size-base);
   color: var(--text);
   border-radius: var(--border-radius-sm);
@@ -138,42 +138,71 @@
     z-index: 1200;
     background: var(--surface);
     transition: transform 0.3s ease;
+    width: 80vw;
+    max-width: 320px;
+    min-width: 220px;
+    overflow-y: auto;
   }
+  
   .sidebar.open {
     transform: translateX(0);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
   }
-  .sidebar-close-btn {
+  
+  /* Adjust main content to create space for sidebar */
+  .main-content {
+    transition: padding-left 0.3s ease;
+    width: 100%;
+    min-height: 100vh;
+  }
+  
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1100;
+  }
+  
+  .sidebar-overlay.show {
     display: block;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: var(--text);
-    cursor: pointer;
-    z-index: 1300;
   }
 }
 
-/* Always show the close button for sidebar toggle on all screens */
-.sidebar-close-btn {
-  display: block;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: var(--primary);
+/* Sidebar actions container */
+.sidebar-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Close sidebar button - only visible on mobile */
+.close-sidebar {
+  display: none;
+  background: var(--danger, #e74c3c);
+  color: white;
   border: none;
-  font-size: 2rem;
-  color: var(--text-light);
-  cursor: pointer;
-  z-index: 1300;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-size: 20px;
+  cursor: pointer;
   transition: background 0.2s;
 }
-.sidebar-close-btn:hover {
-  background: var(--primary-dark);
+
+.close-sidebar:hover {
+  background: var(--danger-dark, #c0392b);
+}
+
+@media (max-width: 900px) {
+  .close-sidebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

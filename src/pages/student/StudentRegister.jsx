@@ -133,6 +133,33 @@ function StudentRegister() {
       <Sidebar isOpen={isSidebarOpen} />
       <main className={`main-content ${isSidebarOpen ? '' : 'collapsed'}`}>
         <Navbar pageTitle={"Register Student"} role="admin" toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        
+        {/* Back Button with Arrow */}
+        <div style={{ padding: '10px 0 0 10px' }}>
+          <button 
+            type="button"
+            onClick={() => navigate('/admin/students')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px',
+              padding: '8px 12px',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              color: 'var(--primary)',
+              fontWeight: '600',
+              fontSize: '14px',
+              borderRadius: '4px',
+              transition: 'background 0.2s',
+            }}
+            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.05)'}
+            onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+          >
+            <span style={{ fontSize: '18px' }}>←</span> Back
+          </button>
+        </div>
+        
         {/* <header className="dashboard-header">
           <h1>Register Student</h1>
           <p className="dashboard-subtitle">Add a new student to the system</p>

@@ -16,7 +16,6 @@
   function AdminTeachersPage() {
     const [teachers, setTeachers] = useState([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 900);
-    const [isTableView, setIsTableView] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const { adminData } = useAuth();
@@ -239,60 +238,150 @@
               >
                 Search Teacher
               </button> */}
-              <button
-                onClick={() => setIsTableView(!isTableView)}
-                className="login-button"
-                style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-              >
-                {isTableView ? 'Show Card View' : 'Show Table View'}
-              </button>
             </div>
 
-            {/* Filter Controls */}
-            <div className="filter-controls" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', padding: '10px', border: '1px solid var(--border, #222)', borderRadius: '8px', backgroundColor: 'var(--surface, #222)' }}>
-              <h3>Filter By:</h3>
-              {/* Subject Filter */}
-              <select name="subject" value={filters.subject} onChange={handleFilterChange} className="filter-select">
-                <option value="">All Subjects</option>
-                {uniqueSubjects.map(subject => (
-                  <option key={subject} value={subject}>{subject}</option>
-                ))}
-              </select>
+            {/* Filter and Sort Controls Container */}
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '15px'
+            }}>
+              {/* Filter Controls */}
+              <div className="filter-controls" style={{ 
+                padding: '15px', 
+                border: '1px solid var(--border, #ddd)', 
+                borderRadius: '8px', 
+                backgroundColor: 'var(--surface, #f8f9fa)' 
+              }}>
+                <h3 style={{ 
+                  margin: '0 0 12px 0', 
+                  fontSize: '1.1em', 
+                  color: 'var(--text-heading, var(--text))',
+                  fontWeight: '600'
+                }}>
+                  Filter By:
+                </h3>
+                
+                <div style={{ 
+                  display: 'flex', 
+                  flexWrap: 'wrap', 
+                  gap: '12px', 
+                  alignItems: 'center' 
+                }}>
+                  {/* Subject Filter */}
+                  <select 
+                    name="subject" 
+                    value={filters.subject} 
+                    onChange={handleFilterChange} 
+                    className="filter-select"
+                    style={{ minWidth: '170px' }}
+                  >
+                    <option value="">All Subjects</option>
+                    {uniqueSubjects.map(subject => (
+                      <option key={subject} value={subject}>{subject}</option>
+                    ))}
+                  </select>
 
-              {/* Status Filter */}
-              <select name="status" value={filters.status} onChange={handleFilterChange} className="filter-select">
-                <option value="">All Statuses</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-              </select>
+                  {/* Status Filter */}
+                  <select 
+                    name="status" 
+                    value={filters.status} 
+                    onChange={handleFilterChange} 
+                    className="filter-select"
+                    style={{ minWidth: '150px' }}
+                  >
+                    <option value="">All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
 
-              {/* Joining Year Filter */}
-              <select name="joiningYear" value={filters.joiningYear} onChange={handleFilterChange} className="filter-select">
-                <option value="">All Joining Years</option>
-                {uniqueJoiningYears.map(year => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
-              </select>
+                  {/* Joining Year Filter */}
+                  <select 
+                    name="joiningYear" 
+                    value={filters.joiningYear} 
+                    onChange={handleFilterChange} 
+                    className="filter-select"
+                    style={{ minWidth: '170px' }}
+                  >
+                    <option value="">All Joining Years</option>
+                    {uniqueJoiningYears.map(year => (
+                      <option key={year} value={year}>{year}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
 
               {/* Sort Controls */}
-              <h3>Sort By:</h3>
-              <select name="sortField" value={sortBy.field} onChange={handleSortChange} className="filter-select">
-                <option value="">No Sort</option>
-                <option value="name">Name</option>
-                <option value="id">Teacher ID</option>
-                <option value="age">Age</option>
-                <option value="dateofjoining">Joining Date</option>
-                <option value="status">Status</option>
-              </select>
+              <div className="filter-controls" style={{ 
+                padding: '15px', 
+                border: '1px solid var(--border, #ddd)', 
+                borderRadius: '8px', 
+                backgroundColor: 'var(--surface, #f8f9fa)' 
+              }}>
+                <h3 style={{ 
+                  margin: '0 0 12px 0', 
+                  fontSize: '1.1em', 
+                  color: 'var(--text-heading, var(--text))',
+                  fontWeight: '600'
+                }}>
+                  Sort By:
+                </h3>
+                
+                <div style={{ 
+                  display: 'flex', 
+                  flexWrap: 'wrap', 
+                  gap: '12px', 
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}>
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                    <select 
+                      name="sortField" 
+                      value={sortBy.field} 
+                      onChange={handleSortChange} 
+                      className="filter-select"
+                      style={{ minWidth: '170px' }}
+                    >
+                      <option value="">No Sort</option>
+                      <option value="name">Name</option>
+                      <option value="id">Teacher ID</option>
+                      <option value="age">Age</option>
+                      <option value="dateofjoining">Joining Date</option>
+                      <option value="status">Status</option>
+                    </select>
 
-              <select name="sortOrder" value={sortBy.order} onChange={handleSortChange} className="filter-select">
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-              </select>
-
-              <button onClick={clearFiltersAndSort} className="clear-filters-btn">
-                Clear Filters & Sort
-              </button>
+                    <select 
+                      name="sortOrder" 
+                      value={sortBy.order} 
+                      onChange={handleSortChange} 
+                      className="filter-select"
+                      style={{ minWidth: '150px' }}
+                    >
+                      <option value="asc">Ascending</option>
+                      <option value="desc">Descending</option>
+                    </select>
+                  </div>
+                  
+                  <button 
+                    onClick={clearFiltersAndSort} 
+                    className="login-button"
+                    style={{
+                      padding: '8px 16px',
+                      backgroundColor: 'var(--primary, #6366f1)',
+                      color: 'var(--text-light, white)',
+                      border: 'none',
+                      borderRadius: '6px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'background-color 0.2s'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--primary-dark, #4f46e5)'}
+                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--primary, #6366f1)'}
+                  >
+                    Clear Filters & Sort
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -305,23 +394,17 @@
           {filteredAndSortedTeachers.length === 0 ? (
             <div style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>No teachers found matching your criteria.</div>
           ) : (
-            isTableView ? (
-              <Suspense fallback={<div>Loading table view...</div>}>
-                <Table data={filteredAndSortedTeachers} columns={teacherTableColumns} />
-              </Suspense>
-            ) : (
-              <div className="cards-grid">
-                {filteredAndSortedTeachers.map((teacher) => (
-                  <TeacherCard
-                    key={teacher.id}
-                    data={teacher}
-                    type="teacher"
-                    fields={teacherFields}
-                    onDelete={handleDeleteTeacher}
-                  />
-                ))}
-              </div>
-            )
+            <div className="cards-grid">
+              {filteredAndSortedTeachers.map((teacher) => (
+                <TeacherCard
+                  key={teacher.id}
+                  data={teacher}
+                  type="teacher"
+                  fields={teacherFields}
+                  onDelete={handleDeleteTeacher}
+                />
+              ))}
+            </div>
           )}
         </main>
       </div>

@@ -53,6 +53,7 @@ import UpdateExamResult from './pages/exam-result/UpdateExamResult';
 import MarkStudentAttendance from './pages/attendence/MarkStudentAttendance';
 import MarkTeacherAttendance from './pages/attendence/MarkTeacherAttendance';
 import GetTeacherAttendance from './pages/attendence/GetTeacherAttendance';
+import GetStudentAttendance from './pages/attendence/GetStudentAttendance';
 import UpdateTeacherAttendance from './pages/attendence/UpdateTeacherAttendance';
 
 import TeacherChangePassword from './pages/teacher/TeacherChangePassword';
@@ -134,6 +135,9 @@ function AppContent() {
           <Route path="/admin/teachers/attendance" element={<ProtectedRoute element={<MarkTeacherAttendance />} requiredRole="admin" />} />
           <Route path="/admin/teacher-attendance" element={<ProtectedRoute element={<GetTeacherAttendance />} requiredRole="admin" />} />
           <Route path="/admin/teacher-attendance/update/:attendanceId" element={<ProtectedRoute element={<UpdateTeacherAttendance />} requiredRole="admin" />} />
+          
+          <Route path="/admin/students/attendance" element={<ProtectedRoute element={<MarkStudentAttendance />} requiredRole="admin" />} />
+          <Route path="/admin/student-attendance" element={<ProtectedRoute element={<GetStudentAttendance />} requiredRole="admin" />} />
 
           <Route path="/teacher/change-password" element={<ProtectedRoute element={<TeacherChangePassword />} requiredRole="teacher" />} />
           <Route path="/teacher/schedule" element={<ProtectedRoute element={<GetTeacherSchedule />} requiredRole="teacher" />} />

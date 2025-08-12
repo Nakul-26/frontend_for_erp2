@@ -211,51 +211,148 @@ function StudentsPage() {
             </button>
           </div>
 
-          {/* Filter Controls */}
-          <div className="filter-controls" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', padding: '10px', border: '1px solid var(--border, #222)', borderRadius: '8px', backgroundColor: 'var(--surface, #222)' }}>
-            <h3>Filter By:</h3>
-            {/* Class Filter */}
-            <select name="class" value={filters.class} onChange={handleFilterChange} className="filter-select">
-              <option value="">All Classes</option>
-              {uniqueClasses.map(cls => (
-                <option key={cls} value={cls}>{cls}</option>
-              ))}
-            </select>
+          {/* Filter and Sort Controls Container */}
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '15px'
+          }}>
+            {/* Filter Controls */}
+            <div className="filter-controls" style={{ 
+              padding: '15px', 
+              border: '1px solid var(--border, #ddd)', 
+              borderRadius: '8px', 
+              backgroundColor: 'var(--surface, #f8f9fa)' 
+            }}>
+              <h3 style={{ 
+                margin: '0 0 12px 0', 
+                fontSize: '1.1em', 
+                color: 'var(--text-heading, var(--text))',
+                fontWeight: '600'
+              }}>
+                Filter By:
+              </h3>
+              
+              <div style={{ 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                gap: '12px', 
+                alignItems: 'center' 
+              }}>
+                {/* Class Filter */}
+                <select 
+                  name="class" 
+                  value={filters.class} 
+                  onChange={handleFilterChange} 
+                  className="filter-select"
+                  style={{ minWidth: '180px' }}
+                >
+                  <option value="">All Classes</option>
+                  {uniqueClasses.map(cls => (
+                    <option key={cls} value={cls}>{cls}</option>
+                  ))}
+                </select>
 
-            {/* Status Filter */}
-            <select name="status" value={filters.status} onChange={handleFilterChange} className="filter-select">
-              <option value="">All Statuses</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
+                {/* Status Filter */}
+                <select 
+                  name="status" 
+                  value={filters.status} 
+                  onChange={handleFilterChange} 
+                  className="filter-select"
+                  style={{ minWidth: '150px' }}
+                >
+                  <option value="">All Statuses</option>
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
 
-            {/* Admission Year Filter */}
-            <select name="admissionYear" value={filters.admissionYear} onChange={handleFilterChange} className="filter-select">
-              <option value="">All Admission Years</option>
-              {uniqueAdmissionYears.map(year => (
-                <option key={year} value={year}>{year}</option>
-              ))}
-            </select>
+                {/* Admission Year Filter */}
+                <select 
+                  name="admissionYear" 
+                  value={filters.admissionYear} 
+                  onChange={handleFilterChange} 
+                  className="filter-select"
+                  style={{ minWidth: '180px' }}
+                >
+                  <option value="">All Admission Years</option>
+                  {uniqueAdmissionYears.map(year => (
+                    <option key={year} value={year}>{year}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
             {/* Sort Controls */}
-            <h3>Sort By:</h3>
-            <select name="sortField" value={sortBy.field} onChange={handleSortChange} className="filter-select">
-              <option value="">No Sort</option>
-              <option value="name">Name</option>
-              <option value="class">Class</option>
-              <option value="Age">Age</option>
-              <option value="dateOfAdmission">Admission Date</option>
-              <option value="status">Status</option>
-            </select>
+            <div className="filter-controls" style={{ 
+              padding: '15px', 
+              border: '1px solid var(--border, #ddd)', 
+              borderRadius: '8px', 
+              backgroundColor: 'var(--surface, #f8f9fa)' 
+            }}>
+              <h3 style={{ 
+                margin: '0 0 12px 0', 
+                fontSize: '1.1em', 
+                color: 'var(--text-heading, var(--text))',
+                fontWeight: '600'
+              }}>
+                Sort By:
+              </h3>
+              
+              <div style={{ 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                gap: '12px', 
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <select 
+                    name="sortField" 
+                    value={sortBy.field} 
+                    onChange={handleSortChange} 
+                    className="filter-select"
+                    style={{ minWidth: '170px' }}
+                  >
+                    <option value="">No Sort</option>
+                    <option value="name">Name</option>
+                    <option value="class">Class</option>
+                    <option value="Age">Age</option>
+                    <option value="dateOfAdmission">Admission Date</option>
+                    <option value="status">Status</option>
+                  </select>
 
-            <select name="sortOrder" value={sortBy.order} onChange={handleSortChange} className="filter-select">
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
-
-            <button onClick={clearFiltersAndSort} className="clear-filters-btn">
-              Clear Filters & Sort
-            </button>
+                  <select 
+                    name="sortOrder" 
+                    value={sortBy.order} 
+                    onChange={handleSortChange} 
+                    className="filter-select"
+                    style={{ minWidth: '150px' }}
+                  >
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                  </select>
+                </div>
+                
+                <button 
+                  onClick={clearFiltersAndSort} 
+                  className="login-button"
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: 'var(--primary, #6366f1)',
+                    color: 'var(--text-light, white)',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--primary-dark, #4f46e5)'}
+                  onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--primary, #6366f1)'}
+                >
+                  Clear Filters & Sort
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 

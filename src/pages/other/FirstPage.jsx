@@ -12,10 +12,10 @@ const roles = [
 
 function Index() {
   return (
-    <div className="index-background" style={{ background: "var(--background)", color: "var(--text)" }}>
-      <div className="index-container" style={{ background: "var(--surface)", color: "var(--text)" }}>
-        <h1 style={{ color: "var(--text-dark)" }}>Welcome to ERP System</h1>
-        <p style={{ color: "var(--text-muted)" }}>Please select your role to log in:</p>
+    <div className="index-background">
+      <div className="index-container">
+        <h1 className="index-title">ERP System</h1>
+        <p className="index-subtitle">Select your role to log in</p>
         <div className="index-buttons">
           {roles.map((role, index) => (
             <Link
@@ -23,7 +23,6 @@ function Index() {
               to={role.path}
               className="index-button"
               aria-label={`Login as ${role.label}`}
-              style={{ background: "var(--primary)", color: "var(--text-light)" }}
             >
               {role.label}
             </Link>

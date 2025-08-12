@@ -1,12 +1,14 @@
 /* src/styles/FirstPage.css(different from index.css, this is for the first page that loads) */
+
 .index-background {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  background: var(--background);
   padding: var(--spacing-sm);
 }
+
 
 .index-container {
   text-align: center;
@@ -14,20 +16,23 @@
   padding: var(--spacing-lg);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-md);
-  max-width: 500px; /* Limits container width on larger screens */
+  max-width: 500px;
   width: 100%;
   animation: fadeIn 0.5s ease-in-out;
 }
 
-.index-container h1 {
-  font-size: var(--font-size-xl);
-  margin-bottom: var(--spacing-md);
+
+.index-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  letter-spacing: 0.5px;
 }
 
-.index-container p {
-  font-size: var(--font-size-base);
+.index-subtitle {
+  font-size: 1.1rem;
   color: var(--text-muted);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 2em;
 }
 
 .index-buttons {
@@ -36,30 +41,66 @@
   gap: var(--spacing-sm);
 }
 
+
+
 .index-button {
   display: block;
   background: var(--primary);
-  color: rgb(0, 0, 0);
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-bold);
-  transition: background 0.2s ease, transform 0.2s ease;
+  color: var(--text-light);
+  padding: 0.9em 0;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  border: none;
+  outline: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: background 0.18s, transform 0.18s;
+  cursor: pointer;
 }
+
+
 
 .index-button:hover {
   background: var(--primary-dark);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* Responsive Design for Index Page */
-@media (max-width: 480px) {
+@media (max-width: 900px) {
   .index-container {
-    padding: var(--spacing-md);
-    max-width: 90%; /* Adjust max-width for very small screens */
+    padding: 2rem 1.2rem;
+    max-width: 95vw;
+    min-width: 0;
   }
-
+  .index-title {
+    font-size: 1.6rem;
+  }
+  .index-subtitle {
+    font-size: 1rem;
+  }
   .index-button {
-    font-size: var(--font-size-sm);
+    font-size: 1rem;
+    padding: 0.8em 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .index-container {
+    padding: 1.2rem 0.5rem;
+    max-width: 99vw;
+    min-width: 0;
+    border-radius: 10px;
+  }
+  .index-title {
+    font-size: 1.2rem;
+  }
+  .index-subtitle {
+    font-size: 0.98rem;
+  }
+  .index-button {
+    font-size: 0.98rem;
+    padding: 0.7em 0;
   }
 }

@@ -9,6 +9,10 @@ export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light');
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
+  React.useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
   };

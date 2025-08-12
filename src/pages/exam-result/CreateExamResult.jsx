@@ -1,16 +1,22 @@
 // CreateExamResult.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
 
 function CreateExamResult() {
+  // Get exam ID from URL query parameter if provided
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const examIdFromUrl = searchParams.get('examId');
+
   const [exams, setExams] = useState([]);
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState('');
   const [students, setStudents] = useState([]);
   const [subjects, setSubjects] = useState([]);
-  const [selectedExam, setSelectedExam] = useState('');
+  const [selectedExam, setSelectedExam] = useState(examIdFromUrl || '');
   const [selectedStudent, setSelectedStudent] = useState('');
   const [marksObtained, setMarksObtained] = useState([]);
   const API = import.meta.env.VITE_API_URL;
@@ -42,12 +48,20 @@ function CreateExamResult() {
     if (!selectedExam) return;
     axios.get(`${API}/api/v1/admin/exam/${selectedExam}`, { withCredentials: true })
       .then(res => {
-        const subjectsArr = res.data.data.subjects || [];
+        const examData = res.data.data;
+        const subjectsArr = examData.subjects || [];
+        
+        // Set marks obtained array
         setMarksObtained(subjectsArr.map(s => ({
           subjectId: s.subjectId._id || s.subjectId,
           marks: 0,
           status: "Present"
         })));
+        
+        // If we have a class ID in the exam data, select that class automatically
+        if (examData.classId && examData.classId._id) {
+          setSelectedClass(examData.classId._id);
+        }
       });
   }, [selectedExam]);
 
@@ -78,9 +92,26 @@ function CreateExamResult() {
               {classes.map(c => <option key={c._id} value={c._id}>{c.name || c.className}</option>)}
             </select>
 
-            <select required value={selectedExam} onChange={e => setSelectedExam(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }}>
+            <select 
+              required 
+              value={selectedExam} 
+              onChange={e => setSelectedExam(e.target.value)} 
+              style={{ 
+                padding: 8, 
+                borderRadius: 6, 
+                width: '100%', 
+                marginBottom: 12, 
+                border: '1px solid #444', 
+                background: examIdFromUrl ? 'rgba(37, 99, 235, 0.2)' : 'var(--surface, #222)', 
+                color: 'var(--text, #e0e0e0)' 
+              }}
+            >
               <option value="">Select Exam</option>
-              {exams.map(e => <option key={e._id} value={e._id}>{e.examName}</option>)}
+              {exams.map(e => (
+                <option key={e._id} value={e._id}>
+                  {e.examName} {examIdFromUrl === e._id ? '(Selected)' : ''}
+                </option>
+              ))}
             </select>
 
             <select required value={selectedStudent} onChange={e => setSelectedStudent(e.target.value)} style={{ padding: 8, borderRadius: 6, width: '100%', marginBottom: 12, border: '1px solid #444', background: 'var(--surface, #222)', color: 'var(--text, #e0e0e0)' }}>

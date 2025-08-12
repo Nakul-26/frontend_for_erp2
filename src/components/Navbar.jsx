@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
 import axios from 'axios';
 import { useTheme } from '../Context';
 import { useAuth } from '../context/AuthContext';
 
-function Navbar({ pageTitle}) { 
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+function Navbar({ pageTitle = 'Dashboard' }) { 
   const navigate = useNavigate();
-  const { toggleSidebar, isSidebarOpen } = useTheme();
+  const { toggleSidebar } = useTheme();
   const { user, logout } = useAuth();
   
   const handleLogout = async () => {
@@ -52,10 +51,6 @@ function Navbar({ pageTitle}) {
           Logout
         </button>
       </div>
-      <div
-        className={`sidebar-overlay ${isOverlayOpen ? 'open' : ''}`}
-        onClick={toggleSidebar}
-      ></div>
     </header>
   );
 }

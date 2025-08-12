@@ -1,0 +1,38 @@
+/* Additional dark mode fixes for CreateTimetablePage */
+[data-theme="dark"] .timetable-table {
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .timetable-table th {
+  background-color: var(--primary) !important;
+  color: var(--text-light) !important;
+}
+
+[data-theme="dark"] .timetable-table td {
+  background-color: var(--surface) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text) !important;
+}
+
+[data-theme="dark"] .timetable-table td:first-child {
+  background-color: var(--surface-dark) !important;
+  color: var(--text) !important;
+}
+
+[data-theme="dark"] .timetable-form-container select,
+[data-theme="dark"] .timetable-form-container button {
+  background-color: var(--input-background) !important;
+  border-color: var(--border-color) !important;
+  color: var(--input-text) !important;
+}
+
+[data-theme="dark"] .drag-container {
+  background-color: var(--surface-dark) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .drag-item {
+  background-color: var(--surface) !important;
+  border-color: var(--primary) !important;
+  color: var(--text) !important;
+}

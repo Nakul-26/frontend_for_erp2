@@ -1,5 +1,5 @@
 // src/pages/SubjectsPage.jsx
-import React, { useEffect, useState, lazy, Suspense, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/Dashboard.css';
@@ -10,12 +10,8 @@ import Navbar from '../../components/Navbar';
 import SubjectCard from '../../components/SubjectCard';
 import { useAuth } from '../../context/AuthContext';
 
-// Import the Table component
-const Table = lazy(() => import('../../components/Table'));
-
 function SubjectsPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 900);
-  const [isTableView, setIsTableView] = useState(false);
   const [subjects, setSubjects] = useState([]);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -180,33 +176,7 @@ function SubjectsPage() {
     }
   };
 
-  // Define columns for the Subject Table
-  const subjectTableColumns = [
-    { key: 'code', label: 'Code' },
-    { key: 'name', label: 'Name' },
-    { key: 'shortName', label: 'Short Name' },
-    { key: 'description', label: 'Description' },
-    { key: 'courseType', label: 'Course Type' },
-    { key: 'lectureHours', label: 'Lecture Hours' },
-    { key: 'isActive', label: 'Status', accessor: (data) => data.isActive ? 'Active' : 'Inactive' },
-    {
-      key: 'actions',
-      label: 'Actions',
-      renderCell: (subject) => (
-        <div style={{ display: 'flex', gap: '5px' }}>
-          <Link to={`/admin/subjects/updatesubject/${subject.code}`} className="form-button small-button">
-            Edit
-          </Link>
-          <button
-            className="form-button delete-button small-button"
-            onClick={() => handleDeleteSubject(subject.code)}
-          >
-            Delete
-          </button>
-        </div>
-      )
-    }
-  ];
+  // No table columns needed anymore as we're only using card view
 
   return (
     <div className="dashboard-container">
@@ -220,62 +190,152 @@ function SubjectsPage() {
 
         <div className="action-and-filter-bar" style={{ marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
           <div className="action-buttons" style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
-            <Link to="/admin/subjects/add" className="form-button" style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <Link to="/admin/subjects/add" className="form-button" style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'white' }}>
               Add Subject
             </Link>
-            <button
-              onClick={() => setIsTableView(!isTableView)}
-              className="form-button"
-              style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-            >
-              {isTableView ? 'Show Card View' : 'Show Table View'}
-            </button>
           </div>
 
-          {/* Filter Controls */}
-          <div className="filter-controls" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', padding: '10px', border: '1px solid var(--border, #222)', borderRadius: '8px', backgroundColor: 'var(--surface, #222)' }}>
-            <h3>Filter By:</h3>
-            {/* Course Type Filter */}
-            <select name="courseType" value={filters.courseType} onChange={handleFilterChange} className="filter-select">
-              <option value="">All Course Types</option>
-              {uniqueCourseTypes.map(type => (
-                <option key={type} value={type}>{type}</option>
-              ))}
-            </select>
+          {/* Filter and Sort Controls Container */}
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '15px'
+          }}>
+            {/* Filter Controls */}
+            <div className="filter-controls" style={{ 
+              padding: '15px', 
+              border: '1px solid var(--border, #ddd)', 
+              borderRadius: '8px', 
+              backgroundColor: 'var(--surface, #f8f9fa)' 
+            }}>
+              <h3 style={{ 
+                margin: '0 0 12px 0', 
+                fontSize: '1.1em', 
+                color: 'var(--text-heading, var(--text))',
+                fontWeight: '600'
+              }}>
+                Filter By:
+              </h3>
+              
+              <div style={{ 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                gap: '12px', 
+                alignItems: 'center' 
+              }}>
+                {/* Course Type Filter */}
+                <select 
+                  name="courseType" 
+                  value={filters.courseType} 
+                  onChange={handleFilterChange} 
+                  className="filter-select"
+                  style={{ minWidth: '180px' }}
+                >
+                  <option value="">All Course Types</option>
+                  {uniqueCourseTypes.map(type => (
+                    <option key={type} value={type}>{type}</option>
+                  ))}
+                </select>
 
-            {/* Status Filter */}
-            <select name="status" value={filters.status} onChange={handleFilterChange} className="filter-select">
-              <option value="">All Statuses</option>
-              <option value="true">Active</option>
-              <option value="false">Inactive</option>
-            </select>
+                {/* Status Filter */}
+                <select 
+                  name="status" 
+                  value={filters.status} 
+                  onChange={handleFilterChange} 
+                  className="filter-select"
+                  style={{ minWidth: '150px' }}
+                >
+                  <option value="">All Statuses</option>
+                  <option value="true">Active</option>
+                  <option value="false">Inactive</option>
+                </select>
 
-            {/* Lecture Hours Filter */}
-            <select name="lectureHours" value={filters.lectureHours} onChange={handleFilterChange} className="filter-select">
-              <option value="">All Lecture Hours</option>
-              {uniqueLectureHours.map(hours => (
-                <option key={hours} value={hours}>{hours}</option>
-              ))}
-            </select>
+                {/* Lecture Hours Filter */}
+                <select 
+                  name="lectureHours" 
+                  value={filters.lectureHours} 
+                  onChange={handleFilterChange} 
+                  className="filter-select"
+                  style={{ minWidth: '170px' }}
+                >
+                  <option value="">All Lecture Hours</option>
+                  {uniqueLectureHours.map(hours => (
+                    <option key={hours} value={hours}>{hours}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
             {/* Sort Controls */}
-            <h3>Sort By:</h3>
-            <select name="sortField" value={sortBy.field} onChange={handleSortChange} className="filter-select">
-              <option value="">No Sort</option>
-              <option value="name">Name</option>
-              <option value="code">Code</option>
-              <option value="courseType">Course Type</option>
-              <option value="lectureHours">Lecture Hours</option>
-            </select>
+            <div className="filter-controls" style={{ 
+              padding: '15px', 
+              border: '1px solid var(--border, #ddd)', 
+              borderRadius: '8px', 
+              backgroundColor: 'var(--surface, #f8f9fa)' 
+            }}>
+              <h3 style={{ 
+                margin: '0 0 12px 0', 
+                fontSize: '1.1em', 
+                color: 'var(--text-heading, var(--text))',
+                fontWeight: '600'
+              }}>
+                Sort By:
+              </h3>
+              
+              <div style={{ 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                gap: '12px', 
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <select 
+                    name="sortField" 
+                    value={sortBy.field} 
+                    onChange={handleSortChange} 
+                    className="filter-select"
+                    style={{ minWidth: '170px' }}
+                  >
+                    <option value="">No Sort</option>
+                    <option value="name">Name</option>
+                    <option value="code">Code</option>
+                    <option value="courseType">Course Type</option>
+                    <option value="lectureHours">Lecture Hours</option>
+                  </select>
 
-            <select name="sortOrder" value={sortBy.order} onChange={handleSortChange} className="filter-select">
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
-
-            <button onClick={clearFiltersAndSort} className="clear-filters-btn">
-              Clear Filters & Sort
-            </button>
+                  <select 
+                    name="sortOrder" 
+                    value={sortBy.order} 
+                    onChange={handleSortChange} 
+                    className="filter-select"
+                    style={{ minWidth: '150px' }}
+                  >
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                  </select>
+                </div>
+                
+                <button 
+                  onClick={clearFiltersAndSort} 
+                  className="login-button"
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: 'var(--primary, #6366f1)',
+                    color: 'var(--text-light, white)',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--primary-dark, #4f46e5)'}
+                  onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--primary, #6366f1)'}
+                >
+                  Clear Filters & Sort
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -295,21 +355,15 @@ function SubjectsPage() {
         ) : filteredAndSortedSubjects.length === 0 ? (
           <div style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>No subjects found matching your criteria.</div>
         ) : (
-          isTableView ? (
-            <Suspense fallback={<div>Loading table view...</div>}>
-              <Table data={filteredAndSortedSubjects} columns={subjectTableColumns} />
-            </Suspense>
-          ) : (
-            <div className="cards-grid">
-              {filteredAndSortedSubjects.map((subject) => (
-                <SubjectCard
-                  key={subject.code}
-                  subject={subject}
-                  onDelete={handleDeleteSubject}
-                />
-              ))}
-            </div>
-          )
+          <div className="cards-grid">
+            {filteredAndSortedSubjects.map((subject) => (
+              <SubjectCard
+                key={subject.code}
+                subject={subject}
+                onDelete={handleDeleteSubject}
+              />
+            ))}
+          </div>
         )}
       </main>
     </div>

@@ -27,12 +27,23 @@
 }
 
 .menu-btn {
-  /* display: none; Hidden on desktop */
-  font-size: var(--font-size-lg);
-  background: none;
-  border: none;
-  color: var(--text);
-  cursor: pointer;
+display: none; /* Hide by default on desktop */
+position: fixed; /* Keep it in top-left */
+top: 1rem;
+left: 1rem;
+align-items: center;
+justify-content: center;
+font-size: 1.25rem;
+background-color: transparent;
+border: none;
+color: var(--text);
+cursor: pointer;
+padding: 6px 12px;
+transition: all 0.2s ease;
+}
+
+.menu-btn:hover {
+  color: var(--primary);
 }
 
 .sidebar-overlay {
@@ -46,12 +57,53 @@
   z-index: 999;
 }
 
-@media (max-width: 768px) {
-  .menu-btn {
-    display: block; /* Show menu button on mobile */
-  }
+/* Dashboard header layout */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--spacing-lg);
+}
 
-  .sidebar-overlay.open {
-    display: block;
+.dashboard-header h1 {
+  flex: 1;
+  margin: 0;
+  text-align: left; /* Left-aligned on desktop */
+}
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Show menu button only on mobile and tablet */
+@media (max-width: 900px) {
+  .dashboard-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: var(--spacing-sm);
+  }
+  
+  .menu-btn {
+    display: flex; /* Show on mobile and tablet */
+    position: static;
+    grid-column: 1;
+    margin-right: 10px;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  .dashboard-header h1 {
+    grid-column: 2;
+    text-align: center;
+    font-size: calc(var(--font-size-lg) - 2px);
+  }
+  
+  .header-actions {
+    grid-column: 3;
   }
 }

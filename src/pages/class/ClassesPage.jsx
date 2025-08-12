@@ -30,7 +30,49 @@ function ClassesPage() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  
   const [isTableView, setIsTableView] = useState(false);
+
+  // Add button component
+  const AddClassButton = () => (
+    <div className="page-header" style={{ 
+      display: 'flex', 
+      justifyContent: 'flex-end', 
+      alignItems: 'center',
+      marginBottom: '20px',
+      padding: '0 20px'
+    }}>
+      <Link 
+        to="/admin/classes/add" 
+        style={{
+          background: 'var(--primary)',
+          color: 'var(--text-light)',
+          padding: '12px 24px',
+          borderRadius: '8px',
+          textDecoration: 'none',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontSize: '15px',
+          fontWeight: '600',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+          transition: 'transform 0.2s, box-shadow 0.2s'
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.transform = 'translateY(-2px)';
+          e.currentTarget.style.boxShadow = '0 5px 10px rgba(0,0,0,0.2)';
+          e.currentTarget.style.background = 'var(--primary-dark, #0056b3)';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.transform = 'translateY(0)';
+          e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+          e.currentTarget.style.background = 'var(--primary)';
+        }}
+      >
+        <span style={{ fontSize: '18px', fontWeight: 'bold' }}>+</span> Add New Class
+      </Link>
+    </div>
+  );
 
   // State for Filters
   const [filters, setFilters] = useState({
@@ -135,6 +177,62 @@ function ClassesPage() {
     setSortBy({ field: '', order: 'asc' });
   };
 
+  // Function to get the page content
+  const getClassPageContent = () => (
+    <>
+      <div className="page-actions" style={{ 
+        display: 'flex', 
+        justifyContent: 'flex-end', 
+        marginBottom: '20px',
+        padding: '0 20px'
+      }}>
+        <Link 
+          to="/admin/classes/add" 
+          style={{
+            background: 'var(--primary)',
+            color: 'var(--text-light)',
+            padding: '10px 20px',
+            borderRadius: '6px',
+            textDecoration: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            fontSize: '14px',
+            fontWeight: '500',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            transition: 'transform 0.2s, box-shadow 0.2s'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'translateY(-1px)';
+            e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+          }}
+        >
+          <span style={{ fontSize: '20px' }}>+</span> Add New Class
+        </Link>
+      </div>
+
+      {error ? (
+        <div className="error-message" style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>
+          {error}
+        </div>
+      ) : loading ? (
+        <div style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>Loading classes...</div>
+      ) : filteredAndSortedClasses.length === 0 ? (
+        <div style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>No classes found matching your criteria.</div>
+      ) : (
+        <div className="classes-grid">
+          {filteredAndSortedClasses.map((cls) => (
+            <ClassCard key={cls.classId} classData={cls} onDelete={handleDeleteClass} allSubjects={allSubjects} />
+          ))}
+        </div>
+      )}
+    </>
+  );
+
   // Memoized filtered and sorted classes for performance
   const filteredAndSortedClasses = useMemo(() => {
     let currentClasses = [...classes]; // Start with a copy of the original data
@@ -203,6 +301,23 @@ function ClassesPage() {
     { key: 'academicYear', label: 'Academic Year' },
     { key: 'status', label: 'Status' },
     {
+      key: 'attendance',
+      label: 'Attendance',
+      renderCell: (classItem) => (
+        <Link 
+          to={`/admin/teachers/attendance?classId=${classItem.classId}`} 
+          className="login-button small-button"
+          style={{ 
+            backgroundColor: 'var(--accent)',
+            color: 'var(--text-light)',
+            textDecoration: 'none'
+          }}
+        >
+          View/Update Attendance
+        </Link>
+      )
+    },
+    {
       key: 'actions',
       label: 'Actions',
       renderCell: (classItem) => (
@@ -239,76 +354,178 @@ function ClassesPage() {
               <Link to="/admin/classes/add" className="login-button" style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 Add Class
               </Link>
-              <button
-                onClick={() => setIsTableView(!isTableView)}
-                className="login-button"
-                style={{ minWidth: '120px', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-              >
-                {isTableView ? 'Show Card View' : 'Show Table View'}
-              </button>
             </div>
 
-            {/* Filter Controls */}
-          <div className="filter-controls" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', padding: '10px', border: '1px solid var(--border, #222)', borderRadius: '8px', backgroundColor: 'var(--surface, #222)' }}>
-              <h3>Filter By:</h3>
-              {/* Academic Year Filter */}
-              <select name="academicYear" value={filters.academicYear} onChange={handleFilterChange} className="filter-select">
-                <option value="">All Academic Years</option>
-                {uniqueAcademicYears.map(year => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
-              </select>
+            {/* Filter and Sort Controls Container */}
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '15px'
+            }}>
+              {/* Filter Controls */}
+              <div className="filter-controls" style={{ 
+                padding: '15px', 
+                border: '1px solid var(--border, #ddd)', 
+                borderRadius: '8px', 
+                backgroundColor: 'var(--surface, #f8f9fa)' 
+              }}>
+                <h3 style={{ 
+                  margin: '0 0 12px 0', 
+                  fontSize: '1.1em', 
+                  color: 'var(--text-heading, var(--text))',
+                  fontWeight: '600'
+                }}>
+                  Filter By:
+                </h3>
+                
+                <div style={{ 
+                  display: 'flex', 
+                  flexWrap: 'wrap', 
+                  gap: '12px', 
+                  alignItems: 'center' 
+                }}>
+                  {/* Academic Year Filter */}
+                  <select 
+                    name="academicYear" 
+                    value={filters.academicYear} 
+                    onChange={handleFilterChange} 
+                    className="filter-select"
+                    style={{ minWidth: '170px' }}
+                  >
+                    <option value="">All Academic Years</option>
+                    {uniqueAcademicYears.map(year => (
+                      <option key={year} value={year}>{year}</option>
+                    ))}
+                  </select>
 
-              {/* Section Filter */}
-              <select name="section" value={filters.section} onChange={handleFilterChange} className="filter-select">
-                <option value="">All Sections</option>
-                {uniqueSections.map(section => (
-                  <option key={section} value={section}>{section}</option>
-                ))}
-              </select>
+                  {/* Section Filter */}
+                  <select 
+                    name="section" 
+                    value={filters.section} 
+                    onChange={handleFilterChange} 
+                    className="filter-select"
+                    style={{ minWidth: '150px' }}
+                  >
+                    <option value="">All Sections</option>
+                    {uniqueSections.map(section => (
+                      <option key={section} value={section}>{section}</option>
+                    ))}
+                  </select>
 
-              {/* Status Filter */}
-              <select name="status" value={filters.status} onChange={handleFilterChange} className="filter-select">
-                <option value="">All Statuses</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-              </select>
+                  {/* Status Filter */}
+                  <select 
+                    name="status" 
+                    value={filters.status} 
+                    onChange={handleFilterChange} 
+                    className="filter-select"
+                    style={{ minWidth: '150px' }}
+                  >
+                    <option value="">All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
 
-              {/* Subject Filter */}
-              <select name="subject" value={filters.subject} onChange={handleFilterChange} className="filter-select">
-                <option value="">All Subjects</option>
-                {allSubjects.map(subject => (
-                  <option key={subject._id} value={subject._id}>{subject.name} ({subject.code})</option>
-                ))}
-              </select>
+                  {/* Subject Filter */}
+                  <select 
+                    name="subject" 
+                    value={filters.subject} 
+                    onChange={handleFilterChange} 
+                    className="filter-select"
+                    style={{ minWidth: '200px' }}
+                  >
+                    <option value="">All Subjects</option>
+                    {allSubjects.map(subject => (
+                      <option key={subject._id} value={subject._id}>{subject.name} ({subject.code})</option>
+                    ))}
+                  </select>
 
-              {/* Class Teacher Filter */}
-              <select name="classteacher" value={filters.classteacher} onChange={handleFilterChange} className="filter-select">
-                <option value="">All Class Teachers</option>
-                {uniqueClassTeachers.map(teacher => (
-                  <option key={teacher} value={teacher}>{teacher}</option>
-                ))}
-              </select>
+                  {/* Class Teacher Filter */}
+                  <select 
+                    name="classteacher" 
+                    value={filters.classteacher} 
+                    onChange={handleFilterChange} 
+                    className="filter-select"
+                    style={{ minWidth: '180px' }}
+                  >
+                    <option value="">All Class Teachers</option>
+                    {uniqueClassTeachers.map(teacher => (
+                      <option key={teacher} value={teacher}>{teacher}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
 
               {/* Sort Controls */}
-              <h3>Sort By:</h3>
-              <select name="sortField" value={sortBy.field} onChange={handleSortChange} className="filter-select">
-                <option value="">No Sort</option>
-                <option value="name">Class Name</option>
-                <option value="nostudent">No. of Students</option>
-                <option value="academicYear">Academic Year</option>
-                <option value="status">Status</option>
-                <option value="classteacher">Class Teacher</option>
-              </select>
+              <div className="filter-controls" style={{ 
+                padding: '15px', 
+                border: '1px solid var(--border, #ddd)', 
+                borderRadius: '8px', 
+                backgroundColor: 'var(--surface, #f8f9fa)' 
+              }}>
+                <h3 style={{ 
+                  margin: '0 0 12px 0', 
+                  fontSize: '1.1em', 
+                  color: 'var(--text-heading, var(--text))',
+                  fontWeight: '600'
+                }}>
+                  Sort By:
+                </h3>
+                
+                <div style={{ 
+                  display: 'flex', 
+                  flexWrap: 'wrap', 
+                  gap: '12px', 
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}>
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                    <select 
+                      name="sortField" 
+                      value={sortBy.field} 
+                      onChange={handleSortChange} 
+                      className="filter-select"
+                      style={{ minWidth: '170px' }}
+                    >
+                      <option value="">No Sort</option>
+                      <option value="name">Class Name</option>
+                      <option value="nostudent">No. of Students</option>
+                      <option value="academicYear">Academic Year</option>
+                      <option value="status">Status</option>
+                      <option value="classteacher">Class Teacher</option>
+                    </select>
 
-              <select name="sortOrder" value={sortBy.order} onChange={handleSortChange} className="filter-select">
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-              </select>
-
-              <button onClick={clearFiltersAndSort} className="clear-filters-btn">
-                Clear Filters & Sort
-              </button>
+                    <select 
+                      name="sortOrder" 
+                      value={sortBy.order} 
+                      onChange={handleSortChange} 
+                      className="filter-select"
+                      style={{ minWidth: '150px' }}
+                    >
+                      <option value="asc">Ascending</option>
+                      <option value="desc">Descending</option>
+                    </select>
+                  </div>
+                  
+                  <button 
+                    onClick={clearFiltersAndSort} 
+                    className="login-button"
+                    style={{
+                      padding: '8px 16px',
+                      backgroundColor: 'var(--primary, #6366f1)',
+                      color: 'var(--text-light, white)',
+                      border: 'none',
+                      borderRadius: '6px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'background-color 0.2s'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--primary-dark, #4f46e5)'}
+                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--primary, #6366f1)'}
+                  >
+                    Clear Filters & Sort
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 

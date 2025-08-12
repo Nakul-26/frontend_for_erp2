@@ -1,12 +1,14 @@
 /* src/styles/Login.css (Login2 Specific) */
+
 .login2-background {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  background: var(--background);
   padding: var(--spacing-sm);
 }
+
 
 .login2-container {
   background: var(--surface);
@@ -14,7 +16,7 @@
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-md);
   width: 100%;
-  max-width: 400px; /* Limits container width on larger screens */
+  max-width: 400px;
   animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -81,15 +83,17 @@
   color: var(--primary);
 }
 
+
 .login2-button {
   background: var(--primary);
-  color: rgb(0, 0, 0);
+  color: var(--text-light);
   padding: var(--spacing-sm);
   border: none;
   border-radius: var(--border-radius-sm);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-bold);
 }
+
 
 .login2-button:hover {
   background: var(--primary-dark);

@@ -31,13 +31,10 @@ function AdminDashboard() {
     return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
   };
 
-  // Force a demo email for testing
-  const demoEmail = "Jayanthgopala@Quantumx.com";
-
   const stats = [
     { icon: <FaIdCard />, title: 'Admin ID', value: user?.id || '-' },
     { icon: <FaUser />, title: 'Name', value: user?.Name || '-' },
-    { icon: <FaEnvelope />, title: 'Email', value: truncateText(demoEmail, 18) },
+    { icon: <FaEnvelope />, title: 'Email', value: truncateText(user?.email, 20) },
     { icon: <FaShieldAlt />, title: 'Role', value: user?.isAdmin ? 'Admin' : 'Non-Admin' },
   ];
 
@@ -118,9 +115,7 @@ function AdminDashboard() {
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
-                    width: '100%',
-                    fontSize: '18px',
-                    fontWeight: '500'
+                    width: '100%' 
                   }}>
                     {stat.value}
                   </h3>
