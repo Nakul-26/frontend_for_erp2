@@ -11,6 +11,8 @@ import ClassesPage from './pages/class/ClassesPage';
 import ModifyClassPage from './pages/class/ModifyClassPage';
 import SearchClass from './pages/class/SearchClass';
 
+import NotesPage from './pages/notes/NotesPage';
+
 import AdminDashboard from './pages/admin/AdminDashboard'; 
 import AdminLogin from './pages/admin/AdminLogin'; 
 
@@ -59,6 +61,7 @@ import UpdateTeacherAttendance from './pages/attendence/UpdateTeacherAttendance'
 import TeacherChangePassword from './pages/teacher/TeacherChangePassword';
 import GetTeacherSchedule from './pages/teacher/GetTeacherSchedule';
 import CreateAttendance from './pages/teacher_pages/CreateAttendance';
+import { PaymentInformation } from './pages/payment';
 
 import './App.css';
 
@@ -138,6 +141,9 @@ function AppContent() {
           
           <Route path="/admin/students/attendance" element={<ProtectedRoute element={<MarkStudentAttendance />} requiredRole="admin" />} />
           <Route path="/admin/student-attendance" element={<ProtectedRoute element={<GetStudentAttendance />} requiredRole="admin" />} />
+          
+          <Route path="/admin/notes" element={<ProtectedRoute element={<NotesPage />} requiredRole="admin" />} />
+          <Route path="/admin/payments" element={<ProtectedRoute element={<PaymentInformation />} requiredRole="admin" />} />
 
           <Route path="/teacher/change-password" element={<ProtectedRoute element={<TeacherChangePassword />} requiredRole="teacher" />} />
           <Route path="/teacher/schedule" element={<ProtectedRoute element={<GetTeacherSchedule />} requiredRole="teacher" />} />

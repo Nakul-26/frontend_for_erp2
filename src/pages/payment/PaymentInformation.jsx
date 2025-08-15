@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
+import { isValidDate, sanitizeInput } from '../../services/securityUtils';
 import '../../styles/Dashboard.css';
 
 function PaymentInformation() {
@@ -66,7 +67,7 @@ function PaymentInformation() {
     
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/api/v1/admin/getall`,
+        `${API_BASE_URL}/api/v1/admin/class/getallclasses`,
         { withCredentials: true }
       );
       
@@ -84,18 +85,28 @@ function PaymentInformation() {
     }
   };
 
-  // Then fetch all students
+  // Then fetch all students with enhanced error handling
   const fetchStudents = async () => {
     setError('');
     setLoading(true);
     
     try {
+      // Verify API_BASE_URL is available
+      if (!API_BASE_URL) {
+        throw new Error('API URL is not configured');
+      }
+      
       const response = await axios.get(
         `${API_BASE_URL}/api/v1/admin/getallstudents`,
-        { withCredentials: true }
+        { 
+          withCredentials: true,
+          // Add timeout to prevent hanging requests
+          timeout: 10000
+        }
       );
       
-      if (response.data.success) {
+      if (response.data && response.data.success && Array.isArray(response.data.data)) {
+        // Ensure we're getting valid data
         setStudents(response.data.data);
         setFilteredStudents(response.data.data); // Initially show all students
         
@@ -153,17 +164,30 @@ function PaymentInformation() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setPaymentData(prev => ({ ...prev, [name]: value }));
+    
+    // Sanitize input before storing in state
+    const sanitizedValue = name === 'amount' 
+      ? value // Don't sanitize numeric values
+      : sanitizeInput(value);
+      
+    setPaymentData(prev => ({ ...prev, [name]: sanitizedValue }));
   };
 
   const addPayment = () => {
+    // Enhanced input validation
     if (!selectedStudent) {
-      alert('Please select a student first');
+      setError('Please select a student first');
       return;
     }
 
     if (!paymentData.amount || isNaN(paymentData.amount) || parseFloat(paymentData.amount) <= 0) {
-      alert('Please enter a valid payment amount');
+      setError('Please enter a valid payment amount (must be greater than 0)');
+      return;
+    }
+    
+    // Sanitize and validate payment date
+    if (!paymentData.paymentDate || !isValidDate(paymentData.paymentDate)) {
+      setError('Please enter a valid payment date');
       return;
     }
 
@@ -194,8 +218,9 @@ function PaymentInformation() {
     });
 
     // Here you would typically make an API call to save the payment
+    // Use state for success messages instead of alert
+    setSuccess('Payment added successfully!');
     console.log('Payment added:', newPayment);
-    alert('Payment added successfully!');
   };
 
   const updatePayment = () => {

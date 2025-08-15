@@ -1,6 +1,7 @@
 import React, { useState, lazy, Suspense, useEffect } from 'react';
 import { FaIdCard, FaUser, FaEnvelope, FaShieldAlt, FaUserCheck, FaUserTimes } from 'react-icons/fa';
 import '../../styles/Dashboard.css';
+import '../../styles/MobileResponsive.css';
 import { useAuth } from '../../context/AuthContext';
 import '../../App.css';
 import { useTheme } from '../../Context';
@@ -14,12 +15,10 @@ function AdminDashboard() {
   const { theme } = useTheme(); // Get theme from context
   console.log(`Admin Dashboard theme: ${theme}`);
 
-  // Set theme to dark on component mount
+  // Set theme to light on component mount
   useEffect(() => {
-    if (theme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-  }, [theme]);
+    document.documentElement.setAttribute('data-theme', 'light');
+  }, []);
 
   const { user } = useAuth(); // Get admin data from context
 
@@ -31,13 +30,10 @@ function AdminDashboard() {
     return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
   };
 
-  // Force a demo email for testing
-  const demoEmail = "Jayanthgopala@Quantumx.com";
-
   const stats = [
     { icon: <FaIdCard />, title: 'Admin ID', value: user?.id || '-' },
     { icon: <FaUser />, title: 'Name', value: user?.Name || '-' },
-    { icon: <FaEnvelope />, title: 'Email', value: truncateText(demoEmail, 18) },
+    { icon: <FaEnvelope />, title: 'Email', value: truncateText(user?.email, 18) },
     { icon: <FaShieldAlt />, title: 'Role', value: user?.isAdmin ? 'Admin' : 'Non-Admin' },
   ];
 
@@ -114,7 +110,7 @@ function AdminDashboard() {
                 <div className="stat-icon" style={{ color: 'var(--primary)' }}>{stat.icon}</div>
                 <div className="stat-info">
                   <h3 style={{ 
-                    color: 'var(--text)', 
+                    color: 'var(--text)',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
@@ -135,7 +131,7 @@ function AdminDashboard() {
             gap: '20px', 
             marginTop: '20px' 
           }}>
-            <section className="schedule-section" style={{ backgroundColor: 'var(--surface)', borderRadius: '8px', padding: '20px' }}>
+            <section className="schedule-section teacher-attendance" style={{ backgroundColor: 'var(--surface)', borderRadius: '8px', padding: '20px' }}>
               <h2 style={{ display: 'flex', alignItems: 'center', fontSize: '1.2rem', fontWeight: '500', marginTop: '0', color: 'var(--text)' }}>
                 <FaUserTimes style={{ marginRight: '8px' }} />
                 Teachers Attendance
@@ -199,7 +195,7 @@ function AdminDashboard() {
                 </div>
               )}
             </section>
-            <section className="quick-actions" style={{ backgroundColor: 'var(--surface)', borderRadius: '8px', padding: '20px' }}>
+            <section className="schedule-section student-attendance" style={{ backgroundColor: 'var(--surface)', borderRadius: '8px', padding: '20px' }}>
               <h2 style={{ display: 'flex', alignItems: 'center', fontSize: '1.2rem', fontWeight: '500', marginTop: '0', color: 'var(--text)' }}>
                 <FaUserCheck style={{ marginRight: '8px' }} />
                 Student Attendance

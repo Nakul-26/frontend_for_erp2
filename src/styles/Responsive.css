@@ -1,0 +1,128 @@
+/* Responsive.css - Responsive styles for all devices */
+
+/* Base responsive settings */
+:root {
+  --sidebar-width: 250px;
+  --sidebar-collapsed-width: 70px;
+  --transition-speed: 0.3s;
+}
+
+/* Mobile (portrait phones) */
+@media (max-width: 576px) {
+  .main-content {
+    padding: 12px !important;
+    margin-left: 0 !important;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  
+  .sidebar {
+    width: 0 !important;
+    position: fixed !important;
+    left: -250px !important;
+    z-index: 1000 !important;
+  }
+  
+  .sidebar.open {
+    left: 0 !important;
+    width: 250px !important;
+  }
+  
+  .main-content.collapsed {
+    margin-left: 0 !important;
+  }
+  
+  .stat-card {
+    padding: 12px !important;
+  }
+}
+
+/* Tablet and small desktop */
+@media (min-width: 577px) and (max-width: 992px) {
+  .main-content {
+    margin-left: var(--sidebar-collapsed-width) !important;
+    padding: 16px !important;
+  }
+  
+  .sidebar {
+    width: var(--sidebar-collapsed-width) !important;
+  }
+  
+  .sidebar.open {
+    width: var(--sidebar-width) !important;
+  }
+  
+  .main-content.collapsed {
+    margin-left: var(--sidebar-collapsed-width) !important;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  /* Hide text in sidebar when collapsed */
+  .sidebar:not(.open) .menu-item-text {
+    display: none !important;
+  }
+}
+
+/* Larger desktop */
+@media (min-width: 993px) {
+  .main-content {
+    margin-left: var(--sidebar-width);
+    padding: 24px;
+  }
+  
+  .main-content.collapsed {
+    margin-left: var(--sidebar-collapsed-width);
+  }
+  
+  .sidebar {
+    width: var(--sidebar-width);
+  }
+  
+  .sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Adjust text overflow for all screen sizes */
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fix for mobile navigation overlay */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+@media (max-width: 576px) {
+  .mobile-nav-overlay.visible {
+    display: block;
+  }
+}

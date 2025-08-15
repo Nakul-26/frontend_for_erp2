@@ -1,0 +1,52 @@
+/* Mobile and tablet responsive fixes */
+@media (max-width: 992px) {
+  /* Reverse order of dashboard grid sections on mobile/tablet */
+  .dashboard-grid {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* Make sure teacher attendance always comes first */
+  .teacher-attendance {
+    order: 0 !important;
+  }
+  
+  /* Student attendance comes second */
+  .student-attendance {
+    order: 1 !important;
+    margin-top: 20px !important;
+  }
+}
+
+/* Mobile specific admin stats organization */
+@media (max-width: 768px) {
+  /* Change stats to single column for mobile */
+  .stats-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  
+  /* Set specific order for each stat card */
+  .admin-id-card {
+    order: 1 !important;
+  }
+  
+  .admin-name-card {
+    order: 2 !important;
+  }
+  
+  .admin-email-card {
+    order: 3 !important;
+  }
+  
+  .admin-role-card {
+    order: 4 !important;
+  }
+  
+  /* Make each stat card more compact */
+  .stat-card {
+    margin-bottom: 0 !important;
+    padding: 12px !important;
+  }
+}

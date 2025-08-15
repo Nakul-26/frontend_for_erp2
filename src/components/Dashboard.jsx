@@ -26,11 +26,11 @@ function Dashboard() {
     { icon: <FaBook />, title: "Subjects", value: teacherData?.subjects?.length || 0 }
   ];
 
-  const upcomingClasses = [
-    { time: "09:00 AM", subject: "Database Management", class: "CS-301" },
-    { time: "11:00 AM", subject: "Web Development", class: "CS-401" },
-    { time: "02:00 PM", subject: "Data Structures", class: "CS-201" }
-  ];
+  // const upcomingClasses = [
+  //   { time: "09:00 AM", subject: "Database Management", class: "CS-301" },
+  //   { time: "11:00 AM", subject: "Web Development", class: "CS-401" },
+  //   { time: "02:00 PM", subject: "Data Structures", class: "CS-201" }
+  // ];
 
   return (
     <div className="dashboard-container" data-theme={theme}>
